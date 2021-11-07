@@ -1,0 +1,109 @@
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { listOrders, deletedOrder } from "../actions/OrderActions";
+
+function OrderListScreen(props) {
+  const orderList = useSelector((state) => state.orderList);
+  let loading,
+    error,
+    orders = [];
+  if (orderList) {
+    ({ loading, error, orders } = orderList);
+  }
+
+  // console.log(orders);
+
+  const orderDelete = useSelector((state) => state.orderDelete);
+
+  const {
+    loading: loadingDelete,
+    error: errorDelete,
+    success: successDelete,
+  } = orderDelete;
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch({ type: "ORDER_DELETE_RESET" });
+    dispatch(listOrders());
+  }, [dispatch, successDelete]);
+
+  const deleteHandler = (order) => {
+    if (window.confirm("Ar you sure you want to delete this order?")) {
+      dispatch(deletedOrder(order._id));
+    }
+  };
+
+  return (
+    <div>
+      <h1 className="heading">Orders</h1>
+      {loadingDelete && <p>Deleting...</p>}
+      {errorDelete && <p>{errorDelete}</p>}
+      {loading ? (
+        <p>Loading....</p>
+      ) : error ? (
+        <p>{error}</p>
+      ) : (
+        <table className="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>USER</th>
+              <th>DATE</th>
+              <th>Total Price</th>
+              <th>PAID</th>
+              <th>DELIVERED</th>
+              <th>ACTIONS</th>
+            </tr>
+          </thead>
+          <tbody>
+            {orders.map((order) => (
+              <tr key={order._id}>
+                <td>{order._id}</td>
+                <td>{order.user.name}</td>
+                <td>{order.createdAt.substring(0, 10)}</td>
+                <td>{order.totalPrice}</td>
+                {order.isPaid ? (
+                  <td className="success-sts">{order.paidAt.substring(0, 10)}</td>
+                ) : (
+                  <td className="danger-sts">Not Paid</td>
+                )}
+
+                {order.isDelivered ? (
+                  <td className="success-sts">
+                    {order.deliveredAt.substring(0, 10)}
+                  </td>
+                ) : (
+                  <td className="danger-sts">Not Delivered</td>
+                )}
+
+                <td>
+                  <button
+                    type="button"
+                    className="details"
+                    onClick={() => {
+                      props.history.push(`/orders/${order._id}`);
+                    }}
+                  >
+                    Details
+                  </button>
+                  <button
+                    type="button"
+                    className="delete"
+                    onClick={() => {
+                      deleteHandler(order);
+                    }}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </div>
+  );
+}
+
+export default OrderListScreen;
