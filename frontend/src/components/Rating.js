@@ -8,7 +8,20 @@ function Rating(props) {
   };
   return (
     <div className="rating">
-      <span>
+      <span key="1">
+        <i
+          className={
+            rating >= 1
+              ? "fa fa-star"
+              : rating >= 0.5
+              ? "fa fa-star-half-o"
+              : "fa fa-star-o"
+          }
+          
+        ></i>
+        {reduceRating()}
+      </span>
+      <span key="2">
         <i
           className={
             rating >= 1
@@ -20,7 +33,7 @@ function Rating(props) {
         ></i>
         {reduceRating()}
       </span>
-      <span>
+      <span key="3">
         <i
           className={
             rating >= 1
@@ -29,10 +42,11 @@ function Rating(props) {
               ? "fa fa-star-half-o"
               : "fa fa-star-o"
           }
+          key="3"
         ></i>
         {reduceRating()}
       </span>
-      <span>
+      <span key="4">
         <i
           className={
             rating >= 1
@@ -41,10 +55,11 @@ function Rating(props) {
               ? "fa fa-star-half-o"
               : "fa fa-star-o"
           }
+          key="4"
         ></i>
         {reduceRating()}
       </span>
-      <span>
+      <span key="5">
         <i
           className={
             rating >= 1
@@ -53,18 +68,7 @@ function Rating(props) {
               ? "fa fa-star-half-o"
               : "fa fa-star-o"
           }
-        ></i>
-        {reduceRating()}
-      </span>
-      <span>
-        <i
-          className={
-            rating >= 1
-              ? "fa fa-star"
-              : rating >= 0.5
-              ? "fa fa-star-half-o"
-              : "fa fa-star-o"
-          }
+          key="5"
         ></i>
         {reduceRating()}
       </span>

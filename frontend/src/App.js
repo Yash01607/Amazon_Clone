@@ -47,7 +47,7 @@ function App() {
         <header className="row">
           <div>
             <Link className="brand" to="/">
-              Kapil Agencies
+              Agro-Tech
             </Link>
           </div>
           <div className="header-links">
