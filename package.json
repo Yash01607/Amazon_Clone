@@ -3,8 +3,7 @@
     "@babel/cli": "^7.15.7",
     "@babel/core": "^7.15.8",
     "@babel/node": "^7.15.8",
-    "@babel/preset-env": "^7.15.8",
-    "nodemon": "^2.0.15"
+    "@babel/preset-env": "^7.15.8"
   },
   "name": "ecommerce-website",
   "version": "1.0.0",
@@ -145,6 +144,7 @@
     "node-environment-flags": "^1.0.6",
     "node-modules-regexp": "^1.0.0",
     "node-releases": "^2.0.0",
+    "nodemon": "^2.0.15",
     "nopt": "^1.0.10",
     "normalize-path": "^3.0.0",
     "normalize-url": "^4.5.1",
