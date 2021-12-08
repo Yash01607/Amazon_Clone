@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 const addToCart = (productId, qty) => async (dispatch) => {
   try {
     const { data } = await axios.get(
-      "http://127.0.0.1:5000/api/products/" + productId
+      "/api/products/" + productId
     );
     dispatch({
       type: "CART_ADD_ITEM",
