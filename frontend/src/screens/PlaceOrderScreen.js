@@ -79,7 +79,7 @@ const PlaceOrderScreen = (props) => {
             <li>
               <div className="card card-body">
                 <h2>Order Items</h2>
-                <ul>
+                <ul className="cart">
                   {cartItems.length === 0 ? (
                     <div>cart is empty</div>
                   ) : (

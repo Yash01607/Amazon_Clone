@@ -17,7 +17,7 @@ const HomeScreen = (props) => {
   // console.log(products);
 
   return loading ? (
-    <div>Loading...</div>
+    <div className="loading">Loading...</div>
   ) : error ? (
     <MessageBox variant="danger">{error}</MessageBox>
   ) : (

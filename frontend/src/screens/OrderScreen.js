@@ -19,6 +19,8 @@ const OrderScreen = (props) => {
     userInfo = JSON.parse(Cookies.get("userInfo"));
   }
 
+  // console.log("orderScreen");
+
   const orderDeliver = useSelector((state) => state.orderDeliver);
   // let successDeliver = false;
   // let loadingDeliver;
@@ -63,7 +65,7 @@ const OrderScreen = (props) => {
   };
 
   return loading ? (
-    <p>Loading...</p>
+    <p className="loading">Loading...</p>
   ) : error ? (
     <MessageBox variant="danger">{error}</MessageBox>
   ) : (
@@ -113,17 +115,16 @@ const OrderScreen = (props) => {
             <li>
               <div className="card card-body">
                 <h2>Order Items</h2>
-                <ul>
+                <ul className="cart">
                   <li key="hello">
-                    <h3>Shopping Cart</h3>
-                    <div>Price.</div>
+                    <h2>Shopping Cart</h2>
                   </li>
                   {order.orderItems.length === 0 ? (
                     <div>cart is empty</div>
                   ) : (
                     order.orderItems.map((item) => (
                       <li key={item._id}>
-                        <div className="min-30">
+                        <div className="min-30 row">
                           <div>
                             <img
                               className="small"

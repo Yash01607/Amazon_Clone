@@ -58,6 +58,7 @@ const ProductsScreen = (props) => {
     setCategory(product.category);
     setCountInStock(product.countInStock);
     setDescription(product.description);
+    setRating(product.rating);
   };
 
   const openCreateProductForm = () => {
@@ -127,17 +128,6 @@ const ProductsScreen = (props) => {
     <React.Fragment>
       <div className="row">
         <h1>Products</h1>
-        <button
-          typ="button"
-          className="primary"
-          onClick={() => {
-            openCreateProductForm({});
-            setCreateProduct(true);
-          }}
-        >
-          {" "}
-          Create Product
-        </button>
       </div>
 
       {modalVisible && (
@@ -313,6 +303,19 @@ const ProductsScreen = (props) => {
           </tbody>
         </table>
       )}
+      <div className="row">
+        <button
+          type="button"
+          className="primary"
+          onClick={() => {
+            openCreateProductForm({});
+            setCreateProduct(true);
+          }}
+        >
+          {" "}
+          Create New Product
+        </button>
+      </div>
     </React.Fragment>
   );
 };

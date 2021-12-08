@@ -164,6 +164,10 @@ a.brand {
 }
 .product-name {
   font-size: 2rem;
+  color: black;
+}
+.product-name:hover {
+  color: #ff8000;
 }
 /* Aside */
 aside {
@@ -229,7 +233,7 @@ img.large {
   border-radius: 0.5rem;
   margin: 1rem;
 }
-.prod:hover{
+.prod:hover {
   box-shadow: 0.1rem 0.1rem black;
 }
 .card-body {
@@ -261,10 +265,10 @@ img.large {
 .danger {
   color: #a02020;
 }
-.danger-sts{
+.danger-sts {
   background-color: rgb(250, 160, 160);
 }
-.success-sts{
+.success-sts {
   background-color: rgb(155, 245, 155);
 }
 .alert {
@@ -291,6 +295,7 @@ img.large {
   border: 0.1rem black solid;
   border-radius: 00.5rem;
   padding: 1rem;
+  margin: auto auto 1rem auto;
 }
 .form > div {
   display: flex;
@@ -339,6 +344,7 @@ img.large {
 .table {
   width: 100%;
   border-collapse: collapse;
+  margin: auto auto 1rem auto;
 }
 .table tbody tr:nth-of-type(odd) {
   background-color: #f4f4f4;
