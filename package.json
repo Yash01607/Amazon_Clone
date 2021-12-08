@@ -4,7 +4,7 @@
     "@babel/core": "^7.15.8",
     "@babel/node": "^7.15.8",
     "@babel/preset-env": "^7.15.8",
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.13"
   },
   "name": "ecommerce-website",
   "version": "1.0.0",
@@ -229,9 +229,9 @@
   },
   "author": "",
   "license": "ISC",
+  "description": "",
   "engines": {
     "node": "16.10.0",
     "npm": "7.24.0"
-  },
-  "description": ""
+  }
 }
