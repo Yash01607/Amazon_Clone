@@ -92,7 +92,9 @@ const ProductsScreen = (props) => {
   };
 
   const deleteHandler = (product) => {
-    dispatch(deleteProduct(product._id));
+    if (window.confirm("Are you sure you want to delete this Product?")) {
+      dispatch(deleteProduct(product._id));
+    }
   };
 
   const [loadingUpload, setloadingUpload] = useState(false);

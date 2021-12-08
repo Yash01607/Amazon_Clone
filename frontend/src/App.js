@@ -38,7 +38,9 @@ function App() {
   }
   const dispatch = useDispatch();
   const signoutHandler = () => {
-    dispatch(signout());
+    if (window.confirm("Are you sure you want to signout?")) {
+      dispatch(signout());
+    }
   };
 
   return (

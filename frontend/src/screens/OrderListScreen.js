@@ -29,7 +29,7 @@ function OrderListScreen(props) {
   }, [dispatch, successDelete]);
 
   const deleteHandler = (order) => {
-    if (window.confirm("Ar you sure you want to delete this order?")) {
+    if (window.confirm("Are you sure you want to delete this order?")) {
       dispatch(deletedOrder(order._id));
     }
   };

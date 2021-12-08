@@ -13,7 +13,6 @@ const HomeScreen = (props) => {
   useEffect(() => {
     dispatch(listPoducts());
   }, [dispatch]);
-
   // console.log(products);
 
   return loading ? (

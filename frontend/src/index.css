@@ -8,6 +8,7 @@ body {
   font-size: 1.6rem;
   font-family: Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
+  min-width: 460px;
   -moz-osx-font-smoothing: grayscale;
 }
 #root {
@@ -232,6 +233,8 @@ img.large {
   border-radius: 0.5rem;
   margin: 1rem;
 }
+/* .prod{
+} */
 .prod:hover {
   border: 0.2rem #1a1919 solid;
   border-radius: 0.5rem;
