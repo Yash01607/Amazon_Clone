@@ -229,12 +229,12 @@ img.large {
 /* Card */
 .card {
   border: 0.1rem #c0c0c0 solid;
-
   border-radius: 0.5rem;
   margin: 1rem;
 }
 .prod:hover {
-  box-shadow: 0.1rem 0.1rem black;
+  border: 0.2rem #1a1919 solid;
+  border-radius: 0.5rem;
 }
 .card-body {
   padding: 1rem;
