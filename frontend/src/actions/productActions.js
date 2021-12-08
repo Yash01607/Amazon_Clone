@@ -77,7 +77,7 @@ const detailsProduct = (productId) => {
     try {
       dispatch({ type: "PRODUCT_DETAILS_REQUEST", payload: productId });
       const { data } = await axios.get(
-        "http://127.0.0.1:5000/api/products/" + productId
+        "/api/products/" + productId
       );
       // console.log(data);
 
