@@ -34,7 +34,8 @@ const userDetailsReducer = (state = { loading: true }, action) => {
       return { loading: false, user: action.payload };
     case "USER_DETAILS_FAILED":
       return { loading: false, error: action.payload };
-
+    case "USER_DETAILS_RESET":
+      return { loading: true };
     default:
       return state;
   }
@@ -55,9 +56,55 @@ const userUpdateProfileReducer = (state = {}, action) => {
   }
 };
 
+const userListReducer = (state = { loading: true }, action) => {
+  switch (action.type) {
+    case "USER_LIST_REQUEST":
+      return { loading: true };
+    case "USER_LIST_SUCCESS":
+      return { loading: false, users: action.payload };
+    case "USER_LIST_FAILED":
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+const userDeleteReducer = (state = {}, action) => {
+  switch (action.type) {
+    case "USER_DELETE_REQUEST":
+      return { loading: true };
+    case "USER_DELETE_SUCCESS":
+      return { loading: false, success: true };
+    case "USER_DELETE_FAILED":
+      return { loading: false, error: action.payload };
+    case "USER_DELETE_RESET":
+      return {};
+    default:
+      return state;
+  }
+};
+
+const userUpdateReducer = (state = {}, action) => {
+  switch (action.type) {
+    case "USER_UPDATE_REQUEST":
+      return { loading: true };
+    case "USER_UPDATE_SUCCESS":
+      return { loading: false, success: true };
+    case "USER_UPDATE_FAILED":
+      return { loading: false, error: action.payload };
+    case "USER_UPDATE_RESET":
+      return {};
+    default:
+      return state;
+  }
+};
+
 export {
   userSignInReducer,
   userRegisterReducer,
   userDetailsReducer,
   userUpdateProfileReducer,
+  userListReducer,
+  userDeleteReducer,
+  userUpdateReducer,
 };

@@ -5,8 +5,50 @@ import { isAuth, isAdmin } from "../util";
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  const products = await Product.find({});
+  const name = req.query.name || "";
+  const order = req.query.order || "";
+  const category =
+    req.query.category && req.query.category !== " " ? req.query.category : "";
+  const min =
+    req.query.min && Number(req.query.min) !== 0 ? Number(req.query.min) : 0;
+  const max =
+    req.query.max && Number(req.query.max) !== 0
+      ? Number(req.query.max)
+      : 99999;
+  const rating =
+    req.query.rating && Number(req.query.rating) !== 0
+      ? Number(req.query.rating)
+      : 0;
+  // console.log(req.query);
+
+  const nameFilter = name ? { name: { $regex: name, $options: "i" } } : {};
+  const categoryFilter = category ? { category } : {};
+  const PriceFilter = min && max ? { price: { $gte: min, $lte: max } } : {};
+  const ratingFilter = rating ? { rating: { $gte: rating } } : {};
+  const sortOrder =
+    order === "lowest"
+      ? { price: 1 }
+      : order === "highest"
+      ? { price: -1 }
+      : order === "toprated"
+      ? { rating: -1 }
+      : order === "categories"
+      ? { category: 1 }
+      : { id: -1 };
+  // console.log(rating);
+
+  const products = await Product.find({
+    ...nameFilter,
+    ...categoryFilter,
+    ...PriceFilter,
+    ...ratingFilter,
+  }).sort(sortOrder);
   res.send(products);
+});
+
+router.get("/categories", async (req, res) => {
+  const categories = await Product.find().distinct("category");
+  res.send(categories);
 });
 
 router.get("/:_id", async (req, res) => {

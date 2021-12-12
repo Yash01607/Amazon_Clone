@@ -2,6 +2,7 @@ import React from "react";
 
 function Rating(props) {
   let rating = props.rating;
+  let caption = props.caption;
   // const numReviews = 9;
   const reduceRating = () => {
     rating--;
@@ -17,7 +18,6 @@ function Rating(props) {
               ? "fa fa-star-half-o"
               : "fa fa-star-o"
           }
-          
         ></i>
         {reduceRating()}
       </span>
@@ -72,6 +72,7 @@ function Rating(props) {
         ></i>
         {reduceRating()}
       </span>
+      {caption && <span>{caption}</span>}
       {/* <span>{numReviews} reviews</span> */}
     </div>
   );

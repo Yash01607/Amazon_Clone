@@ -11,7 +11,7 @@ const HomeScreen = (props) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(listPoducts());
+    dispatch(listPoducts({ name: "", category: "" }));
   }, [dispatch]);
   // console.log(products);
 
@@ -21,6 +21,7 @@ const HomeScreen = (props) => {
     <MessageBox variant="danger">{error}</MessageBox>
   ) : (
     <div>
+      {products.length === 0 && <MessageBox>No Products Found.</MessageBox>}
       <div className="row center">
         {products.map((product) => {
           // console.log(product.numReviews);
@@ -33,7 +34,7 @@ const HomeScreen = (props) => {
                   alt={product.name}
                 />
                 <div className="card-body">
-                    <h2 className="product-name">{product.name}</h2>
+                  <h2 className="product-name">{product.name}</h2>
                   <Rating
                     rating={product.rating}
                     numReviews={+product.numreviews}

@@ -97,4 +97,81 @@ const UpdateUserProfile = (user) => async (dispatch) => {
     dispatch({ type: "USER_UPDATE_PROFILE_FAILED", payload: message });
   }
 };
-export { signIn, register, detailsUser, UpdateUserProfile, signout };
+
+const listUsers = () => async (dispatch) => {
+  dispatch({ type: "USER_LIST_REQUEST" });
+  let userInfo = {};
+  if (Cookies.get("userInfo")) {
+    userInfo = JSON.parse(Cookies.get("userInfo"));
+  }
+  // console.log(userInfo);
+  try {
+    const { data } = await axios.get("/api/users", {
+      headers: {
+        Authorization: `Bearer${userInfo.token}`,
+      },
+    });
+    dispatch({ type: "USER_LIST_SUCCESS", payload: data });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({ type: "USER_LIST_FAILED", payload: message });
+  }
+};
+
+const deleteUser = (userId) => async (dispatch) => {
+  dispatch({ type: "USER_DELETE_REQUEST", payload: userId });
+  let userInfo = {};
+  if (Cookies.get("userInfo")) {
+    userInfo = JSON.parse(Cookies.get("userInfo"));
+  }
+  try {
+    const { data } = await axios.delete(`/api/users/${userId}`, {
+      headers: {
+        Authorization: `Bearer${userInfo.token}`,
+      },
+    });
+    dispatch({ type: "USER_DELETE_SUCCESS", payload: data });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({ type: "USER_DELETE_FAILED", payload: message });
+  }
+};
+
+const UpdateUser = (user) => async (dispatch) => {
+  dispatch({ type: "USER_UPDATE_REQUEST", payload: user });
+  let userInfo = {};
+  if (Cookies.get("userInfo")) {
+    userInfo = JSON.parse(Cookies.get("userInfo"));
+  }
+  try {
+    const { data } = await axios.put(`/api/users/${user._id}`, user, {
+      headers: {
+        Authorization: `Bearer${userInfo.token}`,
+      },
+    });
+    dispatch({ type: "USER_UPDATE_SUCCESS", payload: data });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({ type: "USER_UPDATE_FAILED", payload: message });
+  }
+};
+
+export {
+  signIn,
+  deleteUser,
+  register,
+  detailsUser,
+  UpdateUserProfile,
+  signout,
+  listUsers,
+  UpdateUser,
+};

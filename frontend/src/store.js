@@ -1,14 +1,20 @@
 import { createStore, combineReducers, compose, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import Cookies from "js-cookie";
-import productListReducer from "./reducers/productReducer";
+import {
+  productListReducer,
+  productCategoryListReducer,
+} from "./reducers/productReducer";
 import productDetailsReducer from "./reducers/productDetailsReducer";
 import CartReducers from "./reducers/CartReducers";
 import {
+  userDeleteReducer,
   userDetailsReducer,
+  userListReducer,
   userRegisterReducer,
   userSignInReducer,
   userUpdateProfileReducer,
+  userUpdateReducer,
 } from "./reducers/userReducers";
 import productSavesReducer from "./reducers/productSaveReducer";
 import productDeleteReducer from "./reducers/ProductdeleteReducer";
@@ -65,6 +71,10 @@ const reducer = combineReducers({
   orderDelete: orderDeleteReducer,
   orderDeliver: orderDeliverReducer,
   orderPay: orderPayReducer,
+  userList: userListReducer,
+  userDelete: userDeleteReducer,
+  userUpdate: userUpdateReducer,
+  productCategoryList: productCategoryListReducer,
 });
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

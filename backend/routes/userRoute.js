@@ -1,7 +1,8 @@
 import express from "express";
 import User from "../models/userModel";
-import { getToken } from "../util";
+import { getToken, isAdmin } from "../util";
 import { isAuth } from "../util";
+import expressAsyncHandler from "express-async-handler";
 
 const router = express.Router();
 
@@ -50,7 +51,7 @@ router.get("/:id", async (req, res) => {
   if (user) {
     res.send(user);
   } else {
-    rea.status(404).send({ msg: "User Not Found" });
+    res.status(404).send({ msg: "User Not Found" });
   }
 });
 
@@ -80,5 +81,54 @@ router.put("/profile", isAuth, async (req, res) => {
     return res.status(500).send({ msg: "User Not found" });
   }
 });
+
+router.get("/", isAuth, isAdmin, async (req, res) => {
+  const users = await User.find({});
+  res.send(users);
+});
+
+router.delete(
+  "/:id",
+  isAuth,
+  isAdmin,
+  expressAsyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id);
+    if (user) {
+      // console.log(user.email);
+      if (user.email === "admin-yash@agrotech.com") {
+        res.status(400).send({ message: "Cannot Delete An Admin User" });
+        return;
+      }
+      const deleteUser = await user.remove();
+      res.send({ msg: "User Deleted", user: deleteUser });
+    } else {
+      res.status(404).send({ msg: "User not found" });
+    }
+  })
+);
+
+router.put(
+  "/:id",
+  isAuth,
+  isAdmin,
+  expressAsyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id);
+    if (user) {
+      if (user.email === "admin-yash@agrotech.com") {
+        res.status(400).send({ message: "Yash must be an Admin User" });
+        return;
+      }
+      user.name = req.body.name || user.name;
+      user.email = req.body.email || user.email;
+      user.isSeller = req.body.isSeller || user.isSeller;
+      user.isAdmin = req.body.isAdmin || user.isAdmin;
+      
+      const updatedUser = await user.save();
+      res.send({ msg: "User Updated", user: updatedUser });
+    } else {
+      res.status(404).send({ msg: "user Not found" });
+    }
+  })
+);
 
 export default router;

@@ -8,7 +8,7 @@ body {
   font-size: 1.6rem;
   font-family: Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
-  min-width: 460px;
+  /* min-width: 460px; */
   -moz-osx-font-smoothing: grayscale;
 }
 #root {
@@ -23,12 +23,13 @@ body {
     "main"
     "footer";
   grid-template-columns: 1fr;
-  grid-template-rows: 5rem 1fr 5rem;
+  grid-template-rows: auto 1fr 5rem;
   height: 100%;
 }
 header {
   grid-area: header;
   background-color: #203040;
+  padding: 1rem;
 }
 main {
   grid-area: main;
@@ -173,11 +174,11 @@ a.brand {
 /* Aside */
 aside {
   position: fixed;
-  width: 30rem;
+  width: 20rem;
   height: 100%;
   background-color: #efefef;
   z-index: 1000;
-  transform: translateX(-30rem);
+  transform: translateX(-20rem);
   transition: all 0.5s;
 }
 aside.open {
@@ -364,4 +365,21 @@ img.large {
 /* Carousel */
 .carousel .slide img {
   max-width: 30rem;
+}
+/* Search */
+
+.search button {
+  border-radius: 0 0.5rem 0.5rem 0;
+  border-right: none;
+  margin-right: 0.5rem;
+}
+
+.search input {
+  border-radius: 0.5rem 0 0 0.5rem;
+  border-right: none;
+  margin-left: 0.5rem;
+}
+
+.active {
+  font-weight: bold;
 }

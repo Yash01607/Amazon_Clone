@@ -1,20 +1,30 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const listPoducts = () => {
-  return async (dispatch) => {
+export const listPoducts =
+  ({
+    name = "",
+    category = "",
+    min = 0,
+    max = 99999,
+    rating = 0,
+    order = "",
+  }) =>
+  async (dispatch) => {
+    // console.log(name + "" + category + "" + min + " " + max);
     try {
       dispatch({ type: "PRODUCT_LIST_Request" });
-      const { data } = await axios.get("/api/products");
+      const { data } = await axios.get(
+        `/api/products?name=${name}&category=${category}&min=${min}&max=${max}&rating=${rating}&order=${order}`
+      );
 
       dispatch({ type: "PRODUCT_LIST_SUCCESS", payload: data });
     } catch (error) {
       dispatch({ type: "PRODUCT_LIST_FAILED", payload: error.message });
     }
   };
-};
 
-const saveProduct = (product) => async (dispatch, getState) => {
+const saveProduct = (product) => async (dispatch) => {
   // console.log("In Action");
   try {
     dispatch({ type: "PRODUCT_SAVE_REQUEST", payload: product });
@@ -76,9 +86,7 @@ const detailsProduct = (productId) => {
   return async (dispatch) => {
     try {
       dispatch({ type: "PRODUCT_DETAILS_REQUEST", payload: productId });
-      const { data } = await axios.get(
-        "/api/products/" + productId
-      );
+      const { data } = await axios.get("/api/products/" + productId);
       // console.log(data);
 
       dispatch({ type: "PRODUCT_DETAILS_SUCCESS", payload: data });
@@ -88,4 +96,15 @@ const detailsProduct = (productId) => {
   };
 };
 
-export { listPoducts, detailsProduct, saveProduct, deleteProduct };
+export const listPoductCategories = () => async (dispatch) => {
+  try {
+    dispatch({ type: "PRODUCT_CATEGORY_LIST_Request" });
+    const { data } = await axios.get(`/api/products/categories`);
+
+    dispatch({ type: "PRODUCT_CATEGORY_LIST_SUCCESS", payload: data });
+  } catch (error) {
+    dispatch({ type: "PRODUCT_CATEGORY_LIST_FAILED", payload: error.message });
+  }
+};
+
+export { detailsProduct, saveProduct, deleteProduct };

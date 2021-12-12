@@ -44,7 +44,7 @@ orderRouter.get("/:id", isAuth, async (req, res) => {
   }
 });
 
-orderRouter.put(
+orderRouter.put( 
   "/:id/pay",
   isAuth,
   expressAsyncHandler(async (req, res) => {
@@ -117,5 +117,4 @@ orderRouter.put(
   })
 );
 
-orderRouter.pu;
 export default orderRouter;

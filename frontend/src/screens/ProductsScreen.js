@@ -13,15 +13,15 @@ const ProductsScreen = (props) => {
   const [modalVisible, setModalVisilbe] = useState(false);
   const [createProduct, setCreateProduct] = useState(false);
 
-  const [id, setid] = useState("");
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
-  const [image, setImage] = useState("");
-  const [brand, setBrand] = useState("");
-  const [category, setCategory] = useState("");
-  const [countInStock, setCountInStock] = useState("");
-  const [description, setDescription] = useState("");
-  const [rating, setRating] = useState("");
+  const [id, setid] = useState(" ");
+  const [name, setName] = useState(" ");
+  const [price, setPrice] = useState(" ");
+  const [image, setImage] = useState(" ");
+  const [brand, setBrand] = useState(" ");
+  const [category, setCategory] = useState(" ");
+  const [countInStock, setCountInStock] = useState(" ");
+  const [description, setDescription] = useState(" ");
+  const [rating, setRating] = useState(" ");
   const numreviews = 0;
 
   const productList = useSelector((state) => state.productList);
@@ -45,7 +45,7 @@ const ProductsScreen = (props) => {
     if (successSave) {
       setModalVisilbe(false);
     }
-    dispatch(listPoducts());
+    dispatch(listPoducts({ name: "", category: "", order: "categories" }));
   }, [successSave, dispatch, successDelete]);
 
   const openModal = (product) => {
