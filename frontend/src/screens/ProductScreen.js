@@ -55,7 +55,7 @@ const ProductScreen = (props) => {
         <div>
           <div className="row top">
             {/* <div className="details"> */}
-            <div className="col-2">
+            <div className="col-2 image">
               <img className="large" src={product.image} alt={product.id}></img>
             </div>
             <div className="col-1">

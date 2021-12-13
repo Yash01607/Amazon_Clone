@@ -69,11 +69,13 @@ const CartScreen = (props) => {
                       type="button"
                       onClick={() => removeFromCartHandler(item.product)}
                     >
-                      Delete
+                      Remove From Cart
                     </button>
                   </div>
                   <div>
-                    <b>INR.{item.price}</b>
+                    <b>
+                      <h2>INR.{item.price}</h2>
+                    </b>
                   </div>
                 </div>
               </li>

@@ -80,7 +80,7 @@ function App() {
               Agro-Tech
             </Link>
           </div>
-          <div>
+          <div className="div-search">
             <Route
               render={({ history }) => (
                 <SearchBox history={history}></SearchBox>
@@ -89,7 +89,7 @@ function App() {
           </div>
           <div className="header-links">
             <Link to="/cart">
-              Cart{" "}
+              <i className="fa fa-shopping-cart"></i> {" Cart "}
               {numberofitems !== 0 && (
                 <span className="badge">{numberofitems}</span>
               )}
@@ -138,7 +138,7 @@ function App() {
         </header>
         <aside className={sidebarIsOpen ? "open" : ""}>
           <ul className="categories">
-            <li>
+            <li className="aside-title">
               <strong>Categories</strong>
               <button
                 onClick={() => setSidebarIsOpen(false)}
@@ -161,7 +161,7 @@ function App() {
                 return (
                   <li key={c}>
                     <Link
-                      to={`/search/category/${c}/name/all`}
+                      to={`/search/category/${c}/name/all/min/0/max/99999/rating/0/order/newest`}
                       onClick={() => setSidebarIsOpen(false)}
                     >
                       {c}

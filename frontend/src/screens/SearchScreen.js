@@ -66,7 +66,7 @@ function SearchScreen(props) {
         )}
       </div>
       <div className="row top">
-        <div className="col-1">
+        <div className="col-1 search-sidebar">
           <div>
             <h3>Department</h3>
             <div>

@@ -26,6 +26,7 @@ function SearchBox(props) {
           type="text"
           name="q"
           id="q"
+          placeholder="Enter Name of product"
           onChange={(e) => setname(e.target.value)}
         ></input>
         <button className="primary" type="submit">
