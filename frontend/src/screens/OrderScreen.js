@@ -69,7 +69,7 @@ const OrderScreen = (props) => {
   ) : error ? (
     <MessageBox variant="danger">{error}</MessageBox>
   ) : (
-    <div>
+    <div className="main-pad">
       <h1 className="heading">Order: {order._id}</h1>
       <div className="row top">
         <div className="col-2">
@@ -115,41 +115,53 @@ const OrderScreen = (props) => {
             <li>
               <div className="card card-body">
                 <h2>Order Items</h2>
-                <ul className="cart">
-                  <li key="hello">
-                    <h2>Shopping Cart</h2>
-                  </li>
-                  {order.orderItems.length === 0 ? (
-                    <div>cart is empty</div>
-                  ) : (
-                    order.orderItems.map((item) => (
-                      <li key={item._id}>
-                        <div className="min-30 row">
-                          <div>
-                            <img
-                              className="small"
-                              src={item.image}
-                              alt={item.name}
-                            ></img>
-                          </div>
-                          <div className="min-30">
+                <table className="table">
+                  <thead>
+                    <th>ITEM</th>
+                    <th> </th>
+                    <th>PRICE</th>
+                    <th>Quantity</th>
+                    <th>TOTAL</th>
+                  </thead>
+                  <tbody>
+                    {order.orderItems.length === 0 ? (
+                      <div>cart is empty</div>
+                    ) : (
+                      order.orderItems.map((item) => (
+                        <tr>
+                          <td>
                             <Link to={"/product/" + item.product}>
+                              <img
+                                className="small-1"
+                                src={item.image}
+                                alt={item.name}
+                              ></img>
+                            </Link>
+                          </td>
+                          <td className="table-name">
+                            <Link
+                              to={"/product/" + item.product}
+                              className="name"
+                            >
                               {item.name}
                             </Link>
-                          </div>
-                          <div>Qty:{item.qty}</div>
-                          <div>
+                          </td>
+                          <td>
                             <b>
-                              {" "}
-                              {item.qty} x INR.{item.price} = INR.{" "}
-                              {item.price * item.qty}
+                              <h2>INR.{item.price}</h2>
                             </b>
-                          </div>
-                        </div>
-                      </li>
-                    ))
-                  )}
-                </ul>
+                          </td>
+                          <td>{item.qty}</td>
+                          <td>
+                            <b>
+                              <h2>INR.{item.qty * item.price}</h2>
+                            </b>
+                          </td>
+                        </tr>
+                      ))
+                    )}
+                  </tbody>
+                </table>
               </div>
             </li>
           </ul>

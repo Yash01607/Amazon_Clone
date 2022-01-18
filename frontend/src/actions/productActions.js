@@ -25,7 +25,7 @@ export const listPoducts =
   };
 
 const saveProduct = (product) => async (dispatch) => {
-  // console.log("In Action");
+  console.log("In Save Product Action");
   try {
     dispatch({ type: "PRODUCT_SAVE_REQUEST", payload: product });
 
@@ -87,7 +87,7 @@ const detailsProduct = (productId) => {
     try {
       dispatch({ type: "PRODUCT_DETAILS_REQUEST", payload: productId });
       const { data } = await axios.get("/api/products/" + productId);
-      // console.log(data);
+      // console.log("from details product");
 
       dispatch({ type: "PRODUCT_DETAILS_SUCCESS", payload: data });
     } catch (error) {

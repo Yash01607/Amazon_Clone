@@ -30,8 +30,8 @@ const register = (name, email, password) => async (dispatch) => {
     });
 
     dispatch({ type: "USER_REGISTER_SUCCESS", payload: data });
-    console.log("In cartaction");
-    console.log(data);
+    // console.log("In cartaction");
+    // console.log(data);
 
     Cookies.set("userInfo", JSON.stringify(data));
   } catch (error) {

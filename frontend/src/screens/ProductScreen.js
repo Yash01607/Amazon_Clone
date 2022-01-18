@@ -43,10 +43,7 @@ const ProductScreen = (props) => {
   };
 
   return (
-    <div>
-      <div className="back-to-result">
-        <Link to="/">Back to Home</Link>
-      </div>
+    <div className="product-screen main-pad">
       {loading ? (
         <div>Loading...</div>
       ) : error ? (
@@ -55,84 +52,85 @@ const ProductScreen = (props) => {
         <div>
           <div className="row top">
             {/* <div className="details"> */}
-            <div className="col-2 image">
+            <div className="col-1 image">
               <img className="large" src={product.image} alt={product.id}></img>
             </div>
-            <div className="col-1">
+            <div className="col-1 prod">
               <ul>
                 <li>
                   <h1 className="heading"> {product.name}</h1>
                 </li>
-                <li>
+                <li className="row price-rating">
+                  <b>INR {product.price}/-</b>
                   <Rating
                     rating={product.rating}
                     numReviews={+product.numreviews}
                   ></Rating>
                 </li>
-                <li>
-                  Price: <b>INR {product.price}</b>
-                </li>
-                <li>
-                  Description:
+                <li className="price-description">
                   <div>{product.description}</div>
                 </li>
+                <li>
+                  <div className="row">Category : {product.category}</div>
+                </li>
+                <li>
+                  <div className="row">Brand : {product.brand}</div>
+                </li>
               </ul>
-            </div>
-            <div className="col-1">
-              <div className="card card-body">
-                <ul>
-                  <li>
-                    <div className="row">
-                      <div>Price</div>
-                      <div className="price">
-                        <b>INR. {product.price}</b>
-                      </div>
+              <ul>
+                <li>
+                  <div className="row">
+                    <div>
+                      {" "}
+                      Status :{" "}
+                      {product.countInStock === 0 ? (
+                        <span className="danger">Unavailable</span>
+                      ) : (
+                        <span className="success">In Stock</span>
+                      )}
                     </div>
-                  </li>
-                  <li>
-                    <div className="row">
-                      <div> Status:</div>
-                      <div>
-                        {product.countInStock === 0 ? (
-                          <span className="danger">Unavailable</span>
-                        ) : (
-                          <span className="success">In Stock</span>
-                        )}
-                      </div>
-                    </div>
-                  </li>
-                  {product.countInStock > 0 && (
-                    <>
-                      <li>
-                        <div className="row">
-                          Qty:
-                          <select value={qty} onChange={qtyChangeHandler}>
-                            {[...Array(product.countInStock).keys()].map(
-                              (x) => {
-                                return (
-                                  <option key={x + 1} value={x + 1}>
-                                    {x + 1}
-                                  </option>
-                                );
-                              }
-                            )}
-                          </select>
-                        </div>
-                      </li>
-                      <li>
-                        {product.countInStock > 0 && (
+                  </div>
+                </li>
+                {product.countInStock > 0 && (
+                  <>
+                    <li>
+                      Qty : {"  "}
+                      <input
+                        value={qty}
+                        onChange={qtyChangeHandler}
+                        type={"number"}
+                        min={0}
+                      ></input>
+                      {qty > product.countInStock && (
+                        <MessageBox variant="danger">
+                          Only {product.countInStock} Available. Please enter a
+                          value less than {product.countInStock}
+                        </MessageBox>
+                      )}
+                    </li>
+                    <li>
+                      {product.countInStock > 0 && (
+                        <>
                           <button
                             onClick={AddtoCartHandler}
                             className="block primary"
                           >
                             Add to Cart
                           </button>
-                        )}
-                      </li>
-                    </>
-                  )}
-                </ul>
-              </div>
+                          <Link to="/cart">
+                            <button
+                              onClick={AddtoCartHandler}
+                              className="block primary"
+                            >
+                              Buy Now
+                            </button>
+                          </Link>
+                        </>
+                      )}
+                    </li>
+                  </>
+                )}
+              </ul>
             </div>
           </div>
           <h1>{product.name}</h1>

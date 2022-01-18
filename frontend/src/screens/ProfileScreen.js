@@ -48,72 +48,74 @@ function ProfileScreen(props) {
   };
 
   return (
-    <form className="form" onSubmit={submitHandler}>
-      {loading ? (
-        <p>Loading....</p>
-      ) : error ? (
-        <MessageBox variant="danger">{error}</MessageBox>
-      ) : (
-        <>
-          <div>
-            <h1 className="heading">User Profile</h1>
-          </div>
-          {loadingUpdate && <p>Loading...</p>}
-          {errorUpdate && (
-            <MessageBox variant="danger">{errorUpdate}</MessageBox>
-          )}
-          {successUpdate && (
-            <MessageBox variant="success">
-              User Profile updated Successfully
-            </MessageBox>
-          )}
-          <div>
-            <label htmlFor="name">Name</label>
-            <input
-              id="name"
-              type="text"
-              placeholder="Enter Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            ></input>
-          </div>
-          <div>
-            <label htmlFor="email">E-Mail</label>
-            <input
-              id="email"
-              type="text"
-              placeholder="Enter Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            ></input>
-          </div>
-          <div>
-            <label htmlFor="password">Password</label>
-            <input
-              id="password"
-              type="text"
-              placeholder="Enter Password"
-              onChange={(e) => setPassword(e.target.value)}
-            ></input>
-          </div>
-          <div>
-            <label htmlFor="confirmPassword">confirm Password</label>
-            <input
-              id="confirmPassword"
-              type="text"
-              placeholder="Enter confirm Password"
-              onChange={(e) => setConfirmPassword(e.target.value)}
-            ></input>
-          </div>
-          <div>
-            <label></label>
-            <button className="primary button" type="submit">
-              Update
-            </button>
-          </div>
-        </>
-      )}
-    </form>
+    <div className="main-pad">
+      <form className="form" onSubmit={submitHandler}>
+        {loading ? (
+          <p>Loading....</p>
+        ) : error ? (
+          <MessageBox variant="danger">{error}</MessageBox>
+        ) : (
+          <>
+            <div>
+              <h1 className="heading">User Profile</h1>
+            </div>
+            {loadingUpdate && <p>Loading...</p>}
+            {errorUpdate && (
+              <MessageBox variant="danger">{errorUpdate}</MessageBox>
+            )}
+            {successUpdate && (
+              <MessageBox variant="success">
+                User Profile updated Successfully
+              </MessageBox>
+            )}
+            <div>
+              <label htmlFor="name">Name</label>
+              <input
+                id="name"
+                type="text"
+                placeholder="Enter Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              ></input>
+            </div>
+            <div>
+              <label htmlFor="email">E-Mail</label>
+              <input
+                id="email"
+                type="text"
+                placeholder="Enter Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              ></input>
+            </div>
+            <div>
+              <label htmlFor="password">Password</label>
+              <input
+                id="password"
+                type="text"
+                placeholder="Enter Password"
+                onChange={(e) => setPassword(e.target.value)}
+              ></input>
+            </div>
+            <div>
+              <label htmlFor="confirmPassword">confirm Password</label>
+              <input
+                id="confirmPassword"
+                type="text"
+                placeholder="Enter confirm Password"
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              ></input>
+            </div>
+            <div>
+              <label></label>
+              <button className="primary button" type="submit">
+                Update
+              </button>
+            </div>
+          </>
+        )}
+      </form>
+    </div>
   );
 }
 

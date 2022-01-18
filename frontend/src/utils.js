@@ -49,3 +49,8 @@ export const ratings = [
     rating: 1,
   },
 ];
+
+export const images = [
+  "https://wallpapercave.com/wp/wp1886331.jpg",
+  "https://wallpaperaccess.com/full/488949.jpg",
+];

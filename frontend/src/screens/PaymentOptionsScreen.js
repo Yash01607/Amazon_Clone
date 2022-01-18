@@ -21,7 +21,7 @@ const PaymentScreen = (props) => {
   };
 
   return (
-    <div>
+    <div className="main-pad">
       <CheckoutSteps step1={true} step2={true} step3={true}></CheckoutSteps>
       <div>
         <form className="form" onSubmit={onSubmitHandler}>

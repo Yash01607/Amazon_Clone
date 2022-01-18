@@ -159,7 +159,7 @@ const payOrder = (order, paymentResult) => (dispatch) => {
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message;
-        console.log(error);
+        // console.log(error);
     dispatch({ type: "ORDER_PAY_FAIL", payload: message });
   }
 };

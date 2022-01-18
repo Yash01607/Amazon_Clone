@@ -39,55 +39,59 @@ const SignInScreen = (props) => {
   };
 
   return (
-    <form onSubmit={onSubmitHandler} className="form">
-      <div>
-        <h1 className="heading">Sign-In</h1>
-      </div>
-      <div>
-        {loading && <div className="loading">Loading...</div>}
-        {error && <MessageBox variant="danger">{error}</MessageBox>}
-      </div>
-      <div>
-        <label htmlFor="email">Email</label>
-        <input
-          type="email"
-          name="email"
-          id="email"
-          key="email"
-          placeholder="Enter E-mail"
-          required={true}
-          onChange={emailChangeHandler}
-        ></input>
-      </div>
-      <div>
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          name="password"
-          id="password"
-          key="password"
-          placeholder="Enter Password"
-          required={true}
-          onChange={passwordChangeHandler}
-        ></input>
-      </div>
-      <div>
-        <button type="submit" className="block primary">
-          Sign In
-        </button>
-      </div>
-      <div>
-        <label />
+    <div className="main-pad">
+      <form onSubmit={onSubmitHandler} className="form">
         <div>
-          New to Ecommerce?{"  "}
-          <Link
-            to={redirect === "/" ? "register" : "register?redirect=" + redirect}
-          >
-            Create your Account.
-          </Link>
+          <h1 className="heading">Sign-In</h1>
         </div>
-      </div>
-    </form>
+        <div>
+          {loading && <div className="loading">Loading...</div>}
+          {error && <MessageBox variant="danger">{error}</MessageBox>}
+        </div>
+        <div>
+          <label htmlFor="email">Email</label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            key="email"
+            placeholder="Enter E-mail"
+            required={true}
+            onChange={emailChangeHandler}
+          ></input>
+        </div>
+        <div>
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            key="password"
+            placeholder="Enter Password"
+            required={true}
+            onChange={passwordChangeHandler}
+          ></input>
+        </div>
+        <div>
+          <button type="submit" className="block primary">
+            Sign In
+          </button>
+        </div>
+        <div>
+          <label />
+          <div>
+            New to Ecommerce?{"  "}
+            <Link
+              to={
+                redirect === "/" ? "register" : "register?redirect=" + redirect
+              }
+            >
+              Create your Account.
+            </Link>
+          </div>
+        </div>
+      </form>
+    </div>
   );
 };
 

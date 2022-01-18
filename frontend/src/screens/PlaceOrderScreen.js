@@ -47,7 +47,7 @@ const PlaceOrderScreen = (props) => {
   }, [success, dispatch, order, props.history]);
 
   return (
-    <div>
+    <div className="main-pad">
       <CheckoutSteps step1={true} step2={true} step3={true} step4={true} />
       <div className="row top">
         <div className="col-2">
@@ -78,39 +78,53 @@ const PlaceOrderScreen = (props) => {
             </li>
             <li>
               <div className="card card-body">
-                <h2>Order Items</h2>
-                <ul className="cart">
-                  {cartItems.length === 0 ? (
-                    <div>cart is empty</div>
-                  ) : (
-                    cartItems.map((item) => (
-                      <li key={item.key}>
-                        <div className="row">
-                          <div>
+                <h1>Order Items</h1>
+                <table className="table">
+                  <thead>
+                    <th>ITEM</th>
+                    <th> </th>
+                    <th>PRICE</th>
+                    <th>Quantity</th>
+                    <th>TOTAL</th>
+                  </thead>
+                  <tbody>
+                    {cartItems.map((item) => (
+                      <tr>
+                        <td>
+                          <Link
+                            to={"/product/" + item.product}
+                            className="name"
+                          >
                             <img
-                              className="small"
+                              className="small-1"
                               src={item.image}
                               alt={item.name}
                             ></img>
-                          </div>
-                          <div className="min-30">
-                            <Link to={"/product/" + item.product}>
-                              {item.name}
-                            </Link>
-                          </div>
-                          <div>Qty:{item.qty}</div>
-                          <div>
-                            <b>
-                              {" "}
-                              {item.qty} x INR.{item.price} = INR.{" "}
-                              {item.price * item.qty}
-                            </b>
-                          </div>
-                        </div>
-                      </li>
-                    ))
-                  )}
-                </ul>
+                          </Link>
+                        </td>
+                        <td className="table-name">
+                          <Link
+                            to={"/product/" + item.product}
+                            className="name"
+                          >
+                            {item.name}
+                          </Link>
+                        </td>
+                        <td>
+                          <b>
+                            <h2>INR.{item.price}</h2>
+                          </b>
+                        </td>
+                        <td>{item.qty}</td>
+                        <td>
+                          <b>
+                            <h2>INR.{item.qty * item.price}</h2>
+                          </b>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             </li>
           </ul>

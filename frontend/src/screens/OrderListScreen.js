@@ -35,7 +35,7 @@ function OrderListScreen(props) {
   };
 
   return (
-    <div>
+    <div className="main-pad">
       <h1 className="heading">Orders</h1>
       {loadingDelete && <p>Deleting...</p>}
       {errorDelete && <p>{errorDelete}</p>}
@@ -59,12 +59,16 @@ function OrderListScreen(props) {
           <tbody>
             {orders.map((order) => (
               <tr key={order._id}>
-                <td>{order._id}</td>
-                <td>{order.user.name}</td>
+                <td>{order._id || "id"}</td>
+                <td>
+                  {order.user && order.user.name ? order.user.name : "Name_Not_Available"}
+                </td>
                 <td>{order.createdAt.substring(0, 10)}</td>
                 <td>{order.totalPrice}</td>
                 {order.isPaid ? (
-                  <td className="success-sts">{order.paidAt.substring(0, 10)}</td>
+                  <td className="success-sts">
+                    {order.paidAt.substring(0, 10)}
+                  </td>
                 ) : (
                   <td className="danger-sts">Not Paid</td>
                 )}

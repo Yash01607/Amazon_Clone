@@ -44,7 +44,7 @@ function UserEditScreen(props) {
   };
 
   return (
-    <div>
+    <div className="main-pad">
       <form className="form" onSubmit={submitHandler}>
         <div>
           <h1>Edit User {name}</h1>

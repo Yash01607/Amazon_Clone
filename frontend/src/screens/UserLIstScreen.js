@@ -28,7 +28,7 @@ export default function UserLIstScreen(props) {
   };
 
   return (
-    <div>
+    <div className="main-pad">
       <h1>Users</h1>
       {loadingDelete && <p>loading</p>}
       {errorDelete && <MessageBox variant="danger">{errorDelete}</MessageBox>}

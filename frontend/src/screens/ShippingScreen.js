@@ -35,7 +35,7 @@ const ShippingScreen = (props) => {
   };
 
   return (
-    <div>
+    <div className="main-pad">
       <CheckoutSteps step1={true} step2={true}></CheckoutSteps>
       <form onSubmit={onSubmitHandler} className="form">
         <div>

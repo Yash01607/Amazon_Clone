@@ -6,8 +6,13 @@ function SearchBox(props) {
   const [name, setname] = useState("all");
   const { category = "all" } = useParams();
 
+  if (!props.show) {
+    return null;
+  }
+
   const submitHandler = (e) => {
     e.preventDefault();
+    // console.log(e);
   };
 
   const getFilterUrl = (filter) => {
@@ -16,26 +21,41 @@ function SearchBox(props) {
     // console.log(
     //   `/search/category/${filterCategory}/name/${filterName}/min/0/max/99999`
     // );
+    // setname("");
     return `/search/category/${filterCategory}/name/${filterName}/min/0/max/99999/rating/0/order/newest`;
   };
 
   return (
-    <form className="search" onSubmit={submitHandler}>
-      <div className="row">
-        <input
-          type="text"
-          name="q"
-          id="q"
-          placeholder="Enter Name of product"
-          onChange={(e) => setname(e.target.value)}
-        ></input>
-        <button className="primary" type="submit">
-          <Link to={getFilterUrl({ name: name })}>
-            <i className="fa fa-search"></i>
-          </Link>
-        </button>
+    <div className="search-modal " onClick={props.onClose}>
+      <div
+        className="search-modal-content"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <form className="search" onSubmit={submitHandler}>
+          <div className="row search">
+            <span>
+              <input
+                type="text"
+                name="q"
+                id="q"
+                placeholder="Type here to Search..."
+                onChange={(e) => setname(e.target.value)}
+              ></input>
+            </span>
+            <button className="primary" type="submit">
+              <Link to={getFilterUrl({ name: name })}>
+                <div className="row">
+                  <i className="fa fa-search" onClick={props.onClose}>
+                    {" "}
+                    Search
+                  </i>
+                </div>
+              </Link>
+            </button>
+          </div>
+        </form>
       </div>
-    </form>
+    </div>
   );
 }
 

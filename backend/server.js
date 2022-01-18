@@ -8,6 +8,7 @@ import userRoute from "./routes/userRoute";
 import productRoute from "./routes/productRoute";
 import orderRouter from "./routes/orderRouter";
 import uploadRouter from "./routes/uploadRouter";
+import categoryRouter from "./routes/categoryRouter";
 
 dotenv.config();
 
@@ -27,6 +28,7 @@ app.use("/api/uploads", uploadRouter);
 app.use("/api/users", userRoute);
 app.use("/api/products", productRoute);
 app.use("/api/orders", orderRouter);
+app.use("/api/category", categoryRouter);
 // app.use(function (req, res, next) {
 //   res.header("Access-Control-Allow-Origin", "*");
 //   res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");

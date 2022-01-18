@@ -17,7 +17,7 @@ export default function OrderHistoryScreen(props) {
   }, [dispatch]);
 
   return (
-    <div>
+    <div className="main-pad">
       <h1 className="heading">Order History</h1>
       {loading ? (
         <p>Loading....</p>
