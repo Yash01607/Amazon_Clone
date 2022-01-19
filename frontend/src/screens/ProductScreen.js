@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { detailsProduct } from "../actions/productActions";
 import { addToCart } from "../actions/CartActions";
 import Rating from "../components/Rating";
+import { Image } from "cloudinary-react";
 import MessageBox from "../components/MessageBox";
 
 const ProductScreen = (props) => {
@@ -41,7 +42,9 @@ const ProductScreen = (props) => {
     dispatch(addToCart(productId, qty));
     props.history.push("/cart");
   };
-
+  if (product && product.image && product.image.data) {
+    console.log(product.image.data.public_id);
+  }
   return (
     <div className="product-screen main-pad">
       {loading ? (
@@ -53,7 +56,13 @@ const ProductScreen = (props) => {
           <div className="row top">
             {/* <div className="details"> */}
             <div className="col-1 image">
-              <img className="large" src={product.image} alt={product.id}></img>
+              {product && product.image && product.image.data && (
+                <Image
+                  cloudName="df7lcoica"
+                  publicId={product.image.data.public_id}
+                ></Image>
+              )}
+              {/* <img className="large" src={product.image} alt={product.id}></img> */}
             </div>
             <div className="col-1 prod">
               <ul>

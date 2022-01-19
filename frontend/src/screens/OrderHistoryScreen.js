@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { listOrderMine } from "../actions/OrderActions";
+import MessageBox from "../components/MessageBox";
 
 export default function OrderHistoryScreen(props) {
   const orderMineList = useSelector((state) => state.orderMineList);
@@ -22,7 +23,7 @@ export default function OrderHistoryScreen(props) {
       {loading ? (
         <p>Loading....</p>
       ) : error ? (
-        <p>{error}</p>
+        <MessageBox variant="danger">{error}</MessageBox>
       ) : (
         <table className="table">
           <thead>
@@ -42,7 +43,9 @@ export default function OrderHistoryScreen(props) {
                 <td>{order.createdAt.substring(0, 10)}</td>
                 <td>INR. {order.totalPrice}/-</td>
                 {order.isPaid ? (
-                  <td className="success-sts">{order.paidAt.substring(0, 10)}</td>
+                  <td className="success-sts">
+                    {order.paidAt.substring(0, 10)}
+                  </td>
                 ) : (
                   <td className="danger-sts">Not Delivered</td>
                 )}

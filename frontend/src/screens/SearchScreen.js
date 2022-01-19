@@ -6,6 +6,7 @@ import MessageBox from "../components/MessageBox";
 import Rating from "../components/Rating";
 import { Link } from "react-router-dom";
 import { prices, ratings } from "../utils";
+import { Image } from "cloudinary-react";
 import { listCategories } from "../actions/CategoryActions";
 
 function SearchScreen(props) {
@@ -182,11 +183,12 @@ function SearchScreen(props) {
                   return (
                     <Link to={"/product/" + product._id} key={product._id}>
                       <div key={product._id} className="card">
-                        <img
-                          className="medium"
-                          src={product.image}
-                          alt={product.name}
-                        />
+                        {product && product.image && product.image.data && (
+                          <Image
+                            cloudName="df7lcoica"
+                            publicId={product.image.data.public_id}
+                          ></Image>
+                        )}
                         <div className="card-body">
                           <h2 className="product-name">{product.name}</h2>
                           <Rating

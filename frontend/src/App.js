@@ -29,6 +29,8 @@ import MessageBox from "./components/MessageBox";
 // import { images } from "";
 import ProductEditScreen from "./screens/ProductEditScreen";
 import ContactScreen from "./screens/ContactScreen";
+import { Image } from "cloudinary-react";
+import CategoryListScreen from "./screens/CategoryListScreen";
 
 function App() {
   const userSignIn = useSelector((state) => state.userSignIn);
@@ -66,10 +68,10 @@ function App() {
     <BrowserRouter>
       <div className="grid-container-2">
         <div className="head-image">
-          <img
-            src="https://sps.honeywell.com/content/dam/honeywell-edam/sps/common/en-us/industries/infrastructure/agriculture/images/sps-agriculture-hero.jpg"
-            alt="head"
-          ></img>
+          <Image
+            cloudName="df7lcoica"
+            publicId="all-page-header_znryqg"
+          ></Image>
         </div>
         <div className="back-img">
           <header className="row">
@@ -151,7 +153,16 @@ function App() {
                 </li>
               </ul>
             </div>
-            <div className="sec-head-ele">About Us</div>
+            <div className="sec-head-ele">
+              <Link className="home" to="/aboutus">
+                About Us
+              </Link>
+            </div>
+            <div className="sec-head-ele">
+              <Link className="home" to="/feedback">
+                Feedback
+              </Link>
+            </div>
             <div className="sec-head-ele">
               <Link className="home" to="/contactus">
                 Contact Us
@@ -180,13 +191,6 @@ function App() {
                 </Link>
               )}
             </div>
-            {/* <div>
-                {userInfo && (
-                  <Link className="home" to="/profile">
-                    {userInfo.name}
-                  </Link>
-                )}
-              </div> */}
             <div className="sec-head-ele">
               <Link className="home" to="#signout" onClick={signoutHandler}>
                 Sign Out
@@ -208,85 +212,14 @@ function App() {
                     <li>
                       <Link to="/userList">Users</Link>
                     </li>
+                    <li>
+                      <Link to="categorylist">Categories</Link>
+                    </li>
                   </ul>
                 </div>
               )}
             </div>
-            {/* {userInfo ? (
-              <div className="dropdown sec-head">
-                <Link to="#">
-                  {userInfo.name} <i className="fa fa-caret-down"></i>
-                </Link>
-                <ul className="dropdown-content">
-                  <li>
-                    <Link to="/orderhistory">Order History</Link>
-                  </li>
-                </ul>
-              </div>
-            ) : (
-              <Link to="/signin">Sign In</Link>
-            )} */}
-            {/* <div className="header-links">
-              <Link to="/cart">
-                <i className="fa fa-shopping-cart fa-2x sec-head-ele"></i>
-                {numberofitems !== 0 && (
-                  <span className="badge">{numberofitems}</span>
-                )}
-              </Link>
-              {userInfo ? (
-                <div className="row">
-                  <div></div>
-                  <Link to="/profile">
-                    <i className="fa fa-user-circle fa-2x sec-head-ele"></i>
-                    <h2>{userInfo.name}</h2>
-                  </Link>
-                  <ul className="dropdown-content">
-                    <li>
-                      <Link to="#signout" onClick={signoutHandler}>
-                        Sign Out
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
-              ) : (
-                <Link to="/signin">
-                  <i className="fa fa-user-circle fa-2x sec-head-ele"></i>Sign
-                  In
-                </Link>
-              )}
-              {userInfo && userInfo.isAdmin && (
-                <div className="dropdown">
-                  <Link to="#admin">
-                    Admin <i className="fa fa-caret-down sec-head-ele"></i>{" "}
-                  </Link>
-                  <ul className="dropdown-content">
-                    <li>
-                      <Link to="/orderList">Orders</Link>
-                    </li>
-                    <li>
-                      <Link to="/products">Products</Link>
-                    </li>
-                    <li>
-                      <Link to="/userList">Users</Link>
-                    </li>
-                  </ul>
-                </div>
-              )}
-            </div> */}
           </div>
-          {/* {document.location.pathname === "/" && (
-            <div className="title">
-              <h3 className="title-intro">
-                We have the best agricultural products...
-              </h3>
-              <h1 className="title-name"> WELCOME TO KAPIL AGENCIES</h1>
-              <Link
-                to={`/search/category/all/name/all/min/0/max/99999/rating/0/order/newest`}
-              >
-                <button className="title-button">Discover More</button>
-              </Link>
-            </div>
-          )} */}
         </div>
         {/* <aside className={sidebarIsOpen ? "open" : ""}>
           <ul className="categories">
@@ -348,6 +281,10 @@ function App() {
             <AdminRoute
               path="/orderlist"
               component={OrderListScreen}
+            ></AdminRoute>
+            <AdminRoute
+              path="/categorylist"
+              component={CategoryListScreen}
             ></AdminRoute>
             <AdminRoute
               path="/userList"

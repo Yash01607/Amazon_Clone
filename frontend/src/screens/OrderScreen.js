@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { detailsOrder, deliverOrder, payOrder } from "../actions/OrderActions";
 import Cookies from "js-cookie";
 import MessageBox from "../components/MessageBox";
+import { Image } from "cloudinary-react";
 
 const OrderScreen = (props) => {
   const [paymentResult, setpaymentResult] = useState(false);
@@ -131,11 +132,14 @@ const OrderScreen = (props) => {
                         <tr>
                           <td>
                             <Link to={"/product/" + item.product}>
-                              <img
-                                className="small-1"
-                                src={item.image}
-                                alt={item.name}
-                              ></img>
+                              {item && item.image && item.image.data && (
+                                <Image
+                                  cloudName="df7lcoica"
+                                  publicId={item.image.data.public_id}
+                                  crop="scale"
+                                  width="300"
+                                ></Image>
+                              )}
                             </Link>
                           </td>
                           <td className="table-name">

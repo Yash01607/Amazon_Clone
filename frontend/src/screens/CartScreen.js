@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { addToCart, removeFromCart } from "../actions/CartActions";
 import { useDispatch, useSelector } from "react-redux";
+import { Image } from "cloudinary-react";
 import MessageBox from "../components/MessageBox";
 
 const CartScreen = (props) => {
@@ -49,11 +50,14 @@ const CartScreen = (props) => {
                 <tr>
                   <td>
                     <Link to={"/product/" + item.product} className="name">
-                      <img
-                        className="small"
-                        src={item.image}
-                        alt={item.name}
-                      ></img>
+                      {item && item.image && item.image.data && (
+                        <Image
+                          cloudName="df7lcoica"
+                          publicId={item.image.data.public_id}
+                          crop="scale"
+                          width="300"
+                        ></Image>
+                      )}
                     </Link>
                   </td>
                   <td className="table-name">

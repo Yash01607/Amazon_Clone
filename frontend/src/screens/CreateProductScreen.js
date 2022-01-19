@@ -36,6 +36,12 @@ const ProductEditScreen = (props) => {
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
+    if (!previewSource) {
+      return;
+    }
+    if (!successUpload) {
+      uploadImage(previewSource);
+    }
     dispatch(
       saveProduct({
         name,
@@ -52,7 +58,9 @@ const ProductEditScreen = (props) => {
     props.history.push("/products");
   };
 
+  const [previewSource, setpreviewSource] = useState();
   const [loadingUpload, setloadingUpload] = useState(false);
+  const [successUpload, setsuccessUpload] = useState(false);
   const [errorUpload, seterrorUpload] = useState("");
 
   let userInfo = {};
@@ -60,25 +68,16 @@ const ProductEditScreen = (props) => {
     userInfo = JSON.parse(Cookies.get("userInfo"));
   }
 
-  const uploadFileHandler = async (e) => {
+  const uploadFileHandler = (e) => {
     // console.log(e.target.files);
     const file = e.target.files[0];
-    const bodyFormData = new FormData();
-    bodyFormData.append("image", file);
-    setloadingUpload(true);
-    try {
-      const { data } = await axios.post("/api/uploads", bodyFormData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          authorization: `Bearer${userInfo.token}`,
-        },
-      });
-      setImage(data);
-      setloadingUpload(false);
-    } catch (error) {
-      setloadingUpload(false);
-      seterrorUpload(error.message);
-    }
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setpreviewSource(reader.result);
+    };
+    if (!previewSource) return;
+    uploadImage(previewSource);
   };
 
   useEffect(() => {
@@ -89,7 +88,28 @@ const ProductEditScreen = (props) => {
     setCategory(e.target.value);
   };
 
-  // console.log("Create product");
+  const uploadImage = async (image) => {
+    setloadingUpload(true);
+    try {
+      const { data } = await axios.post(
+        "/api/uploads",
+        { data: image },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer${userInfo.token}`,
+          },
+        }
+      );
+      // console.log(data);
+      setImage(data);
+      setloadingUpload(false);
+      setsuccessUpload(true);
+    } catch (error) {
+      setloadingUpload(false);
+      seterrorUpload(error.message);
+    }
+  };
 
   return (
     <div className="main-pad">
@@ -127,8 +147,26 @@ const ProductEditScreen = (props) => {
         </div>
         <div>
           <label htmlFor="imageFile">Image File</label>
+          {previewSource && (
+            <div>
+              <img
+                src={previewSource}
+                alt="uploaded_image"
+                style={{ height: "300px", width: "200px" }}
+              ></img>
+              <button
+                type="button"
+                onClick={() => {
+                  uploadImage(previewSource);
+                }}
+              >
+                Upload Image
+              </button>
+            </div>
+          )}
           <input
             type="file"
+            name="image"
             id="imageFile"
             label="choose Image"
             placeholder="Upload Image"

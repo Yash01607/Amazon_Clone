@@ -50,7 +50,4 @@ export const ratings = [
   },
 ];
 
-export const images = [
-  "https://wallpapercave.com/wp/wp1886331.jpg",
-  "https://wallpaperaccess.com/full/488949.jpg",
-];
+export const images = ["headerImage-2_p1pfqv", "head-image_iri8yp"];

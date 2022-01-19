@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import MessageBox from "../components/MessageBox";
 import { listOrders, deletedOrder } from "../actions/OrderActions";
 
 function OrderListScreen(props) {
@@ -38,11 +39,11 @@ function OrderListScreen(props) {
     <div className="main-pad">
       <h1 className="heading">Orders</h1>
       {loadingDelete && <p>Deleting...</p>}
-      {errorDelete && <p>{errorDelete}</p>}
+      {errorDelete && <MessageBox variant="danger">{errorDelete}</MessageBox>}
       {loading ? (
         <p>Loading....</p>
       ) : error ? (
-        <p>{error}</p>
+        <MessageBox variant="danger">{error}</MessageBox>
       ) : (
         <table className="table">
           <thead>
@@ -61,7 +62,9 @@ function OrderListScreen(props) {
               <tr key={order._id}>
                 <td>{order._id || "id"}</td>
                 <td>
-                  {order.user && order.user.name ? order.user.name : "Name_Not_Available"}
+                  {order.user && order.user.name
+                    ? order.user.name
+                    : "Name_Not_Available"}
                 </td>
                 <td>{order.createdAt.substring(0, 10)}</td>
                 <td>{order.totalPrice}</td>

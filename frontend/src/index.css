@@ -106,7 +106,7 @@ header {
   line-height: 149px;
   z-index: -10;
   font-weight: 600;
-  font-family: 'Alata', sans-serif;
+  font-family: "Alata", sans-serif;
   /* font-weight: 700; */
   opacity: 0;
   animation: titlename 8s linear infinite;
@@ -535,6 +535,10 @@ a.brand {
   margin-right: 5rem;
   width: 50%;
 }
+.image img{
+  width: 58rem;
+  height: 60rem;
+}
 .prod {
   line-height: 3rem;
 }
@@ -639,6 +643,10 @@ img.large {
   border: 0.1rem #c0c0c0 solid;
   /* border-radius: 0.5rem; */
   margin: 1rem;
+}
+.card img {
+  width: 29rem;
+  height: 30rem;
 }
 .card:hover {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -795,6 +803,10 @@ img.large {
 }
 .table input {
   width: 5rem;
+}
+.table img {
+  width: 8rem;
+  height: 8rem;
 }
 .table thead {
   font-size: 2rem;

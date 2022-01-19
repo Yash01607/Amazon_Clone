@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import React, { useEffect } from "react";
 import { listPoducts, deleteProduct } from "../actions/productActions";
 import MessageBox from "../components/MessageBox";
+import { Image } from "cloudinary-react";
 
 const ProductsScreen = (props) => {
   const productList = useSelector((state) => state.productList);
@@ -70,11 +71,12 @@ const ProductsScreen = (props) => {
                 <tr key={product._id}>
                   <td>
                     <Link to={"/product/" + product._id}>
-                      <img
-                        className="small-1"
-                        src={product.image}
-                        alt={product.name}
-                      ></img>
+                      {product && product.image && product.image.data && (
+                        <Image
+                          cloudName="df7lcoica"
+                          publicId={product.image.data.public_id}
+                        ></Image>
+                      )}
                     </Link>
                   </td>
                   <td>{product.name}</td>

@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import CheckoutSteps from "../components/CheckoutSteps";
 import { createOrder } from "../actions/OrderActions";
+import MessageBox from "../components/MessageBox";
+import { Image } from "cloudinary-react";
 
 const PlaceOrderScreen = (props) => {
   const cart = useSelector((state) => state.cartDetails);
@@ -95,11 +97,14 @@ const PlaceOrderScreen = (props) => {
                             to={"/product/" + item.product}
                             className="name"
                           >
-                            <img
-                              className="small-1"
-                              src={item.image}
-                              alt={item.name}
-                            ></img>
+                            {item && item.image && item.image.data && (
+                              <Image
+                                cloudName="df7lcoica"
+                                publicId={item.image.data.public_id}
+                                crop="scale"
+                                width="300"
+                              ></Image>
+                            )}
                           </Link>
                         </td>
                         <td className="table-name">
@@ -174,7 +179,7 @@ const PlaceOrderScreen = (props) => {
                 </button>
               </li>
               {loading && <p>Loading...</p>}
-              {error && <p>{error}</p>}
+              {error && <MessageBox variant="danger">{error}</MessageBox>}
             </ul>
           </div>
         </div>

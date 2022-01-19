@@ -26,4 +26,34 @@ router.post("/", isAuth, isAdmin, async (req, res) => {
   }
 });
 
+router.delete("/:id", isAuth, isAdmin, async (req, res) => {
+  // console.log("req");
+  const deletedCategory = await Category.findById(req.params.id);
+  if (deletedCategory) {
+    await deletedCategory.remove();
+    res.send({ msg: "category Deleted" });
+  } else {
+    res.send("Error in Deleting Category");
+  }
+});
+
+router.put("/:id", isAuth, isAdmin, async (req, res) => {
+  const categoryId = req.params.id;
+  const category = await Category.findById(categoryId);
+  if (category) {
+    category.name = req.body.name;
+    category.image = req.body.image;
+    category.description = req.body.description;
+
+    const updatedCategory = await category.save();
+    if (updatedCategory) {
+      return res
+        .status(200)
+        .send({ msg: "Product Updated", data: updatedCategory });
+    }
+    return res.status(500).send({ msg: "Error in Updating Category" });
+  }
+  return res.status(500).send({ msg: "Error in Updating Category" });
+});
+
 export default router;
