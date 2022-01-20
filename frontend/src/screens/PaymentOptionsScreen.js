@@ -24,40 +24,42 @@ const PaymentScreen = (props) => {
     <div className="main-pad">
       <CheckoutSteps step1={true} step2={true} step3={true}></CheckoutSteps>
       <div>
-        <form className="form" onSubmit={onSubmitHandler}>
-          <div>
-            <h1 className="heading">Payment Method</h1>
-          </div>
+        <form className="payment-option-form" onSubmit={onSubmitHandler}>
           <div>
             <div>
-              <input
-                type="radio"
-                name="paymentMethod"
-                id="paypal"
-                value="paypal"
-                key="paymentMethod"
-                onChange={(e) => setPaymentMethod(e.target.value)}
-              ></input>
-              <label htmlFor="paypal">Paypal</label>
+              <h1 className="heading">Payment Method</h1>
             </div>
-          </div>
-          <div>
             <div>
-              <input
-                type="radio"
-                name="paymentMethod"
-                id="Net-Banking"
-                value="Net-Banking"
-                key="paymentMethod"
-                onChange={(e) => setPaymentMethod(e.target.value)}
-              ></input>
-              <label htmlFor="Net-Banking">Net-Banking</label>
+              <div>
+                <input
+                  type="radio"
+                  name="paymentMethod"
+                  id="paypal"
+                  value="paypal"
+                  key="paymentMethod"
+                  onChange={(e) => setPaymentMethod(e.target.value)}
+                ></input>
+                <label htmlFor="paypal">Paypal</label>
+              </div>
             </div>
-          </div>
-          <div>
-            <button type="submit" className="primary">
-              Continue
-            </button>
+            <div>
+              <div>
+                <input
+                  type="radio"
+                  name="paymentMethod"
+                  id="Net-Banking"
+                  value="Net-Banking"
+                  key="paymentMethod"
+                  onChange={(e) => setPaymentMethod(e.target.value)}
+                ></input>
+                <label htmlFor="Net-Banking">Net-Banking</label>
+              </div>
+            </div>
+            <div>
+              <button type="submit" className="primary">
+                Continue
+              </button>
+            </div>
           </div>
         </form>
       </div>

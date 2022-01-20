@@ -24,14 +24,14 @@ const ProductEditScreen = (props) => {
     error: errorCategories,
   } = categoryList;
 
-  const [name, setName] = useState(" ");
-  const [price, setPrice] = useState(" ");
-  const [image, setImage] = useState(" ");
-  const [brand, setBrand] = useState(" ");
-  const [category, setCategory] = useState(" ");
-  const [countInStock, setCountInStock] = useState(" ");
-  const [description, setDescription] = useState(" ");
-  const [rating, setRating] = useState(" ");
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
+  const [image, setImage] = useState("");
+  const [brand, setBrand] = useState("");
+  const [category, setCategory] = useState("");
+  const [countInStock, setCountInStock] = useState("");
+  const [description, setDescription] = useState("");
+  const [rating, setRating] = useState("");
   const numreviews = 0;
 
   const onSubmitHandler = (event) => {
@@ -122,7 +122,7 @@ const ProductEditScreen = (props) => {
           {errorSave && <div>{errorSave}</div>}
         </div>
         <div>
-          <label htmlFor="name">Name</label>
+          {/* <label htmlFor="name">Name</label> */}
           <input
             type="text"
             name="name"
@@ -134,9 +134,9 @@ const ProductEditScreen = (props) => {
           ></input>
         </div>
         <div>
-          <label htmlFor="price">Price</label>
+          {/* <label htmlFor="price">Price</label> */}
           <input
-            type="text"
+            type="number"
             name="price"
             placeholder="Enter Price"
             id="price"
@@ -146,21 +146,22 @@ const ProductEditScreen = (props) => {
           ></input>
         </div>
         <div>
-          <label htmlFor="imageFile">Image File</label>
+          {/* <label htmlFor="imageFile">Image File</label> */}
           {previewSource && (
-            <div>
+            <div className="row">
               <img
                 src={previewSource}
                 alt="uploaded_image"
-                style={{ height: "300px", width: "200px" }}
+                style={{ height: "300px", width: "50%" }}
               ></img>
               <button
                 type="button"
+                className="upload-button"
                 onClick={() => {
                   uploadImage(previewSource);
                 }}
               >
-                Upload Image
+                Please click to Upload Image
               </button>
             </div>
           )}
@@ -173,10 +174,17 @@ const ProductEditScreen = (props) => {
             onChange={uploadFileHandler}
           ></input>
           {loadingUpload && <p>Uploading...</p>}
-          {errorUpload && <p>{errorUpload}</p>}
+          {errorUpload && (
+            <MessageBox variant="danger">{errorUpload}</MessageBox>
+          )}
+          {successUpload && (
+            <MessageBox variant="success">
+              Image Uploaded Successfully
+            </MessageBox>
+          )}
         </div>
         <div>
-          <label htmlFor="countInStock">Conut In Stock</label>
+          {/* <label htmlFor="countInStock">Conut In Stock</label> */}
           <input
             type="text"
             name="countInStock"
@@ -188,7 +196,7 @@ const ProductEditScreen = (props) => {
           ></input>
         </div>
         <div>
-          <label htmlFor="brand">Brand</label>
+          {/* <label htmlFor="brand">Brand</label> */}
           <input
             type="text"
             name="brand"
@@ -200,7 +208,7 @@ const ProductEditScreen = (props) => {
           ></input>
         </div>
         <div>
-          <label htmlFor="rating">Initial Rating</label>
+          {/* <label htmlFor="rating">Initial Rating</label> */}
           <input
             type="text"
             name="rating"
@@ -213,13 +221,16 @@ const ProductEditScreen = (props) => {
           ></input>
         </div>
         <div>
-          <label htmlFor="category">Category</label>
+          {/* <label htmlFor="category">Category</label> */}
           {loadingCategories ? (
             <p>Loading...</p>
           ) : errorCategories ? (
             <MessageBox variant="danger">{errorCategories}</MessageBox>
           ) : (
             <select value={category} onChange={categoryChangeHandler}>
+              <option value="default" hidden>
+                Select Category
+              </option>
               {categories.map((category) => {
                 return (
                   <option key={category.name} value={category.name}>
@@ -231,7 +242,7 @@ const ProductEditScreen = (props) => {
           )}
         </div>
         <div>
-          <label htmlFor="decsription">description</label>
+          {/* <label htmlFor="decsription">description</label> */}
           <textarea
             type="text"
             name="description"

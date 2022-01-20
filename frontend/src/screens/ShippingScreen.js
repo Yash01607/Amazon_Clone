@@ -42,7 +42,7 @@ const ShippingScreen = (props) => {
           <h1 className="heading">Shipping Address</h1>
         </div>
         <div>
-          <label htmlFor="name">Full Name</label>
+          {/* <label htmlFor="name">Full Name</label> */}
           <input
             value={fullName}
             type="text"
@@ -55,7 +55,7 @@ const ShippingScreen = (props) => {
           ></input>
         </div>
         <div>
-          <label htmlFor="address">Address</label>
+          {/* <label htmlFor="address">Address</label> */}
           <input
             value={address}
             type="text"
@@ -68,7 +68,7 @@ const ShippingScreen = (props) => {
           ></input>
         </div>
         <div>
-          <label htmlFor="city">City</label>
+          {/* <label htmlFor="city">City</label> */}
           <input
             value={city}
             type="text"
@@ -81,7 +81,7 @@ const ShippingScreen = (props) => {
           ></input>
         </div>
         <div>
-          <label htmlFor="state">State</label>
+          {/* <label htmlFor="state">State</label> */}
           <input
             value={state}
             type="text"
@@ -94,7 +94,7 @@ const ShippingScreen = (props) => {
           ></input>
         </div>
         <div>
-          <label htmlFor="postalCode">Postal Code</label>
+          {/* <label htmlFor="postalCode">Postal Code</label> */}
           <input
             value={postalCode}
             required={true}
@@ -107,7 +107,7 @@ const ShippingScreen = (props) => {
           ></input>
         </div>
         <div>
-          <label htmlFor="country">Country</label>
+          {/* <label htmlFor="country">Country</label> */}
           <input
             value={country}
             type="text"

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import MessageBox from "../components/MessageBox";
 
-function ContactScreen() {
+function Feedback() {
   const [isSubmitted, setisSubmitted] = useState(false);
 
   const onSubmitHandler = (e) => {
@@ -11,23 +11,9 @@ function ContactScreen() {
 
   return (
     <div className="main-pad">
-      <h1>Contact US</h1>
-      <h2>
-        <strong>Address: </strong>
-        Kapil Agencies, Maruti Mandir Complex, Marked Rd. Mehkar
-      </h2>
-      <h2>
-        <strong>E-Mail: </strong>
-        kapilagencies@yahoo.com admin-yash@kapilagencies.com
-      </h2>
-      <h2>
-        <strong>Phone: </strong>
-        1212121212, 4545454545, 9090909090
-      </h2>
-
       <form className="Msg-form" onSubmit={onSubmitHandler}>
         <div>
-          <p>CONTACT WITH US</p>
+          <p>HAVE A SUGGESTION</p>
         </div>
         <div>
           <h1>{"Write Us A Message"}</h1>
@@ -101,4 +87,4 @@ function ContactScreen() {
   );
 }
 
-export default ContactScreen;
+export default Feedback;

@@ -49,7 +49,6 @@ const SignInScreen = (props) => {
           {error && <MessageBox variant="danger">{error}</MessageBox>}
         </div>
         <div>
-          <label htmlFor="email">Email</label>
           <input
             type="email"
             name="email"
@@ -61,7 +60,6 @@ const SignInScreen = (props) => {
           ></input>
         </div>
         <div>
-          <label htmlFor="password">Password</label>
           <input
             type="password"
             name="password"
@@ -80,7 +78,7 @@ const SignInScreen = (props) => {
         <div>
           <label />
           <div>
-            New to Ecommerce?{"  "}
+            New Here?{"  "}
             <Link
               to={
                 redirect === "/" ? "register" : "register?redirect=" + redirect

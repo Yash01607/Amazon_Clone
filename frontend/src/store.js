@@ -1,10 +1,7 @@
 import { createStore, combineReducers, compose, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import Cookies from "js-cookie";
-import {
-  productListReducer,
-  productCategoryListReducer,
-} from "./reducers/productReducer";
+import { productListReducer } from "./reducers/productReducer";
 import productDetailsReducer from "./reducers/productDetailsReducer";
 import CartReducers from "./reducers/CartReducers";
 import {
@@ -79,7 +76,6 @@ const reducer = combineReducers({
   userList: userListReducer,
   userDelete: userDeleteReducer,
   userUpdate: userUpdateReducer,
-  productCategoryList: productCategoryListReducer,
   categoryList: categoryListsReducer,
   categorySave: categorySavesReducer,
   categoryDelete: categoryDeleteReducer,

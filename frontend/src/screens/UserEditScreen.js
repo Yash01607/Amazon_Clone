@@ -60,7 +60,7 @@ function UserEditScreen(props) {
         ) : (
           <React.Fragment>
             <div>
-              <label htmlFor="name">Name</label>
+              {/* <label htmlFor="name">Name</label> */}
               <input
                 id="name"
                 type="text"
@@ -70,7 +70,7 @@ function UserEditScreen(props) {
               />
             </div>
             <div>
-              <label htmlFor="email">E-Mail</label>
+              {/* <label htmlFor="email">E-Mail</label> */}
               <input
                 id="email"
                 type="email"

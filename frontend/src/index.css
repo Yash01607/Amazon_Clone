@@ -25,7 +25,7 @@ body {
     "main"
     "footer";
   grid-template-columns: 1fr;
-  grid-template-rows: 40% 10% 1fr 5rem;
+  grid-template-rows: 30% 10% 1fr 5rem;
   height: 100%;
 }
 header {
@@ -380,15 +380,16 @@ header a {
 .head-image {
   position: absolute;
   z-index: -99999;
-  width: 100%;
-  height: 10%;
+  /* width: 100%;
+  height: 125px; */
   filter: brightness(70%);
   border-radius: 0;
-  top: -30%;
+  top: -40%;
 }
 
 .head-image img {
   width: 100%;
+  height: 65rem;
 }
 
 .header-soc-icon div:hover {
@@ -521,6 +522,10 @@ a.brand {
   background-color: rgb(247, 255, 246);
   padding: 5% 5% 1% 5%;
 }
+.upload-button {
+  background-color: rgb(72, 255, 0);
+  margin: 1rem auto 1rem auto;
+}
 .product-screen input {
   width: 5rem;
 }
@@ -535,7 +540,7 @@ a.brand {
   margin-right: 5rem;
   width: 50%;
 }
-.image img{
+.image img {
   width: 58rem;
   height: 60rem;
 }
@@ -702,23 +707,6 @@ img.large {
 .alert-success {
   color: #20a020;
   background-color: #eeffe0;
-}
-/* Form */
-.form {
-  max-width: 60rem;
-  margin: 0 auto;
-  border: 0.1rem black solid;
-  border-radius: 00.5rem;
-  padding: 1rem;
-  margin: auto auto 1rem auto;
-}
-.form > div {
-  display: flex;
-  flex-direction: column;
-  margin: 1rem;
-}
-.form label {
-  margin: 1rem 0;
 }
 /* Dropdown */
 .dropdown {
@@ -970,4 +958,56 @@ img.large {
 }
 .Msg-form button {
   margin-top: 1rem;
+}
+
+/* Form */
+.form {
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: 1rem;
+  background-color: rgb(220, 255, 215);
+  padding: 2rem 48% 2rem 2rem;
+  margin: auto auto 1rem auto;
+}
+.form label {
+  margin: 1rem 0;
+}
+.form input {
+  height: 5rem;
+  width: 200%;
+  margin-bottom: 3rem;
+  padding-left: 2rem;
+}
+.form textarea {
+  height: 10rem;
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 2rem;
+}
+.form select {
+  height: 5rem;
+  width: 200%;
+  margin-bottom: 3rem;
+  padding-left: 2rem;
+}
+.form button {
+  width: 100%;
+  margin-top: 1rem;
+}
+.payment-option-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* padding: auto; */
+  margin: auto;
+}
+.payment-option-form input {
+  width: 2rem;
+  height: 2rem;
+  /* margin-bottom: 0; */
+  margin: 1rem;
+}
+.payment-option-form label {
+  padding-bottom: 2rem;
+  height: 2rem;
 }

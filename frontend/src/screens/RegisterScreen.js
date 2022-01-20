@@ -63,7 +63,7 @@ const RegisterScreen = (props) => {
           {error && <MessageBox variant="danger">{error}</MessageBox>}
         </div>
         <div>
-          <label htmlFor="name">Name</label>
+          {/* <label htmlFor="name">Name</label> */}
           <input
             type="name"
             name="name"
@@ -75,7 +75,7 @@ const RegisterScreen = (props) => {
           ></input>
         </div>
         <div>
-          <label htmlFor="email">Email</label>
+          {/* <label htmlFor="email">Email</label> */}
           <input
             type="email"
             name="email"
@@ -87,7 +87,7 @@ const RegisterScreen = (props) => {
           ></input>
         </div>
         <div>
-          <label htmlFor="password">Password</label>
+          {/* <label htmlFor="password">Password</label> */}
           <input
             type="password"
             name="password"
@@ -99,7 +99,7 @@ const RegisterScreen = (props) => {
           ></input>
         </div>
         <div>
-          <label htmlFor="repassword">Re-enter Password</label>
+          {/* <label htmlFor="repassword">Re-enter Password</label> */}
           <input
             type="password"
             name="repassword"
@@ -116,7 +116,6 @@ const RegisterScreen = (props) => {
           </button>
         </div>
         <div>
-          <label />
           <div>
             Already have an account?{" "}
             <Link

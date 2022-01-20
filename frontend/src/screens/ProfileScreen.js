@@ -69,7 +69,7 @@ function ProfileScreen(props) {
               </MessageBox>
             )}
             <div>
-              <label htmlFor="name">Name</label>
+              {/* <label htmlFor="name">Name</label> */}
               <input
                 id="name"
                 type="text"
@@ -79,7 +79,7 @@ function ProfileScreen(props) {
               ></input>
             </div>
             <div>
-              <label htmlFor="email">E-Mail</label>
+              {/* <label htmlFor="email">E-Mail</label> */}
               <input
                 id="email"
                 type="text"
@@ -89,7 +89,7 @@ function ProfileScreen(props) {
               ></input>
             </div>
             <div>
-              <label htmlFor="password">Password</label>
+              {/* <label htmlFor="password">Password</label> */}
               <input
                 id="password"
                 type="text"
@@ -98,7 +98,7 @@ function ProfileScreen(props) {
               ></input>
             </div>
             <div>
-              <label htmlFor="confirmPassword">confirm Password</label>
+              {/* <label htmlFor="confirmPassword">confirm Password</label> */}
               <input
                 id="confirmPassword"
                 type="text"
@@ -107,7 +107,6 @@ function ProfileScreen(props) {
               ></input>
             </div>
             <div>
-              <label></label>
               <button className="primary button" type="submit">
                 Update
               </button>

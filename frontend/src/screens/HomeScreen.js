@@ -7,11 +7,6 @@ import MessageBox from "../components/MessageBox";
 import { Image } from "cloudinary-react";
 
 const HomeScreen = (props) => {
-  // const productList = useSelector((state) => state.productList);
-  // const { products, loading, error } = productList;
-  // const dispatch = useDispatch();
-
-  // const [index, setindex] = useState(0);
 
   const categoryList = useSelector((state) => state.categoryList);
   const { categories, loading, error } = categoryList;

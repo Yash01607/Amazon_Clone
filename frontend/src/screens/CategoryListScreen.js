@@ -11,9 +11,9 @@ import axios from "axios";
 import { Image } from "cloudinary-react";
 
 function CategoryListScreen(props) {
-  const [name, setName] = useState(" ");
-  const [image, setImage] = useState(" ");
-  const [description, setDescription] = useState(" ");
+  const [name, setName] = useState("");
+  const [image, setImage] = useState("");
+  const [description, setDescription] = useState("");
 
   const [previewSource, setpreviewSource] = useState();
   const [loadingUpload, setloadingUpload] = useState(false);
@@ -113,6 +113,9 @@ function CategoryListScreen(props) {
 
       {loadingDelete && <p>Deleting...</p>}
       {errorDelete && <MessageBox variant="danger">{errorDelete}</MessageBox>}
+      {successDelete && (
+        <MessageBox variant="success">{"Deleted Successfully"}</MessageBox>
+      )}
       {loading ? (
         <p>Loading...</p>
       ) : error ? (
@@ -173,7 +176,7 @@ function CategoryListScreen(props) {
           {errorSave && <div>{errorSave}</div>}
         </div>
         <div>
-          <label htmlFor="name">Name</label>
+          {/* <label htmlFor="name">Name</label> */}
           <input
             type="text"
             name="name"
@@ -185,21 +188,22 @@ function CategoryListScreen(props) {
           ></input>
         </div>
         <div>
-          <label htmlFor="imageFile">Image File</label>
+          {/* <label htmlFor="imageFile">Image File</label> */}
           {previewSource && (
-            <div>
+            <div className="row">
               <img
                 src={previewSource}
                 alt="uploaded_image"
-                style={{ height: "300px", width: "200px" }}
+                style={{ height: "300px", width: "50%" }}
               ></img>
               <button
                 type="button"
+                className="upload-button"
                 onClick={() => {
                   uploadImage(previewSource);
                 }}
               >
-                Upload Image
+                Please click to Upload Image
               </button>
             </div>
           )}
@@ -223,7 +227,7 @@ function CategoryListScreen(props) {
         </div>
 
         <div>
-          <label htmlFor="decsription">Single Line description</label>
+          {/* <label htmlFor="decsription">Single Line description</label> */}
           <textarea
             type="text"
             name="description"

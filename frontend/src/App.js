@@ -16,7 +16,6 @@ import OrderHistoryScreen from "./screens/OrderHistoryScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import PrivateRoute from "./components/PrivateRoute";
 import { signout } from "./actions/userActions";
-import { listPoductCategories } from "./actions/productActions";
 import AdminRoute from "./components/AdminRoute";
 import OrderListScreen from "./screens/OrderListScreen";
 import toBeAddedSoonScreeen from "./screens/toBeAddedSoonScreeen";
@@ -24,13 +23,12 @@ import UserLIstScreen from "./screens/UserLIstScreen";
 import UserEditScreen from "./screens/UserEditScreen";
 import SearchBox from "./components/SearchBox";
 import SearchScreen from "./screens/SearchScreen";
-import { useEffect, useState } from "react";
-import MessageBox from "./components/MessageBox";
-// import { images } from "";
+import { useState } from "react";
 import ProductEditScreen from "./screens/ProductEditScreen";
 import ContactScreen from "./screens/ContactScreen";
 import { Image } from "cloudinary-react";
 import CategoryListScreen from "./screens/CategoryListScreen";
+import Feedback from "./screens/Feedback";
 
 function App() {
   const userSignIn = useSelector((state) => state.userSignIn);
@@ -50,7 +48,7 @@ function App() {
     }, 0);
   }
 
-  const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
+  // const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
   const [openModal, setopenModal] = useState(false);
 
   const dispatch = useDispatch();
@@ -59,10 +57,6 @@ function App() {
       dispatch(signout());
     }
   };
-
-  useEffect(() => {
-    dispatch(listPoductCategories());
-  }, [dispatch]);
 
   return (
     <BrowserRouter>
@@ -273,6 +267,7 @@ function App() {
             <Route path="/orders/:id" component={OrderScreen}></Route>
             <Route path="/orderhistory" component={OrderHistoryScreen}></Route>
             <Route path="/contactus" component={ContactScreen}></Route>
+            <Route path="/feedback" component={Feedback}></Route>
             <Route
               path="/search/category/:category/name/:name/min/:min/max/:max/rating/:rating/order/:order"
               component={SearchScreen}

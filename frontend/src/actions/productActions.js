@@ -96,15 +96,4 @@ const detailsProduct = (productId) => {
   };
 };
 
-export const listPoductCategories = () => async (dispatch) => {
-  try {
-    dispatch({ type: "PRODUCT_CATEGORY_LIST_Request" });
-    const { data } = await axios.get(`/api/products/categories`);
-
-    dispatch({ type: "PRODUCT_CATEGORY_LIST_SUCCESS", payload: data });
-  } catch (error) {
-    dispatch({ type: "PRODUCT_CATEGORY_LIST_FAILED", payload: error.message });
-  }
-};
-
 export { detailsProduct, saveProduct, deleteProduct };
