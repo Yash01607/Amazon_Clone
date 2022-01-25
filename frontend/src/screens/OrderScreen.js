@@ -76,7 +76,7 @@ const OrderScreen = (props) => {
         <div className="col-2">
           <ul>
             <li>
-              <div className="card card-body">
+              <div className="card-1 card-body">
                 <h2>Shipping</h2>
                 <p>
                   <strong>Name: </strong>
@@ -98,7 +98,7 @@ const OrderScreen = (props) => {
               </div>
             </li>
             <li>
-              <div className="card card-body">
+              <div className="card-1 card-body">
                 <h2>Payment</h2>
                 <p>
                   <strong>Payment Method: </strong>
@@ -114,7 +114,7 @@ const OrderScreen = (props) => {
               </div>
             </li>
             <li>
-              <div className="card card-body">
+              <div className="card-1 card-body">
                 <h2>Order Items</h2>
                 <table className="table">
                   <thead>
@@ -177,7 +177,7 @@ const OrderScreen = (props) => {
           </ul>
         </div>
         <div className="col-1">
-          <div className="card card-body">
+          <div className="card-1 card-body">
             <ul>
               <li>
                 <div className="row">

@@ -79,8 +79,19 @@ const ProductsScreen = (props) => {
                       )}
                     </Link>
                   </td>
-                  <td>{product.name}</td>
-                  <td>{product.price}</td>
+                  <td>
+                    <Link to={"/product/" + product._id} className="name">
+                      {product.name}
+                    </Link>
+                  </td>
+                  <td>
+                    <b>
+                      <h2>
+                        <i className="fa fa-inr"></i>
+                        {product.price}
+                      </h2>
+                    </b>
+                  </td>
                   <td>{product.category}</td>
                   <td>{product.brand}</td>
                   <td>{product.countInStock}</td>

@@ -55,7 +55,7 @@ const PlaceOrderScreen = (props) => {
         <div className="col-2">
           <ul>
             <li>
-              <div className="card card-body">
+              <div className="card-1 card-body">
                 <h3>Shipping</h3>
                 <p>
                   <strong>Name: </strong>
@@ -70,7 +70,7 @@ const PlaceOrderScreen = (props) => {
               </div>
             </li>
             <li>
-              <div className="card card-body">
+              <div className="card-1 card-body">
                 <h3>Payment</h3>
                 <p>
                   <strong>Method: </strong>
@@ -79,7 +79,7 @@ const PlaceOrderScreen = (props) => {
               </div>
             </li>
             <li>
-              <div className="card card-body">
+              <div className="card-1 card-body">
                 <h1>Order Items</h1>
                 <table className="table">
                   <thead>
@@ -141,7 +141,7 @@ const PlaceOrderScreen = (props) => {
           </ul>
         </div>
         <div className="col-1">
-          <div className="card card-body">
+          <div className="card-1 card-body">
             <ul>
               <li>
                 <h3>Order Summary</h3>

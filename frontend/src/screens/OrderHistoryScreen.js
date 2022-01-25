@@ -44,8 +44,10 @@ export default function OrderHistoryScreen(props) {
                 <td># {order._id}</td>
                 <td>{order.createdAt.substring(0, 10)}</td>
                 <td>
-                  <i className="fa fa-inr"></i>
-                  {order.totalPrice}
+                  <strong>
+                    <i className="fa fa-inr"></i>
+                    {order.totalPrice}
+                  </strong>
                 </td>
                 {order.isPaid ? (
                   <td className="success-sts">

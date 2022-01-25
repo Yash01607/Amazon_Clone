@@ -93,7 +93,7 @@ function ProfileScreen(props) {
               <input
                 id="password"
                 type="password"
-                placeholder="Enter Password"
+                placeholder="Enter New Password"
                 onChange={(e) => setPassword(e.target.value)}
               ></input>
             </div>
@@ -102,7 +102,7 @@ function ProfileScreen(props) {
               <input
                 id="confirmPassword"
                 type="text"
-                placeholder="Enter confirm Password"
+                placeholder="Confirm New Password"
                 onChange={(e) => setConfirmPassword(e.target.value)}
               ></input>
             </div>
