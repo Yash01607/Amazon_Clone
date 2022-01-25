@@ -20,4 +20,4 @@ package-lock.json
 
 .env
 /uploads/*.jpg
-Bugs_to_be_fixed.txt
+Features_To_Be_Added.txt

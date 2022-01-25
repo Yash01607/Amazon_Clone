@@ -184,6 +184,7 @@ function CategoryListScreen(props) {
             placeholder="Enter Name"
             value={name}
             key="name"
+            required
             onChange={(e) => setName(e.target.value)}
           ></input>
         </div>
@@ -210,6 +211,7 @@ function CategoryListScreen(props) {
           <input
             type="file"
             name="image"
+            required
             id="imageFile"
             label="choose Image"
             placeholder="Upload Image"
@@ -232,6 +234,7 @@ function CategoryListScreen(props) {
             type="text"
             name="description"
             id="description"
+            required
             placeholder="Describe your product"
             value={description}
             key="description"

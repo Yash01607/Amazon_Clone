@@ -117,13 +117,19 @@ const PlaceOrderScreen = (props) => {
                         </td>
                         <td>
                           <b>
-                            <h2>INR.{item.price}</h2>
+                            <h2>
+                              <i className="fa fa-inr"></i>
+                              {item.price}
+                            </h2>
                           </b>
                         </td>
                         <td>{item.qty}</td>
                         <td>
                           <b>
-                            <h2>INR.{item.qty * item.price}</h2>
+                            <h2>
+                              <i className="fa fa-inr"></i>
+                              {item.qty * item.price}
+                            </h2>
                           </b>
                         </td>
                       </tr>
@@ -143,19 +149,28 @@ const PlaceOrderScreen = (props) => {
               <li>
                 <div className="row">
                   <div>Items</div>
-                  <div>INR.{itemsPrice}</div>
+                  <div>
+                    <i className="fa fa-inr"></i>
+                    {itemsPrice}
+                  </div>
                 </div>
               </li>
               <li>
                 <div className="row">
                   <div>Shipping</div>
-                  <div>INR.{shippingPrice}</div>
+                  <div>
+                    <i className="fa fa-inr"></i>
+                    {shippingPrice}
+                  </div>
                 </div>
               </li>
               <li>
                 <div className="row">
                   <div>Tax</div>
-                  <div>INR.{taxPrice}</div>
+                  <div>
+                    <i className="fa fa-inr"></i>
+                    {taxPrice}
+                  </div>
                 </div>
               </li>
               <li>
@@ -164,7 +179,10 @@ const PlaceOrderScreen = (props) => {
                     <strong>Order Total</strong>
                   </div>
                   <div>
-                    <strong>INR.{totalPrice}</strong>
+                    <strong>
+                      <i className="fa fa-inr"></i>
+                      {totalPrice}
+                    </strong>
                   </div>
                 </div>
               </li>

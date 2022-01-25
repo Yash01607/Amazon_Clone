@@ -196,7 +196,10 @@ function SearchScreen(props) {
                             numReviews={+product.numreviews}
                           ></Rating>
                           <div className="price">
-                            <b>INR. {product.price}</b>
+                            <b>
+                              <i className="fa fa-inr"></i>
+                              {product.price}
+                            </b>
                           </div>
                         </div>
                       </div>

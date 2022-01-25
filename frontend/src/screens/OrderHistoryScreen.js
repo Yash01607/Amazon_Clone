@@ -24,6 +24,8 @@ export default function OrderHistoryScreen(props) {
         <p>Loading....</p>
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
+      ) : orders.length === 0 ? (
+        <MessageBox variant="danger">No Orders Found.</MessageBox>
       ) : (
         <table className="table">
           <thead>
@@ -39,9 +41,12 @@ export default function OrderHistoryScreen(props) {
           <tbody>
             {orders.map((order) => (
               <tr key={order._id}>
-                <td>{order._id}</td>
+                <td># {order._id}</td>
                 <td>{order.createdAt.substring(0, 10)}</td>
-                <td>INR. {order.totalPrice}/-</td>
+                <td>
+                  <i className="fa fa-inr"></i>
+                  {order.totalPrice}
+                </td>
                 {order.isPaid ? (
                   <td className="success-sts">
                     {order.paidAt.substring(0, 10)}

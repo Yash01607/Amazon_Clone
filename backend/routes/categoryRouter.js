@@ -31,7 +31,7 @@ router.delete("/:id", isAuth, isAdmin, async (req, res) => {
   const deletedCategory = await Category.findById(req.params.id);
   if (deletedCategory) {
     await deletedCategory.remove();
-    res.send({ msg: "category Deleted" });
+    res.send({ msg: "Category Deleted" });
   } else {
     res.send("Error in Deleting Category");
   }
@@ -49,7 +49,7 @@ router.put("/:id", isAuth, isAdmin, async (req, res) => {
     if (updatedCategory) {
       return res
         .status(200)
-        .send({ msg: "Product Updated", data: updatedCategory });
+        .send({ msg: "Category Updated", data: updatedCategory });
     }
     return res.status(500).send({ msg: "Error in Updating Category" });
   }

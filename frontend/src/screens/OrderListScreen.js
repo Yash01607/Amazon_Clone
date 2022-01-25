@@ -67,7 +67,10 @@ function OrderListScreen(props) {
                     : "Name_Not_Available"}
                 </td>
                 <td>{order.createdAt.substring(0, 10)}</td>
-                <td>{order.totalPrice}</td>
+                <td>
+                  <i className="fa fa-inr"></i>
+                  {order.totalPrice}
+                </td>
                 {order.isPaid ? (
                   <td className="success-sts">
                     {order.paidAt.substring(0, 10)}

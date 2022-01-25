@@ -57,7 +57,7 @@ function ProfileScreen(props) {
         ) : (
           <>
             <div>
-              <h1 className="heading">User Profile</h1>
+              <h1 className="heading">Hello {name}!</h1>
             </div>
             {loadingUpdate && <p>Loading...</p>}
             {errorUpdate && (
@@ -92,7 +92,7 @@ function ProfileScreen(props) {
               {/* <label htmlFor="password">Password</label> */}
               <input
                 id="password"
-                type="text"
+                type="password"
                 placeholder="Enter Password"
                 onChange={(e) => setPassword(e.target.value)}
               ></input>

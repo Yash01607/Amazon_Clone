@@ -33,18 +33,7 @@ header {
   padding: 1rem;
   z-index: 10;
   height: 10rem;
-  /* color: #ffffff; */
-  /* border-bottom: 0.2rem ridge rgb(219, 219, 219); */
 }
-
-/* @keyframes slide {
-  from {
-    
-  }
-  to {
-    background-position-x: 180rem;
-  }
-} */
 .back-img {
   padding: 0 10% 0 10%;
   z-index: 999;
@@ -63,6 +52,7 @@ header {
   left: 0;
   right: 0;
   bottom: 0;
+  overflow: hidden;
   z-index: -99;
   height: 132%;
 }
@@ -102,11 +92,11 @@ header {
   padding-top: 0em;
   margin-top: 1rem;
   margin-bottom: 1rem;
-  font-size: 800%;
-  line-height: 149px;
+  font-size: 900%;
+  /* line-height: 110%; */
   z-index: -10;
-  font-weight: 600;
-  font-family: "Alata", sans-serif;
+  font-weight: 700;
+  font-family: "Amatic SC", cursive;
   /* font-weight: 700; */
   opacity: 0;
   animation: titlename 8s linear infinite;
@@ -341,11 +331,13 @@ button.details {
   height: 5rem;
   margin-right: 2rem;
   width: 40%;
+  background-color: rgb(255, 255, 255);
 }
 .Coupon-Form button {
   width: 40%;
   height: 7rem;
   margin-right: 2rem;
+  background-color: #80e780;
   text-align: center;
 }
 /* Header */
@@ -385,6 +377,9 @@ header a {
   filter: brightness(70%);
   border-radius: 0;
   top: -40%;
+  right: 0;
+  left: 0;
+  background-color: green;
 }
 
 .head-image img {
@@ -623,7 +618,7 @@ img {
   border-radius: 0.5rem;
 }
 img.small {
-  width: 15rem;
+  width: 14.5rem;
   height: 15rem;
   /* width: 100%; */
 }
@@ -783,6 +778,7 @@ img.large {
   width: 100%;
   border-collapse: collapse;
   margin: 1rem auto 1rem auto;
+  font-family: Helvetica, Arial, sans-serif;
   /* margin-left: 10%; */
   /* margin-right: 10%; */
 }
@@ -797,7 +793,7 @@ img.large {
   height: 8rem;
 }
 .table thead {
-  font-size: 2rem;
+  font-size: 3.5rem;
   font-family: "Amatic SC", cursive;
   color: rgb(97, 97, 97);
 }
@@ -813,8 +809,8 @@ img.large {
 .table button {
   margin: 0 0.2rem;
 }
-.table-name {
-  font-family: "Amatic SC", cursive;
+.table-name a:hover {
+  text-decoration: underline;
 }
 
 /* Search */
@@ -828,11 +824,12 @@ img.large {
   align-items: center;
   justify-content: center;
   z-index: 999;
+  /* opacity: 0; */
   width: 100%;
   height: 100%;
   background-color: rgb(0, 0, 0, 0.5);
   display: flex;
-  animation: modal 0.4s linear;
+  animation: modal 0.2s linear;
 }
 .search-modal-content {
   width: 50%;
@@ -878,10 +875,10 @@ img.large {
 
 @keyframes modal {
   0% {
-    transform: translateY(-100%);
+    opacity: 0;
   }
   100% {
-    transform: translateY(0%);
+    opacity: 1;
   }
 }
 
@@ -928,7 +925,7 @@ img.large {
   height: 25rem;
   border: 0.5rem white solid;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  margin-top: 8rem;
+  margin-top: 4rem;
 }
 
 /* Meggage from */
@@ -958,6 +955,7 @@ img.large {
 }
 .Msg-form button {
   margin-top: 1rem;
+  font-weight: bold;
 }
 
 /* Form */
@@ -966,27 +964,30 @@ img.large {
   margin: 0 auto;
   padding: 1rem;
   background-color: rgb(220, 255, 215);
-  padding: 2rem 48% 2rem 2rem;
-  margin: auto auto 1rem auto;
+  padding: 2rem 2rem 2rem 2rem;
+  margin: auto;
+}
+.form div {
+  width: 100%;
 }
 .form label {
   margin: 1rem 0;
 }
 .form input {
-  height: 5rem;
-  width: 200%;
+  height: 3rem;
+  width: 94%;
   margin-bottom: 3rem;
   padding-left: 2rem;
 }
 .form textarea {
   height: 10rem;
-  width: 100%;
-  margin-bottom: 1rem;
-  padding: 2rem;
+  width: 94%;
+  margin-bottom: 3rem;
+  padding-left: 2rem;
 }
 .form select {
   height: 5rem;
-  width: 200%;
+  width: 94%;
   margin-bottom: 3rem;
   padding-left: 2rem;
 }

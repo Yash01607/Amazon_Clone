@@ -7,7 +7,6 @@ import MessageBox from "../components/MessageBox";
 import { Image } from "cloudinary-react";
 
 const HomeScreen = (props) => {
-
   const categoryList = useSelector((state) => state.categoryList);
   const { categories, loading, error } = categoryList;
   const dispatch = useDispatch();
@@ -20,10 +19,9 @@ const HomeScreen = (props) => {
     <div className="homescreen">
       <div id="slideshow-cont">
         {images.map((image) => (
-          <Image cloudName="df7lcoica" publicId={image}></Image>
+          <Image key={image} cloudName="df7lcoica" publicId={image}></Image>
         ))}
       </div>
-
       <div className="title">
         <h3 className="title-intro">
           We have the best agricultural products...
@@ -52,6 +50,7 @@ const HomeScreen = (props) => {
               // console.log(product.numReviews);
               return (
                 <Link
+                  key={category._id}
                   to={`/search/category/${category.name}/name/all/min/0/max/99999/rating/0/order/newest`}
                 >
                   <div key={category._id} className="category">

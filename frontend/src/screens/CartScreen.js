@@ -11,15 +11,18 @@ const CartScreen = (props) => {
   if (cart) {
     ({ cartItems } = cart);
   }
-  // console.log(cartItems);
-  const dispatch = useDispatch();
 
+  const dispatch = useDispatch();
   const removeFromCartHandler = (productId) => {
     dispatch(removeFromCart(productId));
   };
 
   const chechoutHandler = () => {
     props.history.push("signin?redirect=shipping");
+  };
+
+  const addCouponHandler = (e) => {
+    e.preventDefault();
   };
 
   return (
@@ -54,8 +57,6 @@ const CartScreen = (props) => {
                         <Image
                           cloudName="df7lcoica"
                           publicId={item.image.data.public_id}
-                          crop="scale"
-                          width="300"
                         ></Image>
                       )}
                     </Link>
@@ -67,7 +68,10 @@ const CartScreen = (props) => {
                   </td>
                   <td>
                     <b>
-                      <h2>INR.{item.price}</h2>
+                      <h2>
+                        <i className="fa fa-inr"></i>
+                        {item.price}
+                      </h2>
                     </b>
                   </td>
                   <td>
@@ -83,7 +87,10 @@ const CartScreen = (props) => {
                   </td>
                   <td className="total">
                     <b>
-                      <h2>INR.{item.qty * item.price}</h2>
+                      <h2>
+                        <i className="fa fa-inr"></i>
+                        {item.qty * item.price}
+                      </h2>
                     </b>
                   </td>
                   <td>
@@ -92,7 +99,7 @@ const CartScreen = (props) => {
                       type="button"
                       onClick={() => removeFromCartHandler(item.product)}
                     >
-                      Remove From Cart
+                      Remove
                     </button>
                   </td>
                 </tr>
@@ -104,7 +111,7 @@ const CartScreen = (props) => {
       {cartItems.length !== 0 && (
         <div className="row">
           <div>
-            <form className="Coupon-Form">
+            <form className="Coupon-Form" onSubmit={addCouponHandler}>
               <input
                 type="text"
                 id="Coupon"
@@ -117,8 +124,8 @@ const CartScreen = (props) => {
           <div>
             <div className="row">
               <h3>
-                Subtotal: ({cartItems.reduce((a, c) => a + c.qty, 0)} items):
-                INR.
+                Subtotal ({cartItems.reduce((a, c) => a + c.qty, 0)} items):{" "}
+                <i className="fa fa-inr"></i>
                 {cartItems.reduce((a, c) => a + c.price * c.qty, 0)}
               </h3>
             </div>

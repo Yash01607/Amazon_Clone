@@ -70,7 +70,10 @@ const ProductScreen = (props) => {
                   <h1 className="heading"> {product.name}</h1>
                 </li>
                 <li className="row price-rating">
-                  <b>INR {product.price}/-</b>
+                  <b>
+                    <i className="fa fa-inr"></i>
+                    {product.price}
+                  </b>
                   <Rating
                     rating={product.rating}
                     numReviews={+product.numreviews}

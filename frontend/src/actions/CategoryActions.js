@@ -7,7 +7,7 @@ const listCategories = () => async (dispatch) => {
     const { data } = await axios.get(`/api/category`);
 
     dispatch({ type: "CATEGORY_LIST_SUCCESS", payload: data });
-  // console.log(data);
+    // console.log(data);
   } catch (error) {
     dispatch({ type: "CATEGORY_LIST_FAILED", payload: error.message });
   }

@@ -156,13 +156,19 @@ const ProductEditScreen = (props) => {
           </div>
           <div>
             {loadingSave && <div>Loading...</div>}
-            {errorSave && <div>{errorSave}</div>}
+            {errorSave && <MessageBox variant="danger">{errorSave}</MessageBox>}
+            {successSave && (
+              <MessageBox variant="success">
+                Product Edited Succefully
+              </MessageBox>
+            )}
           </div>
           <div>
             {/* <label htmlFor="name">Name</label> */}
             <input
               type="text"
               name="name"
+              required
               id="name"
               placeholder="Enter Name"
               value={name}
@@ -177,6 +183,7 @@ const ProductEditScreen = (props) => {
               name="price"
               placeholder="Enter Price"
               id="price"
+              required
               value={price}
               key="price"
               onChange={(e) => setPrice(e.target.value)}
@@ -189,7 +196,7 @@ const ProductEditScreen = (props) => {
                 <img
                   src={previewSource}
                   alt="uploaded_image"
-                  style={{ height: "300px", width: "200px" }}
+                  style={{ height: "30rem", width: "29rem" }}
                 ></img>
                 <button
                   type="button"
@@ -207,6 +214,7 @@ const ProductEditScreen = (props) => {
               name="image"
               id="imageFile"
               label="choose Image"
+              required
               placeholder="Upload Image"
               onChange={uploadFileHandler}
             ></input>
@@ -227,6 +235,7 @@ const ProductEditScreen = (props) => {
               name="countInStock"
               placeholder="Enter Stock Quantity"
               id="countInStock"
+              required
               value={countInStock}
               key="countInStock"
               onChange={(e) => setCountInStock(e.target.value)}
@@ -237,6 +246,7 @@ const ProductEditScreen = (props) => {
             <input
               type="text"
               name="brand"
+              required
               id="brand"
               placeholder="Enter Brand Name"
               value={brand}
@@ -253,6 +263,7 @@ const ProductEditScreen = (props) => {
               placeholder="Enter Initial Rating"
               value={rating}
               key="rating"
+              required
               max={5}
               onChange={(e) => setRating(e.target.value)}
             ></input>
@@ -264,7 +275,11 @@ const ProductEditScreen = (props) => {
             ) : errorCategories ? (
               <MessageBox variant="danger">{errorCategories}</MessageBox>
             ) : (
-              <select value={category} onChange={categoryChangeHandler}>
+              <select
+                value={category}
+                required
+                onChange={categoryChangeHandler}
+              >
                 <option value="default" hidden>
                   Select Category
                 </option>
@@ -283,6 +298,7 @@ const ProductEditScreen = (props) => {
             <textarea
               type="text"
               name="description"
+              required
               id="description"
               placeholder="Describe your product"
               value={description}

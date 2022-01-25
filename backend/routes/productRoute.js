@@ -36,6 +36,7 @@ router.get("/", async (req, res) => {
       ? { category: 1 }
       : { id: -1 };
   // console.log(rating);
+  // console.log(categoryFilter);
 
   const products = await Product.find({
     ...nameFilter,

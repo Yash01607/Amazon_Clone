@@ -23,12 +23,13 @@ import UserLIstScreen from "./screens/UserLIstScreen";
 import UserEditScreen from "./screens/UserEditScreen";
 import SearchBox from "./components/SearchBox";
 import SearchScreen from "./screens/SearchScreen";
-import { useState } from "react";
+import { listCategories } from "./actions/CategoryActions";
+import { useState, useEffect } from "react";
 import ProductEditScreen from "./screens/ProductEditScreen";
 import ContactScreen from "./screens/ContactScreen";
 import { Image } from "cloudinary-react";
 import CategoryListScreen from "./screens/CategoryListScreen";
-import Feedback from "./screens/Feedback";
+import useScreenDimension from "./hooks/use-ScreenResolution";
 
 function App() {
   const userSignIn = useSelector((state) => state.userSignIn);
@@ -36,6 +37,7 @@ function App() {
   if (userSignIn.userInfo) {
     ({ userInfo } = userSignIn);
   }
+
   const cart = useSelector((state) => state.cartDetails);
   let cartItems;
   if (cart) {
@@ -48,10 +50,16 @@ function App() {
     }, 0);
   }
 
+  const { width } = useScreenDimension();
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(listCategories());
+  }, [dispatch]);
+
   // const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
   const [openModal, setopenModal] = useState(false);
 
-  const dispatch = useDispatch();
   const signoutHandler = () => {
     if (window.confirm("Are you sure you want to signout?")) {
       dispatch(signout());
@@ -74,28 +82,22 @@ function App() {
                 Kapil Agencies
               </Link>
             </div>
-            <div className="row cont-info">
-              <i className="fa fa-envelope header-icon"></i>
-              <p>{"admin-yash@kapilagencies.com"}</p>
-            </div>
-            <div className="row cont-info">
-              <i className="fa fa-phone header-icon"></i>
-              <p>{"+91-9491818181"}</p>
-            </div>
-            <div className="row header-soc-icon">
-              <div>
-                <i className="fa fa-facebook"></i>
+            {width > 1210 && (
+              <div className="row header-soc-icon">
+                <div>
+                  <i className="fa fa-facebook"></i>
+                </div>
+                <div>
+                  <i className="fa fa-twitter"></i>
+                </div>
+                <div>
+                  <i className="fa fa-instagram"></i>
+                </div>
+                <div>
+                  <i className="fa fa-youtube"></i>
+                </div>
               </div>
-              <div>
-                <i className="fa fa-twitter"></i>
-              </div>
-              <div>
-                <i className="fa fa-instagram"></i>
-              </div>
-              <div>
-                <i className="fa fa-youtube"></i>
-              </div>
-            </div>
+            )}
           </header>
           <div className="row sec-head">
             <div className="sec-head-ele">
@@ -105,7 +107,6 @@ function App() {
                   setopenModal(true);
                 }}
               ></i>
-
               <Route
                 render={({ history }) => (
                   <SearchBox
@@ -113,6 +114,7 @@ function App() {
                       setopenModal(false);
                     }}
                     show={openModal}
+                    setShow={setopenModal}
                     history={history}
                   ></SearchBox>
                 )}
@@ -124,6 +126,7 @@ function App() {
                 Home
               </Link>
             </div>
+
             <div className="dropdown sec-head-ele">
               Shop
               <ul className="dropdown-content">
@@ -131,12 +134,12 @@ function App() {
                   <Link
                     to={`/search/category/all/name/all/min/0/max/99999/rating/0/order/newest`}
                   >
-                    Products
+                    All Products
                   </Link>
                 </li>
                 <li>
                   <Link to="/cart">
-                    Cart{" "}
+                    Your Cart{" "}
                     {numberofitems !== 0 && (
                       <span className="badge">{numberofitems}</span>
                     )}
@@ -147,36 +150,44 @@ function App() {
                 </li>
               </ul>
             </div>
+
             <div className="sec-head-ele">
               <Link className="home" to="/aboutus">
                 About Us
               </Link>
             </div>
-            <div className="sec-head-ele">
-              <Link className="home" to="/feedback">
-                Feedback
-              </Link>
-            </div>
+
             <div className="sec-head-ele">
               <Link className="home" to="/contactus">
                 Contact Us
               </Link>
             </div>
+
+            {userInfo && (
+              <div className="sec-head-ele">
+                <Link className="home" to="/orderhistory">
+                  <i className="fa fa-history"></i> Your Orders
+                </Link>
+              </div>
+            )}
+
             <div className="sec-head-ele">
               <Link to="/cart" className="home">
-                Cart{"  "}
+                {width > 1150 && "Cart"}
+                {"  "}
                 <i className="fa fa-shopping-cart"></i>
                 {numberofitems !== 0 && (
                   <span className="badge">{numberofitems}</span>
                 )}
               </Link>
             </div>
+
             <div className="sec-head-ele">
               {userInfo ? (
                 <Link to="/profile" className="home">
                   <i className="fa fa-user-circle"></i>
                   {"  "}
-                  {userInfo.name}
+                  {width > 1150 && userInfo.name}
                 </Link>
               ) : (
                 <Link to="/signin" className="home">
@@ -185,17 +196,19 @@ function App() {
                 </Link>
               )}
             </div>
-            <div className="sec-head-ele">
-              <Link className="home" to="#signout" onClick={signoutHandler}>
-                Sign Out
-              </Link>
-            </div>
+
+            {userInfo && (
+              <div className="sec-head-ele">
+                <Link className="home" to="#signout" onClick={signoutHandler}>
+                  <i className="fa fa-sign-out"></i> Sign Out
+                </Link>
+              </div>
+            )}
+
             <div>
               {userInfo && userInfo.isAdmin && (
-                <div className="dropdown">
-                  <Link to="#admin" className="home">
-                    Admin <i className="fa fa-caret-down sec-head-ele"></i>
-                  </Link>
+                <div className="dropdown sec-head-ele">
+                  Admin
                   <ul className="dropdown-content">
                     <li>
                       <Link to="/orderList">Orders</Link>
@@ -267,7 +280,6 @@ function App() {
             <Route path="/orders/:id" component={OrderScreen}></Route>
             <Route path="/orderhistory" component={OrderHistoryScreen}></Route>
             <Route path="/contactus" component={ContactScreen}></Route>
-            <Route path="/feedback" component={Feedback}></Route>
             <Route
               path="/search/category/:category/name/:name/min/:min/max/:max/rating/:rating/order/:order"
               component={SearchScreen}

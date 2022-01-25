@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
 
 function SearchBox(props) {
   const [name, setname] = useState("all");
@@ -12,6 +11,8 @@ function SearchBox(props) {
 
   const submitHandler = (e) => {
     e.preventDefault();
+    props.setShow(false);
+    props.history.push(getFilterUrl({ name: name }));
     // console.log(e);
   };
 
@@ -35,6 +36,7 @@ function SearchBox(props) {
           <div className="row search">
             <span>
               <input
+                autoFocus="true"
                 type="text"
                 name="q"
                 id="q"
@@ -43,14 +45,12 @@ function SearchBox(props) {
               ></input>
             </span>
             <button className="primary" type="submit">
-              <Link to={getFilterUrl({ name: name })}>
-                <div className="row">
-                  <i className="fa fa-search" onClick={props.onClose}>
-                    {" "}
-                    Search
-                  </i>
-                </div>
-              </Link>
+              <div className="row">
+                <i className="fa fa-search" onClick={props.onClose}>
+                  {" "}
+                  Search
+                </i>
+              </div>
             </button>
           </div>
         </form>

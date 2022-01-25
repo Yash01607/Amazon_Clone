@@ -71,7 +71,7 @@ const OrderScreen = (props) => {
     <MessageBox variant="danger">{error}</MessageBox>
   ) : (
     <div className="main-pad">
-      <h1 className="heading">Order: {order._id}</h1>
+      <h1 className="heading">Order# {order._id}</h1>
       <div className="row top">
         <div className="col-2">
           <ul>
@@ -152,13 +152,19 @@ const OrderScreen = (props) => {
                           </td>
                           <td>
                             <b>
-                              <h2>INR.{item.price}</h2>
+                              <h2>
+                                <i className="fa fa-inr"></i>
+                                {item.price}
+                              </h2>
                             </b>
                           </td>
                           <td>{item.qty}</td>
                           <td>
                             <b>
-                              <h2>INR.{item.qty * item.price}</h2>
+                              <h2>
+                                <i className="fa fa-inr"></i>
+                                {item.qty * item.price}
+                              </h2>
                             </b>
                           </td>
                         </tr>
@@ -176,19 +182,28 @@ const OrderScreen = (props) => {
               <li>
                 <div className="row">
                   <div>Items</div>
-                  <div>INR.{order.itemsPrice}</div>
+                  <div>
+                    <i className="fa fa-inr"></i>
+                    {order.itemsPrice}
+                  </div>
                 </div>
               </li>
               <li>
                 <div className="row">
                   <div>Shipping</div>
-                  <div>INR.{order.shippingPrice}</div>
+                  <div>
+                    <i className="fa fa-inr"></i>
+                    {order.shippingPrice}
+                  </div>
                 </div>
               </li>
               <li>
                 <div className="row">
                   <div>Tax</div>
-                  <div>INR.{order.taxPrice}</div>
+                  <div>
+                    <i className="fa fa-inr"></i>
+                    {order.taxPrice}
+                  </div>
                 </div>
               </li>
               <li>
@@ -197,7 +212,10 @@ const OrderScreen = (props) => {
                     <strong>Order Total</strong>
                   </div>
                   <div>
-                    <strong>INR.{order.totalPrice}</strong>
+                    <strong>
+                      <i className="fa fa-inr"></i>
+                      {order.totalPrice}
+                    </strong>
                   </div>
                 </div>
               </li>

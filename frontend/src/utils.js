@@ -2,32 +2,32 @@ export const prices = [
   {
     name: "Any",
     min: 0,
-    max: 99999,
+    max: 9999999,
   },
   {
-    name: `INR 1 to INR 10`,
-    min: 1,
-    max: 10,
-  },
-  {
-    name: "INR 10 to INR 100",
-    min: 10,
-    max: 100,
-  },
-  {
-    name: "INR 100 to INR 1000",
-    min: 100,
+    name: `Under \u20B91000`,
+    min: 0,
     max: 1000,
   },
   {
-    name: "INR 1000 to INR 10000",
+    name: "\u20B91000 - \u20B95000",
     min: 1000,
+    max: 5000,
+  },
+  {
+    name: "\u20B95000 - \u20B910000",
+    min: 5000,
     max: 10000,
   },
   {
-    name: "INR 10000 to INR 100000",
+    name: "\u20B910000 - \u20B920000",
     min: 10000,
-    max: 100000,
+    max: 20000,
+  },
+  {
+    name: "Over \u20B920000",
+    min: 20000,
+    max: 9999999,
   },
 ];
 
