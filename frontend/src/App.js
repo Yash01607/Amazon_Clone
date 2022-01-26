@@ -130,24 +130,24 @@ function App() {
             <div className="dropdown sec-head-ele">
               Shop
               <ul className="dropdown-content">
-                <li>
-                  <Link
-                    to={`/search/category/all/name/all/min/0/max/99999/rating/0/order/newest`}
-                  >
-                    All Products
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/cart">
+                <Link
+                  to={`/search/category/all/name/all/min/0/max/99999/rating/0/order/newest`}
+                >
+                  <li>All Products</li>
+                </Link>
+
+                <Link to="/cart">
+                  <li>
                     Your Cart{" "}
                     {numberofitems !== 0 && (
                       <span className="badge">{numberofitems}</span>
                     )}
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/shipping">Checkout</Link>
-                </li>
+                  </li>
+                </Link>
+
+                <Link to="/shipping">
+                  <li>Checkout</li>
+                </Link>
               </ul>
             </div>
 
@@ -210,18 +210,19 @@ function App() {
                 <div className="dropdown sec-head-ele">
                   Admin
                   <ul className="dropdown-content">
-                    <li>
-                      <Link to="/orderList">Orders</Link>
-                    </li>
-                    <li>
-                      <Link to="/products">Products</Link>
-                    </li>
-                    <li>
-                      <Link to="/userList">Users</Link>
-                    </li>
-                    <li>
-                      <Link to="categorylist">Categories</Link>
-                    </li>
+                    <Link to="/orderList">
+                      <li>Orders</li>
+                    </Link>
+
+                    <Link to="/products">
+                      <li>Products</li>
+                    </Link>
+                    <Link to="/userList">
+                      <li>Users</li>
+                    </Link>
+                    <Link to="categorylist">
+                      <li>Categories</li>
+                    </Link>
                   </ul>
                 </div>
               )}

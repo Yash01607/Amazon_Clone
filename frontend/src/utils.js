@@ -6,7 +6,7 @@ export const prices = [
   },
   {
     name: `Under \u20B91000`,
-    min: 0,
+    min: 0.0000001,
     max: 1000,
   },
   {

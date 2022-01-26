@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { detailsProduct } from "../actions/productActions";
+import { createComment, detailsProduct } from "../actions/productActions";
 import { addToCart } from "../actions/CartActions";
 import Rating from "../components/Rating";
 import { Image } from "cloudinary-react";
@@ -25,14 +25,36 @@ const ProductScreen = (props) => {
 
   const [qty, setQty] = useState(initialQty);
 
-  const dispatch = useDispatch();
-  const productDetails = useSelector((state) => state.productDetails);
+  const [rating, setrating] = useState("");
+  const [comment, setcomment] = useState("");
 
+  const dispatch = useDispatch();
+
+  const productDetails = useSelector((state) => state.productDetails);
   const { product, loading, error } = productDetails;
 
+  const productReviewCreate = useSelector((state) => state.productReviewCreate);
+  const {
+    success: successReviewCreate,
+    loading: loadingReviewCreate,
+    error: errorReviewCreate,
+  } = productReviewCreate;
+
+  const userSignIn = useSelector((state) => state.userSignIn);
+  let userInfo = null;
+  if (userSignIn.userInfo) {
+    ({ userInfo } = userSignIn);
+  }
+
   useEffect(() => {
+    if (successReviewCreate) {
+      window.alert("Review SUbmitted Successfully");
+      setrating("");
+      setcomment("");
+      dispatch({ type: "PRODUCT_REVIEW_CREATE_RESET" });
+    }
     dispatch(detailsProduct(productId));
-  }, [dispatch, productId]);
+  }, [dispatch, productId, successReviewCreate]);
 
   const qtyChangeHandler = (event) => {
     setQty(event.target.value);
@@ -42,9 +64,22 @@ const ProductScreen = (props) => {
     dispatch(addToCart(productId, qty));
     props.history.push("/cart");
   };
-  if (product && product.image && product.image.data) {
-    console.log(product.image.data.public_id);
+
+  const reviewSubmitHandler = (e) => {
+    e.preventDefault();
+    if (comment && rating) {
+      dispatch(
+        createComment(productId, { rating, comment, name: userInfo.name })
+      );
+    } else {
+      alert("Please Enter Comment and Rating");
+    }
+  };
+
+  if (errorReviewCreate) {
+    console.log(errorReviewCreate);
   }
+
   return (
     <div className="product-screen main-pad">
       {loading ? (
@@ -145,7 +180,77 @@ const ProductScreen = (props) => {
               </ul>
             </div>
           </div>
-          <h1>{product.name}</h1>
+          <div className="reviews">
+            <h2>Reviews</h2>
+            {product.reviews && product.reviews.length === 0 && (
+              <MessageBox>There are no reviews yet.</MessageBox>
+            )}
+            {product.reviews && product.reviews.length > 0 && (
+              <ul>
+                {product.reviews.map((review) => (
+                  <li key={review._id}>
+                    <div className="row">
+                      <div className="row">
+                        <strong>{review.name} </strong>
+                        <p className="review_date">
+                          {" "}
+                          Reviewd on {review.createdAt.substring(0, 10)}
+                        </p>
+                      </div>
+                      <Rating rating={review.rating} numReviews=""></Rating>
+                    </div>
+                    <p>{review.comment}</p>
+                  </li>
+                ))}
+              </ul>
+            )}
+            {userInfo ? (
+              <form className="form" onSubmit={reviewSubmitHandler}>
+                <div>
+                  <h2>Write A Review</h2>
+                </div>
+                <div>
+                  <select
+                    id="rating"
+                    value={rating}
+                    onChange={(e) => setrating(e.target.value)}
+                  >
+                    <option value="">Select Rating</option>
+                    <option value="1">1- Poor</option>
+                    <option value="2">2- Fair</option>
+                    <option value="3">3- Good</option>
+                    <option value="4">4- Very Good</option>
+                    <option value="5">5- Excellent</option>
+                  </select>
+                </div>
+                <div>
+                  <input
+                    placeholder="Write A Review"
+                    id="comment"
+                    value={comment}
+                    onChange={(e) => setcomment(e.target.value)}
+                  ></input>
+                </div>
+                <div>
+                  <button className="block primary" type="submit">
+                    Submit Review
+                  </button>
+                </div>
+                <div>
+                  {loadingReviewCreate && <div>Saving...</div>}
+                  {errorReviewCreate && (
+                    <MessageBox variant="danger">
+                      {errorReviewCreate}
+                    </MessageBox>
+                  )}
+                </div>
+              </form>
+            ) : (
+              <MessageBox>
+                Please <Link to="/signin">Sign In</Link> to write a review.
+              </MessageBox>
+            )}
+          </div>
         </div>
       )}
     </div>

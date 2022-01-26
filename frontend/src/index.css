@@ -550,7 +550,6 @@ a.brand {
 }
 .prod .price-rating {
   border-bottom: 0.05rem solid rgb(233, 233, 233);
-  padding: 2rem 0 2rem 0;
 }
 .prod .price-description {
   padding: 2rem 0 2rem 0;
@@ -877,6 +876,7 @@ img.large {
 }
 .search-sidebar li:hover {
   background-color: rgb(218, 218, 218);
+  color: black;
 }
 
 @keyframes modal {
@@ -1017,4 +1017,30 @@ img.large {
 .payment-option-form label {
   padding-bottom: 2rem;
   height: 2rem;
+}
+
+/* Reviews */
+
+.reviews {
+  margin: 5rem 8% 5rem 8%;
+}
+
+.reviews strong {
+  font-size: 2.5rem;
+  margin-right: 1rem;
+}
+.reviews form {
+  margin-top: 5rem;
+}
+.reviews li:nth-of-type(even) {
+  padding: 0.5rem 2% 0.5rem 2%;
+}
+
+.reviews li:nth-of-type(odd) {
+  padding: 2rem 2% 2rem 2%;
+  background-color: rgb(220, 255, 215);
+}
+.review_date {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
 }

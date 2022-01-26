@@ -25,7 +25,7 @@ export const listPoducts =
   };
 
 const saveProduct = (product) => async (dispatch) => {
-  console.log("In Save Product Action");
+  // console.log("In Save Product Action");
   try {
     dispatch({ type: "PRODUCT_SAVE_REQUEST", payload: product });
 
@@ -96,4 +96,31 @@ const detailsProduct = (productId) => {
   };
 };
 
-export { detailsProduct, saveProduct, deleteProduct };
+const createComment = (productId, review) => async (dispatch) => {
+  try {
+    dispatch({ type: "PRODUCT_REVIEW_CREATE_REQUEST" });
+
+    let userInfo = {};
+    if (Cookies.get("userInfo")) {
+      userInfo = JSON.parse(Cookies.get("userInfo"));
+    }
+
+    const { data } = await axios.post(
+      `/api/products/${productId}/reviews`,
+      review,
+      {
+        headers: {
+          Authorization: "Bearer" + userInfo.token,
+        },
+      }
+    );
+    dispatch({ type: "PRODUCT_REVIEW_CREATE_SUCCESS", payload: data });
+  } catch (error) {
+    dispatch({
+      type: "PRODUCT_REVIEW_CREATE_FAILED",
+      payload: error.response.data.msg,
+    });
+  }
+};
+
+export { detailsProduct, saveProduct, deleteProduct, createComment };

@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Image } from "cloudinary-react";
 import Cookies from "js-cookie";
 
 import { listCategories } from "../actions/CategoryActions";
@@ -62,12 +63,6 @@ const ProductEditScreen = (props) => {
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
-    if (!previewSource) {
-      return;
-    }
-    if (!successUpload) {
-      uploadImage(previewSource);
-    }
     dispatch(
       saveProduct({
         _id: id,
@@ -117,10 +112,6 @@ const ProductEditScreen = (props) => {
   };
 
   const uploadImage = async (image) => {
-    // console.log(image);
-    // const bodyFormData = new FormData();
-    // bodyFormData.append("image", file);
-    // console.log("prveij source" + previewSource);
     setloadingUpload(true);
     try {
       const { data } = await axios.post(
@@ -191,7 +182,7 @@ const ProductEditScreen = (props) => {
           </div>
           <div>
             {/* <label htmlFor="imageFile">Image File</label> */}
-            {previewSource && (
+            {previewSource ? (
               <div>
                 <img
                   src={previewSource}
@@ -208,13 +199,21 @@ const ProductEditScreen = (props) => {
                   Please click to Upload Image
                 </button>
               </div>
+            ) : (
+              image &&
+              image.data && (
+                <Image
+                  cloudName="df7lcoica"
+                  publicId={product.image.data.public_id}
+                  style={{ height: "30rem", width: "29rem" }}
+                ></Image>
+              )
             )}
             <input
               type="file"
               name="image"
               id="imageFile"
               label="choose Image"
-              required
               placeholder="Upload Image"
               onChange={uploadFileHandler}
             ></input>

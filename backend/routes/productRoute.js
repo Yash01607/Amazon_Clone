@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
   const max =
     req.query.max && Number(req.query.max) !== 0
       ? Number(req.query.max)
-      : 99999;
+      : 9999999;
   const rating =
     req.query.rating && Number(req.query.rating) !== 0
       ? Number(req.query.rating)
@@ -36,7 +36,7 @@ router.get("/", async (req, res) => {
       ? { category: 1 }
       : { id: -1 };
   // console.log(rating);
-  // console.log(categoryFilter);
+  // console.log(PriceFilter);
 
   const products = await Product.find({
     ...nameFilter,
@@ -113,6 +113,37 @@ router.delete("/:id", isAuth, isAdmin, async (req, res) => {
   } else {
     res.send("Error in Deleting Product");
   }
+});
+
+router.post("/:id/reviews", isAuth, async (req, res) => {
+  const productId = req.params.id;
+  const product = await Product.findById(productId);
+  if (product) {
+    if (product.reviews.find((x) => x.name === req.user.name)) {
+      return res.status(400).send({ msg: "You already reviewd this product" });
+    }
+    const review = {
+      name: req.user.name,
+      rating: Number(req.body.rating),
+      comment: req.body.comment,
+    };
+
+    product.reviews.push(review);
+    product.numreviews = product.reviews.length;
+    product.rating =
+      product.reviews.reduce((a, c) => c.rating + a, 0) /
+      product.reviews.length;
+
+    const updatedProduct = await product.save();
+    if (updatedProduct) {
+      return res.status(201).send({
+        msg: "Review Created",
+        data: updatedProduct.reviews[updatedProduct.reviews.length - 1],
+      });
+    }
+    return res.status(500).send({ msg: "Error in Creating Review" });
+  }
+  return res.status(500).send({ msg: "Error in Creating Review" });
 });
 
 export default router;

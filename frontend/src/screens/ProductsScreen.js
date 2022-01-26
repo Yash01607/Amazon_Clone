@@ -79,7 +79,7 @@ const ProductsScreen = (props) => {
                       )}
                     </Link>
                   </td>
-                  <td>
+                  <td className="table-name">
                     <Link to={"/product/" + product._id} className="name">
                       {product.name}
                     </Link>

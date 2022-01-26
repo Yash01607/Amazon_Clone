@@ -97,7 +97,7 @@ function SearchScreen(props) {
                   value={category}
                   onChange={(e) => {
                     props.history.push(
-                      getFilterUrl({ category: e.target.value })
+                      getFilterUrl({ category: e.target.value, name: "all" })
                     );
                   }}
                 >
@@ -161,7 +161,11 @@ function SearchScreen(props) {
                     className={`${r.rating}` === `${rating}` ? "active" : ""}
                     to={getFilterUrl({ rating: r.rating })}
                   >
-                    <Rating caption={` &up`} rating={r.rating}></Rating>
+                    <Rating
+                      caption={` &up`}
+                      rating={r.rating}
+                      numReviews=""
+                    ></Rating>
                   </Link>
                 </li>
               ))}

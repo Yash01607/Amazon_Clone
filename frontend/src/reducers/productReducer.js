@@ -14,5 +14,24 @@ function productListReducer(state = { products: [] }, action) {
       return state;
   }
 }
+function reviewCreateReducer(state = { product: {} }, action) {
+  // console.log("Created");
+  switch (action.type) {
+    case "PRODUCT_REVIEW_CREATE_REQUEST":
+      return { loading: true };
 
-export { productListReducer };
+    case "PRODUCT_REVIEW_CREATE_SUCCESS":
+      return { loading: false, success: true, review: action.payload };
+
+    case "PRODUCT_REVIEW_CREATE_FAILED":
+      return { loading: false, error: action.payload };
+
+    case "PRODUCT_REVIEW_CREATE_RESET":
+      return {};
+
+    default:
+      return state;
+  }
+}
+
+export { productListReducer, reviewCreateReducer };
