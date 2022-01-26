@@ -1044,3 +1044,60 @@ img.large {
   font-size: 1.5rem;
   margin-bottom: 1rem;
 }
+
+/* Order ststus*/
+
+.order_status .row h2 {
+  align-self: right;
+  width: 35%;
+}
+.order_status .row .order_status_dots {
+  width: 15%;
+}
+.order_status .row p {
+  width: 50%;
+}
+.order_status_dots {
+  text-align: center;
+  position: relative;
+  padding: auto 1rem auto 1rem;
+  width: 3rem;
+  /* padding-right: 50%; */
+}
+.last {
+  display: flex;
+  align-items: flex-end;
+}
+
+.black_dot {
+  height: 10px;
+  width: 10px;
+  background-color: rgb(196, 196, 196);
+  border-radius: 50%;
+  display: inline-block;
+}
+.yellow_dot {
+  height: 10px;
+  width: 10px;
+  background-color: #fdbd0d;
+  border-radius: 50%;
+  /* border: 0.3rem black solid; */
+  display: inline-block;
+}
+.black_dot_name {
+  height: 15px;
+  width: 15px;
+  background-color: rgb(196, 196, 196);
+  border-radius: 50%;
+  display: inline-block;
+  vertical-align: middle;
+}
+.yellow_dot_name {
+  height: 15px;
+  width: 15px;
+  background-color: #fdbd0d;
+  /* border: 0.3rem black solid; */
+  border-radius: 50%;
+  display: inline-block;
+  vertical-align: middle;
+}

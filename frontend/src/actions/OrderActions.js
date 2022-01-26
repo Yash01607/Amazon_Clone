@@ -143,6 +143,56 @@ const deliverOrder = (orderId) => async (dispatch, getState) => {
   }
 };
 
+const packOrder = (orderId) => async (dispatch) => {
+  dispatch({ type: "ORDER_PACK_REQUEST", payload: orderId });
+  let userInfo = {};
+  if (Cookies.get("userInfo")) {
+    userInfo = JSON.parse(Cookies.get("userInfo"));
+  }
+  try {
+    const { data } = await axios.put(
+      `/api/orders/${orderId}/pack`,
+      {},
+      {
+        headers: { Authorization: `Bearer${userInfo.token}` },
+      }
+    );
+    // console.log(data.order);
+    dispatch({ type: "ORDER_PACK_SUCCESS", payload: data.order });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({ type: "ORDER_PACK_FAIL", payload: message });
+  }
+};
+
+const dispatchOrder = (orderId) => async (dispatch) => {
+  dispatch({ type: "ORDER_DISPATCH_REQUEST", payload: orderId });
+  let userInfo = {};
+  if (Cookies.get("userInfo")) {
+    userInfo = JSON.parse(Cookies.get("userInfo"));
+  }
+  try {
+    const { data } = await axios.put(
+      `/api/orders/${orderId}/dispatch`,
+      {},
+      {
+        headers: { Authorization: `Bearer${userInfo.token}` },
+      }
+    );
+    // console.log(data.order);
+    dispatch({ type: "ORDER_DISPATCH_SUCCESS", payload: data.order });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({ type: "ORDER_DISPATCH_FAIL", payload: message });
+  }
+};
+
 const payOrder = (order, paymentResult) => (dispatch) => {
   dispatch({ type: "ORDER_PAY_REQUEST", payload: { order, paymentResult } });
   let userInfo = {};
@@ -150,6 +200,7 @@ const payOrder = (order, paymentResult) => (dispatch) => {
     userInfo = JSON.parse(Cookies.get("userInfo"));
   }
   try {
+    // console.log(`in Order Pay ACtion ${order}`);
     const { data } = axios.put(`/api/orders/${order._id}/pay`, paymentResult, {
       headers: { Authorization: `Bearer${userInfo.token}` },
     });
@@ -159,11 +210,10 @@ const payOrder = (order, paymentResult) => (dispatch) => {
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message;
-        // console.log(error);
+    // console.log(error);
     dispatch({ type: "ORDER_PAY_FAIL", payload: message });
   }
 };
-
 export {
   createOrder,
   detailsOrder,
@@ -172,4 +222,6 @@ export {
   deletedOrder,
   payOrder,
   deliverOrder,
+  packOrder,
+  dispatchOrder,
 };

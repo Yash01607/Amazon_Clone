@@ -54,7 +54,7 @@ export default function OrderHistoryScreen(props) {
                     {order.paidAt.substring(0, 10)}
                   </td>
                 ) : (
-                  <td className="danger-sts">Not Delivered</td>
+                  <td className="danger-sts">Not Paid</td>
                 )}
 
                 {order.isDelivered ? (
@@ -62,7 +62,7 @@ export default function OrderHistoryScreen(props) {
                     {order.deliveredAt.substring(0, 10)}
                   </td>
                 ) : (
-                  <td className="danger-sts">Not Paid</td>
+                  <td className="danger-sts">Not Delivered</td>
                 )}
                 <td>
                   <button

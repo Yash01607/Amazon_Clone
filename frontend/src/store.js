@@ -4,8 +4,10 @@ import Cookies from "js-cookie";
 import {
   productListReducer,
   reviewCreateReducer,
+  productDetailsReducer,
+  productDeleteReducer,
+  productSavesReducer,
 } from "./reducers/productReducer";
-import productDetailsReducer from "./reducers/productDetailsReducer";
 import CartReducers from "./reducers/CartReducers";
 import {
   userDeleteReducer,
@@ -16,8 +18,6 @@ import {
   userUpdateProfileReducer,
   userUpdateReducer,
 } from "./reducers/userReducers";
-import productSavesReducer from "./reducers/productSaveReducer";
-import productDeleteReducer from "./reducers/ProductdeleteReducer";
 import {
   orderCreateReducer,
   orderDeleteReducer,
@@ -26,6 +26,8 @@ import {
   orderMineListReducer,
   orderDeliverReducer,
   orderPayReducer,
+  orderPackReducer,
+  orderDispatchReducer,
 } from "./reducers/orderReducers";
 import {
   categoryDeleteReducer,
@@ -75,6 +77,8 @@ const reducer = combineReducers({
   orderList: orderListReducer,
   orderDelete: orderDeleteReducer,
   orderDeliver: orderDeliverReducer,
+  orderPack: orderPackReducer,
+  orderDispatch: orderDispatchReducer,
   orderPay: orderPayReducer,
   userList: userListReducer,
   userDelete: userDeleteReducer,

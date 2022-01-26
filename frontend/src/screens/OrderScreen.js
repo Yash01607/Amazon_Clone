@@ -1,40 +1,58 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { detailsOrder, deliverOrder, payOrder } from "../actions/OrderActions";
+import {
+  detailsOrder,
+  deliverOrder,
+  payOrder,
+  packOrder,
+  dispatchOrder,
+} from "../actions/OrderActions";
 import Cookies from "js-cookie";
 import MessageBox from "../components/MessageBox";
 import { Image } from "cloudinary-react";
+import OrderStatus from "../components/OrderStatus";
 
 const OrderScreen = (props) => {
   const [paymentResult, setpaymentResult] = useState(false);
 
   const orderId = props.match.params.id;
 
-  const orderDetails = useSelector((state) => state.orderDetails);
-
-  const { order, loading, error } = orderDetails;
-
   let userInfo = {};
   if (Cookies.get("userInfo")) {
     userInfo = JSON.parse(Cookies.get("userInfo"));
   }
 
-  // console.log("orderScreen");
+  const orderDetails = useSelector((state) => state.orderDetails);
+  const { order, loading, error } = orderDetails;
 
   const orderDeliver = useSelector((state) => state.orderDeliver);
-  // let successDeliver = false;
-  // let loadingDeliver;
-  // let errorDeliver;
   const {
     loading: loadingDeliver,
     error: errorDeliver,
     success: successDeliver,
   } = orderDeliver;
 
-  const orderPay = useSelector((state) => state.orderPay);
+  const orderPack = useSelector((state) => state.orderPack);
+  const {
+    loading: loadingPack,
+    error: errorPack,
+    success: successPack,
+  } = orderPack;
 
-  const { loading: loadingPay, success: successPay } = orderPay;
+  const orderPay = useSelector((state) => state.orderPay);
+  const {
+    loading: loadingPay,
+    success: successPay,
+    error: errorPay,
+  } = orderPay;
+
+  const orderDispatch = useSelector((state) => state.orderDispatch);
+  const {
+    loading: loadingDispatch,
+    success: successDispatch,
+    error: errorDispatch,
+  } = orderDispatch;
 
   const dispatch = useDispatch();
 
@@ -58,12 +76,22 @@ const OrderScreen = (props) => {
     props.history.push("/pay");
   };
 
+  const packingHandler = () => {
+    dispatch(packOrder(order._id));
+  };
+
+  const dispatchHandler = () => {
+    dispatch(dispatchOrder(order._id));
+  };
+
   const adminPaymentHandler = () => {
     if (order) {
       setpaymentResult(!paymentResult);
       dispatch(payOrder(order, paymentResult));
     }
   };
+
+  console.log(order);
 
   return loading ? (
     <p className="loading">Loading...</p>
@@ -230,41 +258,187 @@ const OrderScreen = (props) => {
                   </button>
                 </li>
               )}
-              {userInfo.isAdmin && !order.isDelivered && (
-                <>
-                  <li>
-                    <button
-                      type="button"
-                      className="block primary"
-                      onClick={deliverHandler}
-                    >
-                      Deliver
-                    </button>
-                  </li>
-                  {loadingDeliver && <li>Loading...</li>}
-                  {errorDeliver && (
-                    <li>
-                      <MessageBox variant="danger">{errorDeliver}</MessageBox>
-                    </li>
-                  )}
-                </>
-              )}
-              {userInfo.isAdmin && !order.isPaid && (
-                <>
-                  <li>
-                    <button
-                      type="button"
-                      className="block primary"
-                      onClick={adminPaymentHandler}
-                    >
-                      Set order to paid.
-                    </button>
-                  </li>
-                  {loadingPay && <li>Loading...</li>}
-                </>
-              )}
             </ul>
           </div>
+          <div className="card-1 card-body">
+            <div className="order_status">
+              <div className="row">
+                <h2>Paid</h2>
+                <OrderStatus status={order.isPaid} last={false} />
+                {order.paidAt ? (
+                  <p>
+                    Paid At: <br></br> {order.paidAt.substring(0, 10)} (
+                    {order.paidAt.substring(11, 19)})
+                  </p>
+                ) : (
+                  <p>Not Paid</p>
+                )}
+              </div>
+              <div className="row">
+                <h2>Packed</h2>
+                <OrderStatus status={order.isPacked} last={false}></OrderStatus>
+                {order.packedAt ? (
+                  <p>
+                    Packed At: <br></br>
+                    {order.packedAt.substring(0, 10)} (
+                    {order.packedAt.substring(11, 19)})
+                  </p>
+                ) : (
+                  <p>To be Packed.</p>
+                )}
+              </div>
+              <div className="row">
+                <h2>Dispatched</h2>
+                <OrderStatus
+                  status={order.isDispatched}
+                  last={false}
+                ></OrderStatus>
+                {order.dispatchedAt ? (
+                  <p>
+                    Dispatched At: <br></br>
+                    {order.dispatchedAt.substring(0, 10)} (
+                    {order.dispatchedAt.substring(11, 19)})
+                  </p>
+                ) : (
+                  <p>To be Dispatched </p>
+                )}
+              </div>
+              <div className="row last">
+                <h2>Delivered</h2>
+                <OrderStatus
+                  status={order.isDelivered}
+                  last={true}
+                ></OrderStatus>
+                {order.deliveredAt ? (
+                  <p>
+                    Delivered At: <br></br>
+                    {order.deliveredAt.substring(0, 10)} (
+                    {order.deliveredAt.substring(11, 19)})
+                  </p>
+                ) : (
+                  <p>To be Delivered.</p>
+                )}
+              </div>
+            </div>
+          </div>
+          {userInfo.isAdmin && (
+            <div>
+              <div className="card-1 card-body">
+                <div className="row">
+                  <h2>Payment Status</h2>
+                  <MessageBox variant={order.isPaid ? "success" : "danger"}>
+                    {" "}
+                    <p>{order.isPaid ? "Paid" : "Not Paid"}</p>
+                  </MessageBox>
+                  <button
+                    type="button"
+                    className={order.isPaid ? "delete" : "details"}
+                    onClick={adminPaymentHandler}
+                  >
+                    Set {order.isPaid ? "Not Paid" : "Paid"}
+                  </button>
+                </div>
+                <div>Updated by: {order.paidBy}</div>
+                {loadingPay && <p>Loading...</p>}
+                {successPay && (
+                  <MessageBox variant="success">
+                    Payment Status updated successfully. Please Refresh to see
+                    Changes
+                  </MessageBox>
+                )}
+              </div>
+
+              <div className="card-1 card-body">
+                <div className="row">
+                  <h2>Packing Status</h2>
+                  <MessageBox variant={order.isPacked ? "success" : "danger"}>
+                    {" "}
+                    <p>{order.isPacked ? "Packed" : "Not Packed"}</p>
+                  </MessageBox>
+                  <button
+                    type="button"
+                    className={order.isPacked ? "delete" : "details"}
+                    onClick={packingHandler}
+                  >
+                    Set {order.isPacked ? "Not Packed" : "Packed"}
+                  </button>
+                </div>
+                <div>Updated by: {order.packedBy}</div>
+                {loadingPack && <p>Loading...</p>}
+                {errorPack && (
+                  <MessageBox variant="danger">{errorPack}</MessageBox>
+                )}
+                {successPack && (
+                  <MessageBox variant="success">
+                    Packing Status updated successfully. Please Refresh to see
+                    Changes
+                  </MessageBox>
+                )}
+              </div>
+
+              <div className="card-1 card-body">
+                <div className="row">
+                  <h2>Dispatch Status</h2>
+                  <MessageBox
+                    variant={order.isDispatched ? "success" : "danger"}
+                  >
+                    {" "}
+                    <p>
+                      {order.isDispatched ? "Dispatched" : "Not Dispatched"}
+                    </p>
+                  </MessageBox>
+                  <button
+                    type="button"
+                    className={order.isDispatched ? "delete" : "details"}
+                    onClick={dispatchHandler}
+                  >
+                    Set {order.isDispatched ? "Not Dispatched" : "Dispatched"}
+                  </button>
+                </div>
+                <div>Updated by: {order.dispatchedBy}</div>
+                {loadingDispatch && <p>Loading...</p>}
+                {errorDispatch && (
+                  <MessageBox variant="danger">{errorPack}</MessageBox>
+                )}
+                {successDispatch && (
+                  <MessageBox variant="success">
+                    Dispatch Status updated successfully. Please Refresh to see
+                    Changes
+                  </MessageBox>
+                )}
+              </div>
+
+              <div className="card-1 card-body">
+                <div className="row">
+                  <h2>Delivery Status</h2>
+                  <MessageBox
+                    variant={order.isDelivered ? "success" : "danger"}
+                  >
+                    {" "}
+                    <p>{order.isDelivered ? "Delivered" : "Not Delivered"}</p>
+                  </MessageBox>
+                  <button
+                    type="button"
+                    className={order.isDelivered ? "delete" : "details"}
+                    onClick={deliverHandler}
+                  >
+                    Set {order.isDelivered ? "Not Delivered" : "Delivered"}
+                  </button>
+                </div>
+                <div>Updated by: {order.deliveredBy}</div>
+                {loadingDeliver && <p>Loading...</p>}
+                {errorDeliver && (
+                  <MessageBox variant="danger">{errorPack}</MessageBox>
+                )}
+                {successDeliver && (
+                  <MessageBox variant="success">
+                    Delivery Status updated successfully. Please Refresh to see
+                    Changes
+                  </MessageBox>
+                )}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

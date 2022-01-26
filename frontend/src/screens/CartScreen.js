@@ -31,81 +31,88 @@ const CartScreen = (props) => {
         <h1 className="cart-name">Shopping Cart</h1>
         {cartItems.length === 0 ? (
           <MessageBox>
-            cart is empty.{" "}
+            Cart is empty.{" "}
             <Link
               to={`/search/category/all/name/all/min/0/max/99999/rating/0/order/newest`}
             >
-              Go Shopping.
+              <button>Go Shopping.</button>
             </Link>
           </MessageBox>
         ) : (
-          <table className="table">
-            <thead>
-              <th>ITEM</th>
-              <th> </th>
-              <th>PRICE</th>
-              <th>Quantity</th>
-              <th className="total">TOTAL</th>
-              <th>REMOVE</th>
-            </thead>
-            <tbody>
-              {cartItems.map((item) => (
-                <tr>
-                  <td>
-                    <Link to={"/product/" + item.product} className="name">
-                      {item && item.image && item.image.data && (
-                        <Image
-                          cloudName="df7lcoica"
-                          publicId={item.image.data.public_id}
-                        ></Image>
-                      )}
-                    </Link>
-                  </td>
-                  <td className="table-name">
-                    <Link to={"/product/" + item.product} className="name">
-                      {item.name}
-                    </Link>
-                  </td>
-                  <td>
-                    <b>
-                      <h2>
-                        <i className="fa fa-inr"></i>
-                        {item.price}
-                      </h2>
-                    </b>
-                  </td>
-                  <td>
-                    <input
-                      value={item.qty}
-                      onChange={(event) => {
-                        dispatch(addToCart(item.product, event.target.value));
-                      }}
-                      type={"number"}
-                      min={0}
-                      max={item.countInStock}
-                    ></input>
-                  </td>
-                  <td className="total">
-                    <b>
-                      <h2>
-                        <i className="fa fa-inr"></i>
-                        {item.qty * item.price}
-                      </h2>
-                    </b>
-                  </td>
-                  <td>
-                    <button
-                      className="delete"
-                      type="button"
-                      onClick={() => removeFromCartHandler(item.product)}
-                    >
-                      Remove
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <>
+            <Link
+              to={`/search/category/all/name/all/min/0/max/99999/rating/0/order/newest`}
+            >
+              <button>Continue Shopping.</button>
+            </Link>
+            <table className="table">
+              <thead>
+                <th>ITEM</th>
+                <th> </th>
+                <th>PRICE</th>
+                <th>Quantity</th>
+                <th className="total">TOTAL</th>
+                <th>REMOVE</th>
+              </thead>
+              <tbody>
+                {cartItems.map((item) => (
+                  <tr>
+                    <td>
+                      <Link to={"/product/" + item.product} className="name">
+                        {item && item.image && item.image.data && (
+                          <Image
+                            cloudName="df7lcoica"
+                            publicId={item.image.data.public_id}
+                          ></Image>
+                        )}
+                      </Link>
+                    </td>
+                    <td className="table-name">
+                      <Link to={"/product/" + item.product} className="name">
+                        {item.name}
+                      </Link>
+                    </td>
+                    <td>
+                      <b>
+                        <h2>
+                          <i className="fa fa-inr"></i>
+                          {item.price}
+                        </h2>
+                      </b>
+                    </td>
+                    <td>
+                      <input
+                        value={item.qty}
+                        onChange={(event) => {
+                          dispatch(addToCart(item.product, event.target.value));
+                        }}
+                        type={"number"}
+                        min={0}
+                        max={item.countInStock}
+                      ></input>
+                    </td>
+                    <td className="total">
+                      <b>
+                        <h2>
+                          <i className="fa fa-inr"></i>
+                          {item.qty * item.price}
+                        </h2>
+                      </b>
+                    </td>
+                    <td>
+                      <button
+                        className="delete"
+                        type="button"
+                        onClick={() => removeFromCartHandler(item.product)}
+                      >
+                        Remove
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </>
         )}
       </div>
       {cartItems.length !== 0 && (

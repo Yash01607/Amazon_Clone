@@ -99,6 +99,36 @@ const orderDeliverReducer = (state = {}, action) => {
   }
 };
 
+const orderDispatchReducer = (state = {}, action) => {
+  switch (action.type) {
+    case "ORDER_DISPATCH_REQUEST":
+      return { loading: true };
+    case "ORDER_DISPATCH_SUCCESS":
+      return { loading: false, success: true };
+    case "ORDER_DISPATCH_FAIL":
+      return { loading: false, error: action.payload };
+    case "ORDER_DISPATCH_RESET":
+      return {};
+    default:
+      return state;
+  }
+};
+
+const orderPackReducer = (state = {}, action) => {
+  switch (action.type) {
+    case "ORDER_PACK_REQUEST":
+      return { loading: true };
+    case "ORDER_PACK_SUCCESS":
+      return { loading: false, success: true };
+    case "ORDER_PACK_FAIL":
+      return { loading: false, error: action.payload };
+    case "ORDER_PACK_RESET":
+      return {};
+    default:
+      return state;
+  }
+};
+
 const orderPayReducer = (state = {}, action) => {
   switch (action.type) {
     case "ORDER_PAY_REQUEST":
@@ -122,4 +152,6 @@ export {
   orderDeleteReducer,
   orderDeliverReducer,
   orderPayReducer,
+  orderPackReducer,
+  orderDispatchReducer,
 };

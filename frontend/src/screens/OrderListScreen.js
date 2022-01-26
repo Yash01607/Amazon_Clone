@@ -69,7 +69,7 @@ function OrderListScreen(props) {
                 <td>{order.createdAt.substring(0, 10)}</td>
                 <td>
                   <i className="fa fa-inr"></i>
-                  {order.totalPrice}
+                  <strong>{order.totalPrice}</strong>
                 </td>
                 {order.isPaid ? (
                   <td className="success-sts">
