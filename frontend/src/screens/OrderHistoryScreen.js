@@ -31,7 +31,8 @@ export default function OrderHistoryScreen(props) {
           <thead>
             <tr>
               <th>ID</th>
-              <th>DATE</th>
+              <th>Ordered On</th>
+              <th>Ordered At</th>
               <th>Total Price</th>
               <th>PAID</th>
               <th>DELIVERED</th>
@@ -43,6 +44,7 @@ export default function OrderHistoryScreen(props) {
               <tr key={order._id}>
                 <td># {order._id}</td>
                 <td>{order.createdAt.substring(0, 10)}</td>
+                <td>{order.createdAt.substring(11, 19)}</td>
                 <td>
                   <strong>
                     <i className="fa fa-inr"></i>

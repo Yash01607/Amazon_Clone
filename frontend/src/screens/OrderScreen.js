@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -14,8 +14,6 @@ import { Image } from "cloudinary-react";
 import OrderStatus from "../components/OrderStatus";
 
 const OrderScreen = (props) => {
-  const [paymentResult, setpaymentResult] = useState(false);
-
   const orderId = props.match.params.id;
 
   let userInfo = {};
@@ -59,8 +57,6 @@ const OrderScreen = (props) => {
   useEffect(() => {
     if (!order || successPay || (order && order._id !== orderId)) {
       if (!order || successDeliver || (order && order._id !== orderId)) {
-        dispatch({ type: "ORDER_DELIVER_RESET" });
-        dispatch({ type: "ORDER_PAY_RESET" });
         dispatch(detailsOrder(orderId));
       }
     }
@@ -68,12 +64,12 @@ const OrderScreen = (props) => {
 
   // console.log(order);
 
-  const deliverHandler = () => {
-    dispatch(deliverOrder(order._id));
-  };
-
   const paymentHandler = () => {
     props.history.push("/pay");
+  };
+
+  const deliverHandler = () => {
+    dispatch(deliverOrder(order._id));
   };
 
   const packingHandler = () => {
@@ -85,13 +81,11 @@ const OrderScreen = (props) => {
   };
 
   const adminPaymentHandler = () => {
-    if (order) {
-      setpaymentResult(!paymentResult);
-      dispatch(payOrder(order, paymentResult));
-    }
+    // setpaymentResult(!paymentResult);
+    dispatch(payOrder(order._id));
   };
 
-  console.log(order);
+  // console.log(order);
 
   return loading ? (
     <p className="loading">Loading...</p>
@@ -146,18 +140,20 @@ const OrderScreen = (props) => {
                 <h2>Order Items</h2>
                 <table className="table">
                   <thead>
-                    <th>ITEM</th>
-                    <th> </th>
-                    <th>PRICE</th>
-                    <th>Quantity</th>
-                    <th>TOTAL</th>
+                    <tr>
+                      <th>ITEM</th>
+                      <th> </th>
+                      <th>PRICE</th>
+                      <th>Quantity</th>
+                      <th>TOTAL</th>
+                    </tr>
                   </thead>
                   <tbody>
                     {order.orderItems.length === 0 ? (
                       <div>cart is empty</div>
                     ) : (
                       order.orderItems.map((item) => (
-                        <tr>
+                        <tr key={item._id}>
                           <td>
                             <Link to={"/product/" + item.product}>
                               {item && item.image && item.image.data && (
@@ -340,9 +336,15 @@ const OrderScreen = (props) => {
                 </div>
                 <div>Updated by: {order.paidBy}</div>
                 {loadingPay && <p>Loading...</p>}
-                {successPay && (
+                {errorPay && (
                   <MessageBox variant="success">
                     Payment Status updated successfully. Please Refresh to see
+                    Changes
+                  </MessageBox>
+                )}
+                {successPay && (
+                  <MessageBox variant="success">
+                    Payment Status updated successfully. Please Refresh to view
                     Changes
                   </MessageBox>
                 )}
@@ -370,7 +372,7 @@ const OrderScreen = (props) => {
                 )}
                 {successPack && (
                   <MessageBox variant="success">
-                    Packing Status updated successfully. Please Refresh to see
+                    Packing Status updated successfully. Please Refresh to view
                     Changes
                   </MessageBox>
                 )}
@@ -402,7 +404,7 @@ const OrderScreen = (props) => {
                 )}
                 {successDispatch && (
                   <MessageBox variant="success">
-                    Dispatch Status updated successfully. Please Refresh to see
+                    Dispatch Status updated successfully. Please Refresh to view
                     Changes
                   </MessageBox>
                 )}
@@ -410,7 +412,7 @@ const OrderScreen = (props) => {
 
               <div className="card-1 card-body">
                 <div className="row">
-                  <h2>Delivery Status</h2>
+                  <h2 style={{ margin: "0rem" }}>Delivery Status</h2>
                   <MessageBox
                     variant={order.isDelivered ? "success" : "danger"}
                   >
@@ -432,7 +434,7 @@ const OrderScreen = (props) => {
                 )}
                 {successDeliver && (
                   <MessageBox variant="success">
-                    Delivery Status updated successfully. Please Refresh to see
+                    Delivery Status updated successfully. Please Refresh to view
                     Changes
                   </MessageBox>
                 )}

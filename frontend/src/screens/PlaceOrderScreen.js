@@ -71,9 +71,8 @@ const PlaceOrderScreen = (props) => {
             </li>
             <li>
               <div className="card-1 card-body">
-                <h3>Payment</h3>
                 <p>
-                  <strong>Method: </strong>
+                  <strong>Payment Method: </strong>
                   {cart.paymentMethod.paymentMethod}
                 </p>
               </div>

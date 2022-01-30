@@ -1,6 +1,8 @@
 import express from "express";
 import expressAsyncHandler from "express-async-handler";
 import Order from "../models/orderModel.js";
+import User from "../models/userModel.js";
+import Product from "../models/productsModel.js";
 import { isAuth, isAdmin } from "../util";
 
 const orderRouter = express.Router();
@@ -8,6 +10,57 @@ const orderRouter = express.Router();
 orderRouter.get("/", isAuth, isAdmin, async (req, res) => {
   const Orders = await Order.find({}).populate("user", "name");
   res.send(Orders);
+});
+
+orderRouter.get("/summary", isAuth, isAdmin, async (req, res) => {
+  const orders = await Order.aggregate([
+    {
+      $group: {
+        _id: null,
+        numOrders: { $sum: 1 },
+        totalSales: { $sum: "$totalPrice" },
+      },
+    },
+  ]);
+
+  const users = await User.aggregate([
+    {
+      $group: {
+        _id: null,
+        numUsers: { $sum: 1 },
+      },
+    },
+  ]);
+
+  const dailyOrders = await Order.aggregate([
+    {
+      $group: {
+        _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
+        orders: { $sum: 1 },
+        sales: { $sum: "$totalPrice" },
+      },
+    },
+    {
+      $sort: { _id: 1 },
+    },
+  ]);
+
+  const productCategories = await Product.aggregate([
+    {
+      $group: {
+        _id: "$category",
+        count: { $sum: 1 },
+      },
+    },
+    {
+      $sort: { _id: 1 },
+    },
+  ]);
+  if (users && orders && dailyOrders && productCategories) {
+    res.status(200).send({ users, orders, dailyOrders, productCategories });
+  } else {
+    res.status(404).send({ message: "Request Failed" });
+  }
 });
 
 orderRouter.get("/mine", isAuth, async (req, res) => {
@@ -166,7 +219,6 @@ orderRouter.put(
       order.paidBy = req.user.name;
 
       const updatedOrder = await order.save();
-      // console.log(updatedOrder);
       res.status(200).send({ message: "Order Paid", order: updatedOrder });
     } else {
       res.status(404).send({ message: "Order Not Found" });

@@ -30,6 +30,7 @@ import ContactScreen from "./screens/ContactScreen";
 import { Image } from "cloudinary-react";
 import CategoryListScreen from "./screens/CategoryListScreen";
 import useScreenDimension from "./hooks/use-ScreenResolution";
+import DashBoardScreen from "./screens/DashBoardScreen";
 
 function App() {
   const userSignIn = useSelector((state) => state.userSignIn);
@@ -128,7 +129,12 @@ function App() {
             </div>
 
             <div className="dropdown sec-head-ele">
-              Shop
+              <Link
+                className="home"
+                to="/search/category/all/name/all/min/0/max/99999/rating/0/order/newest"
+              >
+                Shop
+              </Link>
               <ul className="dropdown-content">
                 <Link
                   to={`/search/category/all/name/all/min/0/max/99999/rating/0/order/newest`}
@@ -190,12 +196,22 @@ function App() {
                   {width > 1150 && userInfo.name}
                 </Link>
               ) : (
-                <Link to="/signin" className="home">
-                  <i className="fa fa-user-circle"></i>
-                  {"  "}SignIn
-                </Link>
+                <>
+                  <Link to="/signin" className="home">
+                    <i className="fa fa-user-circle"></i>
+                    {"  "}SignIn
+                  </Link>
+                </>
               )}
             </div>
+            {!userInfo && (
+              <div className="sec-head-ele">
+                <Link to="/register" className="home">
+                  <i className="fa fa-user-plus"></i>
+                  {"  "}Register
+                </Link>
+              </div>
+            )}
 
             {userInfo && (
               <div className="sec-head-ele">
@@ -210,10 +226,12 @@ function App() {
                 <div className="dropdown sec-head-ele">
                   Admin
                   <ul className="dropdown-content">
+                    <Link to="/dashboard">
+                      <li>Dashboard</li>
+                    </Link>
                     <Link to="/orderList">
                       <li>Orders</li>
                     </Link>
-
                     <Link to="/products">
                       <li>Products</li>
                     </Link>
@@ -293,6 +311,10 @@ function App() {
             <AdminRoute
               path="/categorylist"
               component={CategoryListScreen}
+            ></AdminRoute>
+            <AdminRoute
+              path="/dashboard"
+              component={DashBoardScreen}
             ></AdminRoute>
             <AdminRoute
               path="/userList"

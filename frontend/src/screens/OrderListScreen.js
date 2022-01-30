@@ -50,7 +50,7 @@ function OrderListScreen(props) {
             <tr>
               <th>ID</th>
               <th>USER</th>
-              <th>DATE</th>
+              <th>Ordered On</th>
               <th>Total Price</th>
               <th>PAID</th>
               <th>DELIVERED</th>

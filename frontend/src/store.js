@@ -28,6 +28,7 @@ import {
   orderPayReducer,
   orderPackReducer,
   orderDispatchReducer,
+  orderSummaryReducer,
 } from "./reducers/orderReducers";
 import {
   categoryDeleteReducer,
@@ -35,8 +36,6 @@ import {
   categorySavesReducer,
 } from "./reducers/CategoryReducers";
 
-// const cartItems = JSON.parse(Cookies.get("cartItems")) || [];
-// const cartItems = JSON.parse(obj);
 let cartItems = [];
 if (Cookies.get("cartItems")) {
   cartItems = JSON.parse(Cookies.get("cartItems"));
@@ -49,7 +48,6 @@ let shippingAddress = {};
 if (Cookies.get("shippingAddress")) {
   shippingAddress = JSON.parse(Cookies.get("shippingAddress"));
 }
-// console.log(shippingAddress);
 
 const initialState = {
   cartDetails: {
@@ -59,7 +57,6 @@ const initialState = {
   },
   userSignIn: { userInfo: userInfo },
 };
-// const initialState = {};
 
 const reducer = combineReducers({
   productList: productListReducer,
@@ -80,6 +77,7 @@ const reducer = combineReducers({
   orderPack: orderPackReducer,
   orderDispatch: orderDispatchReducer,
   orderPay: orderPayReducer,
+  orderSummary: orderSummaryReducer,
   userList: userListReducer,
   userDelete: userDeleteReducer,
   userUpdate: userUpdateReducer,

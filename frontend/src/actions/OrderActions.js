@@ -193,25 +193,47 @@ const dispatchOrder = (orderId) => async (dispatch) => {
   }
 };
 
-const payOrder = (order, paymentResult) => (dispatch) => {
-  dispatch({ type: "ORDER_PAY_REQUEST", payload: { order, paymentResult } });
+const payOrder = (orderId) => async (dispatch) => {
+  dispatch({ type: "ORDER_PAY_REQUEST", payload: { orderId } });
   let userInfo = {};
   if (Cookies.get("userInfo")) {
     userInfo = JSON.parse(Cookies.get("userInfo"));
   }
   try {
-    // console.log(`in Order Pay ACtion ${order}`);
-    const { data } = axios.put(`/api/orders/${order._id}/pay`, paymentResult, {
-      headers: { Authorization: `Bearer${userInfo.token}` },
-    });
+    const { data } = await axios.put(
+      `/api/orders/${orderId}/pay`,
+      {},
+      {
+        headers: { Authorization: `Bearer${userInfo.token}` },
+      }
+    );
     dispatch({ type: "ORDER_PAY_SUCCESS", payload: data.order });
   } catch (error) {
     const message =
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message;
-    // console.log(error);
     dispatch({ type: "ORDER_PAY_FAIL", payload: message });
+  }
+};
+
+const summaryOrder = () => async (dispatch) => {
+  dispatch({ type: "ORDER_SUMMARY_REQUEST" });
+  let userInfo = {};
+  if (Cookies.get("userInfo")) {
+    userInfo = JSON.parse(Cookies.get("userInfo"));
+  }
+  try {
+    const { data } = await axios.get(`/api/orders/summary`, {
+      headers: { Authorization: `Bearer${userInfo.token}` },
+    });
+    dispatch({ type: "ORDER_SUMMARY_SUCCESS", payload: data });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({ type: "ORDER_SUMMARY_FAIL", payload: message });
   }
 };
 export {
@@ -224,4 +246,5 @@ export {
   deliverOrder,
   packOrder,
   dispatchOrder,
+  summaryOrder,
 };
