@@ -4,8 +4,7 @@ import { useEffect, useState } from "react";
 import { signIn } from "../actions/userActions";
 import MessageBox from "../components/MessageBox";
 import socketIOClient from "socket.io-client";
-
-const ENDPOINT = "http://127.0.0.1:5000";
+import { ENDPOINT } from "../utils";
 
 const SignInScreen = (props) => {
   const [email, setEmail] = useState("");

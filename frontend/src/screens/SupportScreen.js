@@ -1,13 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 import socketIOClient from "socket.io-client";
+import { ENDPOINT } from "../utils";
 
 import MessageBox from "../components/MessageBox";
 
 let allUsers = [];
 let allMessages = [];
 let allSelectedUser = {};
-const ENDPOINT = "http://127.0.0.1:5000";
 
 const SupportScreen = () => {
   const [selectedUser, setselectedUser] = useState({});

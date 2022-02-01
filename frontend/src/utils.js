@@ -51,3 +51,5 @@ export const ratings = [
 ];
 
 export const images = ["headerImage-2_p1pfqv", "head-image_iri8yp"];
+
+export const ENDPOINT = window.location.host;
