@@ -31,6 +31,8 @@ import { Image } from "cloudinary-react";
 import CategoryListScreen from "./screens/CategoryListScreen";
 import useScreenDimension from "./hooks/use-ScreenResolution";
 import DashBoardScreen from "./screens/DashBoardScreen";
+import SupportScreen from "./screens/SupportScreen";
+import ChatBox from "./components/ChatBox";
 
 function App() {
   const userSignIn = useSelector((state) => state.userSignIn);
@@ -241,6 +243,9 @@ function App() {
                     <Link to="categorylist">
                       <li>Categories</li>
                     </Link>
+                    <Link to="/support">
+                      <li>Support</li>
+                    </Link>
                   </ul>
                 </div>
               )}
@@ -332,6 +337,7 @@ function App() {
               path="/Createprodct"
               component={CreateProductScreen}
             ></AdminRoute>
+            <AdminRoute path="/support" component={SupportScreen}></AdminRoute>
             <PrivateRoute
               path="/pay"
               component={toBeAddedSoonScreeen}
@@ -343,7 +349,12 @@ function App() {
             <Route path="/" exact component={HomeScreen} />
           </div>
         </main>
-        <footer className="row center">All right reserved.</footer>
+        <footer className="row center">
+          {userInfo && !userInfo.isAdmin && (
+            <ChatBox userInfo={userInfo}></ChatBox>
+          )}
+          <div>All right reserved.</div>
+        </footer>
       </div>
     </BrowserRouter>
   );

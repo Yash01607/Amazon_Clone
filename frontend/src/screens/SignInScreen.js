@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { signIn } from "../actions/userActions";
 import MessageBox from "../components/MessageBox";
+import socketIOClient from "socket.io-client";
+
+const ENDPOINT = "http://127.0.0.1:5000";
 
 const SignInScreen = (props) => {
   const [email, setEmail] = useState("");
@@ -21,6 +24,12 @@ const SignInScreen = (props) => {
 
   useEffect(() => {
     if (userInfo) {
+      const sk = socketIOClient(ENDPOINT);
+      sk.emit("onLogin", {
+        _id: userInfo.id,
+        name: userInfo.name,
+        isAdmin: userInfo.isAdmin,
+      });
       history.push(redirect);
     }
   }, [userInfo, history, redirect]);
