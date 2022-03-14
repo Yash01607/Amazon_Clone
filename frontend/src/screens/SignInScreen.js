@@ -54,7 +54,7 @@ const SignInScreen = (props) => {
         </div>
         <div>
           {loading && <div className="loading">Loading...</div>}
-          {error && <MessageBox variant="danger">{error}</MessageBox>}
+          {error && <MessageBox variant="danger">{"Either Email or Password is Incorrect"}</MessageBox>}
         </div>
         <div>
           <input
