@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
-import socketIOClient from "socket.io-client";
-import { ENDPOINT } from "../utils";
+import React, { useEffect, useRef, useState } from 'react';
+import socketIOClient from 'socket.io-client';
+import { ENDPOINT } from '../utils';
 
 const ChatBox = (props) => {
   const { userInfo } = props;
@@ -8,9 +8,9 @@ const ChatBox = (props) => {
   const [socket, setsocket] = useState(null);
   const uiMessagesRef = useRef(null);
   const [isOpen, setisOpen] = useState(false);
-  const [messageBody, setmessageBody] = useState("");
+  const [messageBody, setmessageBody] = useState('');
   const [messages, setmessages] = useState([
-    { name: "Admin", body: "Hello there, Please Ask your Question." },
+    { name: 'Admin', body: 'Hello there, Please Ask your Question.' },
   ]);
 
   useEffect(() => {
@@ -18,16 +18,16 @@ const ChatBox = (props) => {
       uiMessagesRef.current.scrollBy({
         top: uiMessagesRef.current.clientHeight,
         left: 0,
-        behavior: "smooth",
+        behavior: 'smooth',
       });
     }
     if (socket) {
-      socket.emit("onLogin", {
+      socket.emit('onLogin', {
         _id: userInfo.id,
         name: userInfo.name,
         isAdmin: userInfo.isAdmin,
       });
-      socket.on("message", (data) => {
+      socket.on('message', (data) => {
         setmessages([...messages, { body: data.body, name: data.name }]);
       });
     }
@@ -46,12 +46,12 @@ const ChatBox = (props) => {
     e.preventDefault();
     e.preventDefault();
     if (!messageBody.trim()) {
-      alert("Please type a message.");
+      alert('Please type a message.');
     } else {
       setmessages([...messages, { body: messageBody, name: userInfo.name }]);
-      setmessageBody("");
+      setmessageBody('');
       setTimeout(() => {
-        socket.emit("onMessage", {
+        socket.emit('onMessage', {
           body: messageBody,
           name: userInfo.name,
           isAdmin: userInfo.isAdmin,
@@ -79,7 +79,7 @@ const ChatBox = (props) => {
               <i className="fa fa-close"></i>
             </button>
           </div>
-          <ul>
+          <ul ref={uiMessagesRef}>
             {messages.map((msg, index) => (
               <li key={index}>
                 <strong>{`${msg.name}: `}</strong>
