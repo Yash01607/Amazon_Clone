@@ -173,6 +173,7 @@
     "pump": "^3.0.0",
     "pupa": "^2.1.1",
     "rc": "^1.2.8",
+    "react-router": "^6.4.2",
     "readdirp": "^3.6.0",
     "regenerate": "^1.4.2",
     "regenerate-unicode-properties": "^9.0.0",
