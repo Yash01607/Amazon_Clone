@@ -1,37 +1,37 @@
-import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { signIn } from "../actions/userActions";
-import MessageBox from "../components/MessageBox";
-import socketIOClient from "socket.io-client";
-import { ENDPOINT } from "../utils";
+import { useSelector, useDispatch } from 'react-redux';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { signIn } from '../actions/userActions';
+import MessageBox from '../components/MessageBox';
+import socketIOClient from 'socket.io-client';
+import { ENDPOINT } from '../utils';
 
 const SignInScreen = (props) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const userSignIn = useSelector((state) => state.userSignIn);
 
   const { loading, userInfo, error } = userSignIn;
 
+  const location = useLocation();
+
   const dispatch = useDispatch();
 
-  const history = props.history;
+  const navigate = useNavigate();
 
-  const redirect = props.location.search
-    ? props.location.search.split("=")[1]
-    : "/";
+  const redirect = location.search ? location.search.split('=')[1] : '/';
 
   useEffect(() => {
     if (userInfo) {
       const sk = socketIOClient(ENDPOINT);
-      sk.emit("onLogin", {
+      sk.emit('onLogin', {
         _id: userInfo.id,
         name: userInfo.name,
         isAdmin: userInfo.isAdmin,
       });
-      history.push(redirect);
+      navigate(redirect);
     }
-  }, [userInfo, history, redirect]);
+  }, [userInfo, navigate, redirect]);
 
   const emailChangeHandler = (event) => {
     setEmail(event.target.value);
@@ -54,7 +54,11 @@ const SignInScreen = (props) => {
         </div>
         <div>
           {loading && <div className="loading">Loading...</div>}
-          {error && <MessageBox variant="danger">{"Either Email or Password is Incorrect"}</MessageBox>}
+          {error && (
+            <MessageBox variant="danger">
+              {'Either Email or Password is Incorrect'}
+            </MessageBox>
+          )}
         </div>
         <div>
           <input
@@ -86,10 +90,10 @@ const SignInScreen = (props) => {
         <div>
           <label />
           <div>
-            New Here?{"  "}
+            New Here?{'  '}
             <Link
               to={
-                redirect === "/" ? "register" : "register?redirect=" + redirect
+                redirect === '/' ? 'register' : 'register?redirect=' + redirect
               }
             >
               Create your Account.

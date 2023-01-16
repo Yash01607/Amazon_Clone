@@ -1,11 +1,12 @@
-import { useSelector, useDispatch } from "react-redux";
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import Cookies from "js-cookie";
+import { useSelector, useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import Cookies from 'js-cookie';
 
-import { listCategories } from "../actions/CategoryActions";
-import { saveProduct } from "../actions/productActions";
-import MessageBox from "../components/MessageBox";
+import { listCategories } from '../actions/CategoryActions';
+import { saveProduct } from '../actions/productActions';
+import MessageBox from '../components/MessageBox';
+import { useNavigate } from 'react-router';
 
 const ProductEditScreen = (props) => {
   const dispatch = useDispatch();
@@ -24,15 +25,17 @@ const ProductEditScreen = (props) => {
     error: errorCategories,
   } = categoryList;
 
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
-  const [image, setImage] = useState("");
-  const [brand, setBrand] = useState("");
-  const [category, setCategory] = useState("");
-  const [countInStock, setCountInStock] = useState("");
-  const [description, setDescription] = useState("");
-  const [rating, setRating] = useState("");
+  const [name, setName] = useState('');
+  const [price, setPrice] = useState('');
+  const [image, setImage] = useState('');
+  const [brand, setBrand] = useState('');
+  const [category, setCategory] = useState('');
+  const [countInStock, setCountInStock] = useState('');
+  const [description, setDescription] = useState('');
+  const [rating, setRating] = useState('');
   const numreviews = 0;
+
+  const navigate = useNavigate();
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
@@ -55,17 +58,17 @@ const ProductEditScreen = (props) => {
         rating,
       })
     );
-    props.history.push("/products");
+    navigate('/products');
   };
 
   const [previewSource, setpreviewSource] = useState();
   const [loadingUpload, setloadingUpload] = useState(false);
   const [successUpload, setsuccessUpload] = useState(false);
-  const [errorUpload, seterrorUpload] = useState("");
+  const [errorUpload, seterrorUpload] = useState('');
 
   let userInfo = {};
-  if (Cookies.get("userInfo")) {
-    userInfo = JSON.parse(Cookies.get("userInfo"));
+  if (Cookies.get('userInfo')) {
+    userInfo = JSON.parse(Cookies.get('userInfo'));
   }
 
   const uploadFileHandler = (e) => {
@@ -92,11 +95,11 @@ const ProductEditScreen = (props) => {
     setloadingUpload(true);
     try {
       const { data } = await axios.post(
-        "/api/uploads",
+        '/api/uploads',
         { data: image },
         {
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
             authorization: `Bearer${userInfo.token}`,
           },
         }
@@ -115,7 +118,7 @@ const ProductEditScreen = (props) => {
     <div className="main-pad">
       <form className="form " onSubmit={onSubmitHandler}>
         <div>
-          <h1>{"Create Product"}</h1>
+          <h1>{'Create Product'}</h1>
         </div>
         <div>
           {loadingSave && <div>Loading...</div>}
@@ -159,7 +162,7 @@ const ProductEditScreen = (props) => {
               <img
                 src={previewSource}
                 alt="uploaded_image"
-                style={{ height: "30rem", width: "29rem" }}
+                style={{ height: '30rem', width: '29rem' }}
               ></img>
               <button
                 type="button"
@@ -267,14 +270,14 @@ const ProductEditScreen = (props) => {
         </div>
         <div>
           <button type="submit" className="button primary">
-            {"Create"}
+            {'Create'}
           </button>
         </div>
         <div>
           <button
             type="button"
             className="button secondary"
-            onClick={() => props.history.push("/products")}
+            onClick={() => navigate('/products')}
           >
             Close Form
           </button>

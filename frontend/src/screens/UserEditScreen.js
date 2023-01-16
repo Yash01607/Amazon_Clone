@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import MessageBox from "../components/MessageBox";
-import { detailsUser, UpdateUser } from "../actions/userActions";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import MessageBox from '../components/MessageBox';
+import { detailsUser, UpdateUser } from '../actions/userActions';
+import { useNavigate } from 'react-router';
 
 function UserEditScreen(props) {
   const userId = props.match.params.id;
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [isSeller, setIsSeller] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
 
@@ -23,10 +24,12 @@ function UserEditScreen(props) {
 
   const dispatch = useDispatch();
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     if (successUpdate) {
-      dispatch({ type: "USER_UPDATE_RESET" });
-      props.history.push("/userlist");
+      dispatch({ type: 'USER_UPDATE_RESET' });
+      navigate('/userlist');
     }
     if (!user) {
       dispatch(detailsUser(userId));

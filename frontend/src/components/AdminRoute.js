@@ -1,26 +1,15 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { Redirect, Route } from "react-router";
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
 
-function AdminRoute({ component: Component, ...rest }) {
+function AdminRoute({ children }) {
   const userSignIn = useSelector((state) => state.userSignIn);
   let userInfo = null;
   if (userSignIn.userInfo) {
     ({ userInfo } = userSignIn);
   }
 
-  return (
-    <Route
-      {...rest}
-      render={(props) =>
-        userInfo && userInfo.isAdmin ? (
-          <Component {...props}></Component>
-        ) : (
-          <Redirect to="/signin"></Redirect>
-        )
-      }
-    ></Route>
-  );
+  return userInfo && userInfo.isAdmin ? children : <Navigate to="signin" />;
 }
 
 export default AdminRoute;

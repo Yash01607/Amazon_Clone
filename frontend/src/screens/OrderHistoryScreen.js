@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { listOrderMine } from "../actions/OrderActions";
-import MessageBox from "../components/MessageBox";
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router';
+import { listOrderMine } from '../actions/OrderActions';
+import MessageBox from '../components/MessageBox';
 
 export default function OrderHistoryScreen(props) {
   const orderMineList = useSelector((state) => state.orderMineList);
@@ -11,6 +12,8 @@ export default function OrderHistoryScreen(props) {
   if (orderMineList) {
     ({ loading, error, orders } = orderMineList);
   }
+
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -71,7 +74,7 @@ export default function OrderHistoryScreen(props) {
                     type="button"
                     className="details"
                     onClick={() => {
-                      props.history.push(`/orders/${order._id}`);
+                      navigate(`/orders/${order._id}`);
                     }}
                   >
                     Details

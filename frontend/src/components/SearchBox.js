@@ -1,9 +1,11 @@
-import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 
 function SearchBox(props) {
-  const [name, setname] = useState("all");
-  const { category = "all" } = useParams();
+  const [name, setname] = useState('all');
+  const { category = 'all' } = useParams();
+
+  const navigate = useNavigate();
 
   if (!props.show) {
     return null;
@@ -12,13 +14,13 @@ function SearchBox(props) {
   const submitHandler = (e) => {
     e.preventDefault();
     props.setShow(false);
-    props.history.push(getFilterUrl({ name: name }));
+    navigate(getFilterUrl({ name: name }));
     // console.log(e);
   };
 
   const getFilterUrl = (filter) => {
     const filterCategory = category;
-    const filterName = filter.name || "all";
+    const filterName = filter.name || 'all';
     // console.log(
     //   `/search/category/${filterCategory}/name/${filterName}/min/0/max/99999`
     // );
@@ -47,7 +49,7 @@ function SearchBox(props) {
             <button className="primary" type="submit">
               <div className="row">
                 <i className="fa fa-search" onClick={props.onClose}>
-                  {" "}
+                  {' '}
                   Search
                 </i>
               </div>

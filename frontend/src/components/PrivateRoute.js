@@ -1,26 +1,15 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { Redirect, Route } from "react-router";
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
 
-function PrivateRoute({ component: Component, ...rest }) {
+function PrivateRoute({ children }) {
   const userSignIn = useSelector((state) => state.userSignIn);
   let userInfo = null;
   if (userSignIn.userInfo) {
     ({ userInfo } = userSignIn);
   }
 
-  return (
-    <Route
-      {...rest}
-      render={(props) =>
-        userInfo ? (
-          <Component {...props}></Component>
-        ) : (
-          <Redirect to="/signin"></Redirect>
-        )
-      }
-    ></Route>
-  );
+  return userInfo ? children : <Navigate to="signin" />;
 }
 
 export default PrivateRoute;

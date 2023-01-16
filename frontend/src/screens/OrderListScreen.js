@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import MessageBox from "../components/MessageBox";
-import { listOrders, deletedOrder } from "../actions/OrderActions";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import MessageBox from '../components/MessageBox';
+import { listOrders, deletedOrder } from '../actions/OrderActions';
+import { useNavigate } from 'react-router';
 
 function OrderListScreen(props) {
   const orderList = useSelector((state) => state.orderList);
@@ -24,13 +25,15 @@ function OrderListScreen(props) {
 
   const dispatch = useDispatch();
 
+  const navigate = useNavigate();
+
   useEffect(() => {
-    dispatch({ type: "ORDER_DELETE_RESET" });
+    dispatch({ type: 'ORDER_DELETE_RESET' });
     dispatch(listOrders());
   }, [dispatch, successDelete]);
 
   const deleteHandler = (order) => {
-    if (window.confirm("Are you sure you want to delete this order?")) {
+    if (window.confirm('Are you sure you want to delete this order?')) {
       dispatch(deletedOrder(order._id));
     }
   };
@@ -60,11 +63,11 @@ function OrderListScreen(props) {
           <tbody>
             {orders.map((order) => (
               <tr key={order._id}>
-                <td>{order._id || "id"}</td>
+                <td>{order._id || 'id'}</td>
                 <td>
                   {order.user && order.user.name
                     ? order.user.name
-                    : "Name_Not_Available"}
+                    : 'Name_Not_Available'}
                 </td>
                 <td>{order.createdAt.substring(0, 10)}</td>
                 <td>
@@ -92,7 +95,7 @@ function OrderListScreen(props) {
                     type="button"
                     className="details"
                     onClick={() => {
-                      props.history.push(`/orders/${order._id}`);
+                      navigate(`/orders/${order._id}`);
                     }}
                   >
                     Details

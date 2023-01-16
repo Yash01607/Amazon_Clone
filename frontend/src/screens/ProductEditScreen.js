@@ -1,31 +1,34 @@
-import { useSelector, useDispatch } from "react-redux";
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { Image } from "cloudinary-react";
-import Cookies from "js-cookie";
+import { useSelector, useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Image } from 'cloudinary-react';
+import Cookies from 'js-cookie';
 
-import { listCategories } from "../actions/CategoryActions";
-import { detailsProduct, saveProduct } from "../actions/productActions";
-import MessageBox from "../components/MessageBox";
+import { listCategories } from '../actions/CategoryActions';
+import { detailsProduct, saveProduct } from '../actions/productActions';
+import MessageBox from '../components/MessageBox';
+import { useNavigate } from 'react-router';
 
 const ProductEditScreen = (props) => {
   const productId = props.match.params.id;
 
   const dispatch = useDispatch();
 
+  const navigate = useNavigate();
+
   const productDetails = useSelector((state) => state.productDetails);
 
   let { product, loading, error } = productDetails;
 
-  const [id, setid] = useState(" ");
-  const [name, setName] = useState(" ");
-  const [price, setPrice] = useState(" ");
-  const [image, setImage] = useState(" ");
-  const [brand, setBrand] = useState(" ");
-  const [category, setCategory] = useState(" ");
-  const [countInStock, setCountInStock] = useState(" ");
-  const [description, setDescription] = useState(" ");
-  const [rating, setRating] = useState(" ");
+  const [id, setid] = useState(' ');
+  const [name, setName] = useState(' ');
+  const [price, setPrice] = useState(' ');
+  const [image, setImage] = useState(' ');
+  const [brand, setBrand] = useState(' ');
+  const [category, setCategory] = useState(' ');
+  const [countInStock, setCountInStock] = useState(' ');
+  const [description, setDescription] = useState(' ');
+  const [rating, setRating] = useState(' ');
   const numreviews = 0;
   //   console.log(product);
 
@@ -78,17 +81,17 @@ const ProductEditScreen = (props) => {
       })
     );
     product = null;
-    props.history.push("/products");
+    navigate('/products');
   };
 
   const [loadingUpload, setloadingUpload] = useState(false);
   const [previewSource, setpreviewSource] = useState();
   const [successUpload, setsuccessUpload] = useState(false);
-  const [errorUpload, seterrorUpload] = useState("");
+  const [errorUpload, seterrorUpload] = useState('');
 
   let userInfo = {};
-  if (Cookies.get("userInfo")) {
-    userInfo = JSON.parse(Cookies.get("userInfo"));
+  if (Cookies.get('userInfo')) {
+    userInfo = JSON.parse(Cookies.get('userInfo'));
   }
 
   const uploadFileHandler = (e) => {
@@ -115,11 +118,11 @@ const ProductEditScreen = (props) => {
     setloadingUpload(true);
     try {
       const { data } = await axios.post(
-        "/api/uploads",
+        '/api/uploads',
         { data: image },
         {
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
             authorization: `Bearer${userInfo.token}`,
           },
         }
@@ -187,7 +190,7 @@ const ProductEditScreen = (props) => {
                 <img
                   src={previewSource}
                   alt="uploaded_image"
-                  style={{ height: "30rem", width: "29rem" }}
+                  style={{ height: '30rem', width: '29rem' }}
                 ></img>
                 <button
                   type="button"
@@ -205,7 +208,7 @@ const ProductEditScreen = (props) => {
                 <Image
                   cloudName="df7lcoica"
                   publicId={product.image.data.public_id}
-                  style={{ height: "30rem", width: "29rem" }}
+                  style={{ height: '30rem', width: '29rem' }}
                 ></Image>
               )
             )}
@@ -307,14 +310,14 @@ const ProductEditScreen = (props) => {
           </div>
           <div>
             <button type="submit" className="button primary">
-              {"Update"}
+              {'Update'}
             </button>
           </div>
           <div>
             <button
               type="button"
               className="button secondary"
-              onClick={() => props.history.push("/products")}
+              onClick={() => navigate('/products')}
             >
               Close Form
             </button>

@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import CheckoutSteps from "../components/CheckoutSteps";
-import { createOrder } from "../actions/OrderActions";
-import MessageBox from "../components/MessageBox";
-import { Image } from "cloudinary-react";
+import React, { useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import CheckoutSteps from '../components/CheckoutSteps';
+import { createOrder } from '../actions/OrderActions';
+import MessageBox from '../components/MessageBox';
+import { Image } from 'cloudinary-react';
 
 const PlaceOrderScreen = (props) => {
   const cart = useSelector((state) => state.cartDetails);
@@ -18,11 +18,13 @@ const PlaceOrderScreen = (props) => {
     ({ loading, success, error, order } = orderCreate);
   }
 
+  const navigate = useNavigate();
+
   // console.log(shipping);
   if (shippingAddress && !shippingAddress.address) {
-    props.history.push("/shipping");
+    navigate('/shipping');
   } else if (paymentMethod && !paymentMethod.paymentMethod) {
-    props.history.push("/payment");
+    navigate('/payment');
   }
 
   const itemsPrice = cartItems.reduce((a, c) => a + c.price * c.qty, 0);
@@ -43,8 +45,8 @@ const PlaceOrderScreen = (props) => {
 
   useEffect(() => {
     if (success) {
-      props.history.push(`/orders/${order._id}`);
-      dispatch({ type: "ORDER_CREATE_RESET" });
+      navigate(`/orders/${order._id}`);
+      dispatch({ type: 'ORDER_CREATE_RESET' });
     }
   }, [success, dispatch, order, props.history]);
 
@@ -93,7 +95,7 @@ const PlaceOrderScreen = (props) => {
                       <tr>
                         <td>
                           <Link
-                            to={"/product/" + item.product}
+                            to={'/product/' + item.product}
                             className="name"
                           >
                             {item && item.image && item.image.data && (
@@ -108,7 +110,7 @@ const PlaceOrderScreen = (props) => {
                         </td>
                         <td className="table-name">
                           <Link
-                            to={"/product/" + item.product}
+                            to={'/product/' + item.product}
                             className="name"
                           >
                             {item.name}

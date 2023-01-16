@@ -1,9 +1,9 @@
-import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import React, { useEffect } from "react";
-import { listPoducts, deleteProduct } from "../actions/productActions";
-import MessageBox from "../components/MessageBox";
-import { Image } from "cloudinary-react";
+import { useSelector, useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { listPoducts, deleteProduct } from '../actions/productActions';
+import MessageBox from '../components/MessageBox';
+import { Image } from 'cloudinary-react';
 
 const ProductsScreen = (props) => {
   const productList = useSelector((state) => state.productList);
@@ -18,12 +18,14 @@ const ProductsScreen = (props) => {
 
   const dispatch = useDispatch();
 
+  const navigate = useNavigate();
+
   useEffect(() => {
-    dispatch(listPoducts({ name: "", category: "", order: "categories" }));
+    dispatch(listPoducts({ name: '', category: '', order: 'categories' }));
   }, [dispatch, successDelete]);
 
   const deleteHandler = (product) => {
-    if (window.confirm("Are you sure you want to delete this Product?")) {
+    if (window.confirm('Are you sure you want to delete this Product?')) {
       dispatch(deleteProduct(product._id));
     }
   };
@@ -38,10 +40,10 @@ const ProductsScreen = (props) => {
           type="button"
           className="primary small-block"
           onClick={() => {
-            props.history.push(`/Createprodct`);
+            navigate(`/Createprodct`);
           }}
         >
-          {" "}
+          {' '}
           Create New Product
         </button>
       </div>
@@ -70,7 +72,7 @@ const ProductsScreen = (props) => {
               return (
                 <tr key={product._id}>
                   <td>
-                    <Link to={"/product/" + product._id}>
+                    <Link to={'/product/' + product._id}>
                       {product && product.image && product.image.data && (
                         <Image
                           cloudName="df7lcoica"
@@ -80,7 +82,7 @@ const ProductsScreen = (props) => {
                     </Link>
                   </td>
                   <td className="table-name">
-                    <Link to={"/product/" + product._id} className="name">
+                    <Link to={'/product/' + product._id} className="name">
                       {product.name}
                     </Link>
                   </td>
@@ -99,12 +101,12 @@ const ProductsScreen = (props) => {
                     <button
                       className="details"
                       onClick={() => {
-                        props.history.push(`/ProductEditScreen/${product._id}`);
+                        navigate(`/ProductEditScreen/${product._id}`);
                       }}
                     >
                       Edit
                     </button>
-                    {"  "}
+                    {'  '}
                     <button
                       className="delete"
                       onClick={() => deleteHandler(product)}

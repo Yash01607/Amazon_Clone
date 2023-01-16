@@ -1,10 +1,13 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { listUsers, deleteUser } from "../actions/userActions";
-import MessageBox from "../components/MessageBox";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
+import { listUsers, deleteUser } from '../actions/userActions';
+import MessageBox from '../components/MessageBox';
 
 export default function UserLIstScreen(props) {
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
 
   const userList = useSelector((state) => state.userList);
   const { loading, error, users } = userList;
@@ -18,11 +21,11 @@ export default function UserLIstScreen(props) {
 
   useEffect(() => {
     dispatch(listUsers());
-    dispatch({type: "USER_DETAILS_RESET"})
+    dispatch({ type: 'USER_DETAILS_RESET' });
   }, [dispatch, successDelete]);
 
   const deleteUserHandler = (user) => {
-    if (window.confirm("Are you sure you want to delete this user?")) {
+    if (window.confirm('Are you sure you want to delete this user?')) {
       dispatch(deleteUser(user._id));
     }
   };
@@ -71,7 +74,7 @@ export default function UserLIstScreen(props) {
                   <button
                     type="button"
                     className="details"
-                    onClick={() => props.history.push(`/user/${user._id}/edit`)}
+                    onClick={() => navigate(`/user/${user._id}/edit`)}
                   >
                     Edit
                   </button>

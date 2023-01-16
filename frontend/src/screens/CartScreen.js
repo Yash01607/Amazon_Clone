@@ -1,9 +1,9 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { addToCart, removeFromCart } from "../actions/CartActions";
-import { useDispatch, useSelector } from "react-redux";
-import { Image } from "cloudinary-react";
-import MessageBox from "../components/MessageBox";
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { addToCart, removeFromCart } from '../actions/CartActions';
+import { useDispatch, useSelector } from 'react-redux';
+import { Image } from 'cloudinary-react';
+import MessageBox from '../components/MessageBox';
 
 const CartScreen = (props) => {
   const cart = useSelector((state) => state.cartDetails);
@@ -13,12 +13,15 @@ const CartScreen = (props) => {
   }
 
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+
   const removeFromCartHandler = (productId) => {
     dispatch(removeFromCart(productId));
   };
 
   const chechoutHandler = () => {
-    props.history.push("signin?redirect=shipping");
+    navigate('signin?redirect=shipping');
   };
 
   const addCouponHandler = (e) => {
@@ -31,7 +34,7 @@ const CartScreen = (props) => {
         <h1 className="cart-name">Shopping Cart</h1>
         {cartItems.length === 0 ? (
           <MessageBox>
-            Cart is empty.{" "}
+            Cart is empty.{' '}
             <Link
               to={`/search/category/all/name/all/min/0/max/99999/rating/0/order/newest`}
             >
@@ -58,7 +61,7 @@ const CartScreen = (props) => {
                 {cartItems.map((item) => (
                   <tr>
                     <td>
-                      <Link to={"/product/" + item.product} className="name">
+                      <Link to={'/product/' + item.product} className="name">
                         {item && item.image && item.image.data && (
                           <Image
                             cloudName="df7lcoica"
@@ -68,7 +71,7 @@ const CartScreen = (props) => {
                       </Link>
                     </td>
                     <td className="table-name">
-                      <Link to={"/product/" + item.product} className="name">
+                      <Link to={'/product/' + item.product} className="name">
                         {item.name}
                       </Link>
                     </td>
@@ -86,7 +89,7 @@ const CartScreen = (props) => {
                         onChange={(event) => {
                           dispatch(addToCart(item.product, event.target.value));
                         }}
-                        type={"number"}
+                        type={'number'}
                         min={0}
                         max={item.countInStock}
                       ></input>
@@ -131,7 +134,7 @@ const CartScreen = (props) => {
           <div>
             <div className="row">
               <h3>
-                Subtotal ({cartItems.reduce((a, c) => a + c.qty, 0)} items):{" "}
+                Subtotal ({cartItems.reduce((a, c) => a + c.qty, 0)} items):{' '}
                 <i className="fa fa-inr"></i>
                 {cartItems.reduce((a, c) => a + c.price * c.qty, 0)}
               </h3>

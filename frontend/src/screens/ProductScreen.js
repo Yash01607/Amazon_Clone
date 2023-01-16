@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
-import { createComment, detailsProduct } from "../actions/productActions";
-import { addToCart } from "../actions/CartActions";
-import Rating from "../components/Rating";
-import { Image } from "cloudinary-react";
-import MessageBox from "../components/MessageBox";
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { createComment, detailsProduct } from '../actions/productActions';
+import { addToCart } from '../actions/CartActions';
+import Rating from '../components/Rating';
+import { Image } from 'cloudinary-react';
+import MessageBox from '../components/MessageBox';
 
 const ProductScreen = (props) => {
   const cart = useSelector((state) => state.cartDetails);
@@ -25,10 +25,12 @@ const ProductScreen = (props) => {
 
   const [qty, setQty] = useState(initialQty);
 
-  const [rating, setrating] = useState("");
-  const [comment, setcomment] = useState("");
+  const [rating, setrating] = useState('');
+  const [comment, setcomment] = useState('');
 
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
 
   const productDetails = useSelector((state) => state.productDetails);
   const { product, loading, error } = productDetails;
@@ -48,10 +50,10 @@ const ProductScreen = (props) => {
 
   useEffect(() => {
     if (successReviewCreate) {
-      window.alert("Review SUbmitted Successfully");
-      setrating("");
-      setcomment("");
-      dispatch({ type: "PRODUCT_REVIEW_CREATE_RESET" });
+      window.alert('Review SUbmitted Successfully');
+      setrating('');
+      setcomment('');
+      dispatch({ type: 'PRODUCT_REVIEW_CREATE_RESET' });
     }
     dispatch(detailsProduct(productId));
   }, [dispatch, productId, successReviewCreate]);
@@ -62,7 +64,7 @@ const ProductScreen = (props) => {
 
   const AddtoCartHandler = () => {
     dispatch(addToCart(productId, qty));
-    props.history.push("/cart");
+    navigate('/cart');
   };
 
   const reviewSubmitHandler = (e) => {
@@ -72,7 +74,7 @@ const ProductScreen = (props) => {
         createComment(productId, { rating, comment, name: userInfo.name })
       );
     } else {
-      alert("Please Enter Comment and Rating");
+      alert('Please Enter Comment and Rating');
     }
   };
 
@@ -128,8 +130,8 @@ const ProductScreen = (props) => {
                 <li>
                   <div className="row">
                     <div>
-                      {" "}
-                      Status :{" "}
+                      {' '}
+                      Status :{' '}
                       {product.countInStock === 0 ? (
                         <span className="danger">Unavailable</span>
                       ) : (
@@ -141,11 +143,11 @@ const ProductScreen = (props) => {
                 {product.countInStock > 0 && (
                   <>
                     <li>
-                      Qty : {"  "}
+                      Qty : {'  '}
                       <input
                         value={qty}
                         onChange={qtyChangeHandler}
-                        type={"number"}
+                        type={'number'}
                         min={0}
                       ></input>
                       {qty > product.countInStock && (
@@ -193,7 +195,7 @@ const ProductScreen = (props) => {
                       <div className="row">
                         <strong>{review.name} </strong>
                         <p className="review_date">
-                          {" "}
+                          {' '}
                           Reviewd on {review.createdAt.substring(0, 10)}
                         </p>
                       </div>

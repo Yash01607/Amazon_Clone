@@ -1,23 +1,26 @@
-import { useSelector, useDispatch } from "react-redux";
-import { useState } from "react";
-import { savePayment } from "../actions/CartActions";
-import CheckoutSteps from "../components/CheckoutSteps";
+import { useSelector, useDispatch } from 'react-redux';
+import { useState } from 'react';
+import { savePayment } from '../actions/CartActions';
+import CheckoutSteps from '../components/CheckoutSteps';
+import { useNavigate } from 'react-router';
 
 const PaymentScreen = (props) => {
   const cartDetails = useSelector((state) => state.cartDetails);
   const { shippingAddress } = cartDetails;
   if (!shippingAddress) {
-    props.history.push("/shipping");
+    navigate('/shipping');
   }
 
-  const [paymentMethod, setPaymentMethod] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState('');
 
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
     dispatch(savePayment({ paymentMethod }));
-    props.history.push("/placeorder");
+    navigate('/placeorder');
   };
 
   return (

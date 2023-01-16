@@ -1,38 +1,38 @@
-import "./App.css";
-import { useSelector, useDispatch } from "react-redux";
-import { BrowserRouter, Link, Route } from "react-router-dom";
-import HomeScreen from "./screens/HomeScreen";
-import ProductScreen from "./screens/ProductScreen";
-import ProductsScreen from "./screens/ProductsScreen";
-import CartScreen from "./screens/CartScreen";
-import SignInScreen from "./screens/SignInScreen";
-import CreateProductScreen from "./screens/CreateProductScreen";
-import RegisterScreen from "./screens/RegisterScreen";
-import ShippingScreen from "./screens/ShippingScreen";
-import PaymentOptionsScreen from "./screens/PaymentOptionsScreen";
-import PlaceOrderScreen from "./screens/PlaceOrderScreen";
-import OrderScreen from "./screens/OrderScreen";
-import OrderHistoryScreen from "./screens/OrderHistoryScreen";
-import ProfileScreen from "./screens/ProfileScreen";
-import PrivateRoute from "./components/PrivateRoute";
-import { signout } from "./actions/userActions";
-import AdminRoute from "./components/AdminRoute";
-import OrderListScreen from "./screens/OrderListScreen";
-import toBeAddedSoonScreeen from "./screens/toBeAddedSoonScreeen";
-import UserLIstScreen from "./screens/UserLIstScreen";
-import UserEditScreen from "./screens/UserEditScreen";
-import SearchBox from "./components/SearchBox";
-import SearchScreen from "./screens/SearchScreen";
-import { listCategories } from "./actions/CategoryActions";
-import { useState, useEffect } from "react";
-import ProductEditScreen from "./screens/ProductEditScreen";
-import ContactScreen from "./screens/ContactScreen";
-import { Image } from "cloudinary-react";
-import CategoryListScreen from "./screens/CategoryListScreen";
-import useScreenDimension from "./hooks/use-ScreenResolution";
-import DashBoardScreen from "./screens/DashBoardScreen";
-import SupportScreen from "./screens/SupportScreen";
-import ChatBox from "./components/ChatBox";
+import './App.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
+import HomeScreen from './screens/HomeScreen';
+import ProductScreen from './screens/ProductScreen';
+import ProductsScreen from './screens/ProductsScreen';
+import CartScreen from './screens/CartScreen';
+import SignInScreen from './screens/SignInScreen';
+import CreateProductScreen from './screens/CreateProductScreen';
+import RegisterScreen from './screens/RegisterScreen';
+import ShippingScreen from './screens/ShippingScreen';
+import PaymentOptionsScreen from './screens/PaymentOptionsScreen';
+import PlaceOrderScreen from './screens/PlaceOrderScreen';
+import OrderScreen from './screens/OrderScreen';
+import OrderHistoryScreen from './screens/OrderHistoryScreen';
+import ProfileScreen from './screens/ProfileScreen';
+import PrivateRoute from './components/PrivateRoute';
+import { signout } from './actions/userActions';
+import AdminRoute from './components/AdminRoute';
+import OrderListScreen from './screens/OrderListScreen';
+import toBeAddedSoonScreeen from './screens/toBeAddedSoonScreeen';
+import UserLIstScreen from './screens/UserLIstScreen';
+import UserEditScreen from './screens/UserEditScreen';
+import SearchBox from './components/SearchBox';
+import SearchScreen from './screens/SearchScreen';
+import { listCategories } from './actions/CategoryActions';
+import { useState, useEffect } from 'react';
+import ProductEditScreen from './screens/ProductEditScreen';
+import ContactScreen from './screens/ContactScreen';
+import { Image } from 'cloudinary-react';
+import CategoryListScreen from './screens/CategoryListScreen';
+import useScreenDimension from './hooks/use-ScreenResolution';
+import DashBoardScreen from './screens/DashBoardScreen';
+import SupportScreen from './screens/SupportScreen';
+import ChatBox from './components/ChatBox';
 
 function App() {
   const userSignIn = useSelector((state) => state.userSignIn);
@@ -64,7 +64,7 @@ function App() {
   const [openModal, setopenModal] = useState(false);
 
   const signoutHandler = () => {
-    if (window.confirm("Are you sure you want to signout?")) {
+    if (window.confirm('Are you sure you want to signout?')) {
       dispatch(signout());
     }
   };
@@ -110,18 +110,14 @@ function App() {
                   setopenModal(true);
                 }}
               ></i>
-              <Route
-                render={({ history }) => (
-                  <SearchBox
-                    onClose={() => {
-                      setopenModal(false);
-                    }}
-                    show={openModal}
-                    setShow={setopenModal}
-                    history={history}
-                  ></SearchBox>
-                )}
-              ></Route>
+
+              <SearchBox
+                onClose={() => {
+                  setopenModal(false);
+                }}
+                show={openModal}
+                setShow={setopenModal}
+              ></SearchBox>
             </div>
 
             <div className="sec-head-ele">
@@ -146,7 +142,7 @@ function App() {
 
                 <Link to="/cart">
                   <li>
-                    Your Cart{" "}
+                    Your Cart{' '}
                     {numberofitems !== 0 && (
                       <span className="badge">{numberofitems}</span>
                     )}
@@ -181,8 +177,8 @@ function App() {
 
             <div className="sec-head-ele">
               <Link to="/cart" className="home">
-                {width > 1150 && "Cart"}
-                {"  "}
+                {width > 1150 && 'Cart'}
+                {'  '}
                 <i className="fa fa-shopping-cart"></i>
                 {numberofitems !== 0 && (
                   <span className="badge">{numberofitems}</span>
@@ -194,14 +190,14 @@ function App() {
               {userInfo ? (
                 <Link to="/profile" className="home">
                   <i className="fa fa-user-circle"></i>
-                  {"  "}
+                  {'  '}
                   {width > 1150 && userInfo.name}
                 </Link>
               ) : (
                 <>
                   <Link to="/signin" className="home">
                     <i className="fa fa-user-circle"></i>
-                    {"  "}SignIn
+                    {'  '}SignIn
                   </Link>
                 </>
               )}
@@ -210,7 +206,7 @@ function App() {
               <div className="sec-head-ele">
                 <Link to="/register" className="home">
                   <i className="fa fa-user-plus"></i>
-                  {"  "}Register
+                  {'  '}Register
                 </Link>
               </div>
             )}
@@ -290,63 +286,122 @@ function App() {
         </aside> */}
         <main className="main">
           <div className="content">
-            <AdminRoute
-              path="/products"
-              component={ProductsScreen}
-            ></AdminRoute>
-            <Route path="/shipping" component={ShippingScreen}></Route>
-            <Route path="/payment" component={PaymentOptionsScreen}></Route>
-            <Route path="/signin" component={SignInScreen}></Route>
-            <Route path="/placeorder" component={PlaceOrderScreen}></Route>
-            <Route path="/register" component={RegisterScreen}></Route>
-            <Route path="/product/:_id" component={ProductScreen} />
-            <Route path="/cart" component={CartScreen}></Route>
-            <Route path="/orders/:id" component={OrderScreen}></Route>
-            <Route path="/orderhistory" component={OrderHistoryScreen}></Route>
-            <Route path="/contactus" component={ContactScreen}></Route>
-            <Route
-              path="/search/category/:category/name/:name/min/:min/max/:max/rating/:rating/order/:order"
-              component={SearchScreen}
-              exact
-            ></Route>
-            <AdminRoute
-              path="/orderlist"
-              component={OrderListScreen}
-            ></AdminRoute>
-            <AdminRoute
-              path="/categorylist"
-              component={CategoryListScreen}
-            ></AdminRoute>
-            <AdminRoute
-              path="/dashboard"
-              component={DashBoardScreen}
-            ></AdminRoute>
-            <AdminRoute
-              path="/userList"
-              component={UserLIstScreen}
-            ></AdminRoute>
-            <AdminRoute
-              path="/user/:id/edit"
-              component={UserEditScreen}
-            ></AdminRoute>
-            <AdminRoute
-              path="/ProductEditScreen/:id"
-              component={ProductEditScreen}
-            ></AdminRoute>
-            <AdminRoute
-              path="/Createprodct"
-              component={CreateProductScreen}
-            ></AdminRoute>
-            <AdminRoute path="/support" component={SupportScreen}></AdminRoute>
-            <PrivateRoute
-              path="/pay"
-              component={toBeAddedSoonScreeen}
-            ></PrivateRoute>
-            <PrivateRoute
-              path="/profile"
-              component={ProfileScreen}
-            ></PrivateRoute>
-            <Route path="/" exact component={HomeScreen} />
+            <Routes>
+              <Route path="/shipping" element={<ShippingScreen />}></Route>
+              <Route path="/payment" element={<PaymentOptionsScreen />}></Route>
+              <Route path="/signin" element={<SignInScreen />}></Route>
+              <Route path="/placeorder" element={<PlaceOrderScreen />}></Route>
+              <Route path="/register" element={<RegisterScreen />}></Route>
+              <Route path="/product/:_id" element={<ProductScreen />} />
+              <Route path="/cart" element={<CartScreen />}></Route>
+              <Route path="/orders/:id" element={<OrderScreen />}></Route>
+              <Route
+                path="/orderhistory"
+                element={<OrderHistoryScreen />}
+              ></Route>
+              <Route path="/contactus" element={<ContactScreen />}></Route>
+              <Route
+                path="/search/category/:category/name/:name/min/:min/max/:max/rating/:rating/order/:order"
+                element={<SearchScreen />}
+                exact
+              ></Route>
+
+              {/* Admin routes for here */}
+
+              <Route
+                path="/products"
+                element={
+                  <AdminRoute>
+                    <ProductsScreen />
+                  </AdminRoute>
+                }
+              ></Route>
+
+              <Route
+                path="/orderlist"
+                element={
+                  <AdminRoute>
+                    <OrderListScreen />
+                  </AdminRoute>
+                }
+              ></Route>
+              <Route
+                path="/categorylist"
+                element={
+                  <AdminRoute>
+                    <CategoryListScreen />
+                  </AdminRoute>
+                }
+              ></Route>
+              <Route
+                path="/dashboard"
+                element={
+                  <AdminRoute>
+                    <DashBoardScreen />
+                  </AdminRoute>
+                }
+              ></Route>
+              <Route
+                path="/userList"
+                element={
+                  <AdminRoute>
+                    <UserLIstScreen />
+                  </AdminRoute>
+                }
+              ></Route>
+              <Route
+                path="/user/:id/edit"
+                element={
+                  <AdminRoute>
+                    <UserEditScreen />
+                  </AdminRoute>
+                }
+              ></Route>
+              <Route
+                path="/ProductEditScreen/:id"
+                element={
+                  <AdminRoute>
+                    <ProductEditScreen />
+                  </AdminRoute>
+                }
+              ></Route>
+              <Route
+                path="/Createprodct"
+                element={
+                  <AdminRoute>
+                    <CreateProductScreen />
+                  </AdminRoute>
+                }
+              ></Route>
+              <Route
+                path="/support"
+                element={
+                  <AdminRoute>
+                    <SupportScreen />
+                  </AdminRoute>
+                }
+              ></Route>
+
+              {/* Provate roures from here */}
+
+              <Route
+                path="/pay"
+                element={
+                  <PrivateRoute>
+                    <toBeAddedSoonScreeen />
+                  </PrivateRoute>
+                }
+              ></Route>
+              <Route
+                path="/profile"
+                element={
+                  <PrivateRoute>
+                    <ProfileScreen />
+                  </PrivateRoute>
+                }
+              ></Route>
+              <Route path="/" exact element={<HomeScreen />} />
+            </Routes>
           </div>
         </main>
         <footer className="row center">

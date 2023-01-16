@@ -1,7 +1,8 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
-import { saveShipping } from "../actions/CartActions";
-import CheckoutSteps from "../components/CheckoutSteps";
+import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
+import { saveShipping } from '../actions/CartActions';
+import CheckoutSteps from '../components/CheckoutSteps';
+import { useNavigate } from 'react-router';
 
 const ShippingScreen = (props) => {
   const userSignIn = useSelector((state) => state.userSignIn);
@@ -11,18 +12,21 @@ const ShippingScreen = (props) => {
   // if (cartDetails) {
   //   ({ shippingAddress } = cartDetails);
   // }
+
+  const navigate = useNavigate();
+
   if (!userInfo) {
-    props.history.push("/signin");
+    navigate('/signin');
   }
 
   // console.log(shippingAddress);
 
-  const [fullName, setName] = useState("");
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [postalCode, setPostalCode] = useState("");
-  const [state, setState] = useState("");
-  const [country, setCountry] = useState("");
+  const [fullName, setName] = useState('');
+  const [address, setAddress] = useState('');
+  const [city, setCity] = useState('');
+  const [postalCode, setPostalCode] = useState('');
+  const [state, setState] = useState('');
+  const [country, setCountry] = useState('');
 
   const dispatch = useDispatch();
 
@@ -31,7 +35,7 @@ const ShippingScreen = (props) => {
     dispatch(
       saveShipping({ fullName, address, city, postalCode, state, country })
     );
-    props.history.push("/payment");
+    navigate('/payment');
   };
 
   return (

@@ -1,24 +1,24 @@
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   detailsOrder,
   deliverOrder,
   payOrder,
   packOrder,
   dispatchOrder,
-} from "../actions/OrderActions";
-import Cookies from "js-cookie";
-import MessageBox from "../components/MessageBox";
-import { Image } from "cloudinary-react";
-import OrderStatus from "../components/OrderStatus";
+} from '../actions/OrderActions';
+import Cookies from 'js-cookie';
+import MessageBox from '../components/MessageBox';
+import { Image } from 'cloudinary-react';
+import OrderStatus from '../components/OrderStatus';
 
 const OrderScreen = (props) => {
   const orderId = props.match.params.id;
 
   let userInfo = {};
-  if (Cookies.get("userInfo")) {
-    userInfo = JSON.parse(Cookies.get("userInfo"));
+  if (Cookies.get('userInfo')) {
+    userInfo = JSON.parse(Cookies.get('userInfo'));
   }
 
   const orderDetails = useSelector((state) => state.orderDetails);
@@ -54,6 +54,8 @@ const OrderScreen = (props) => {
 
   const dispatch = useDispatch();
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     if (!order || successPay || (order && order._id !== orderId)) {
       if (!order || successDeliver || (order && order._id !== orderId)) {
@@ -65,7 +67,7 @@ const OrderScreen = (props) => {
   // console.log(order);
 
   const paymentHandler = () => {
-    props.history.push("/pay");
+    navigate('/pay');
   };
 
   const deliverHandler = () => {
@@ -102,7 +104,7 @@ const OrderScreen = (props) => {
                 <h2>Shipping</h2>
                 <p>
                   <strong>Name: </strong>
-                  {order.shippingAddress.fullName}{" "}
+                  {order.shippingAddress.fullName}{' '}
                 </p>
                 <p>
                   <strong>Address: </strong>
@@ -155,7 +157,7 @@ const OrderScreen = (props) => {
                       order.orderItems.map((item) => (
                         <tr key={item._id}>
                           <td>
-                            <Link to={"/product/" + item.product}>
+                            <Link to={'/product/' + item.product}>
                               {item && item.image && item.image.data && (
                                 <Image
                                   cloudName="df7lcoica"
@@ -168,7 +170,7 @@ const OrderScreen = (props) => {
                           </td>
                           <td className="table-name">
                             <Link
-                              to={"/product/" + item.product}
+                              to={'/product/' + item.product}
                               className="name"
                             >
                               {item.name}
@@ -322,16 +324,16 @@ const OrderScreen = (props) => {
               <div className="card-1 card-body">
                 <div className="row">
                   <h2>Payment Status</h2>
-                  <MessageBox variant={order.isPaid ? "success" : "danger"}>
-                    {" "}
-                    <p>{order.isPaid ? "Paid" : "Not Paid"}</p>
+                  <MessageBox variant={order.isPaid ? 'success' : 'danger'}>
+                    {' '}
+                    <p>{order.isPaid ? 'Paid' : 'Not Paid'}</p>
                   </MessageBox>
                   <button
                     type="button"
-                    className={order.isPaid ? "delete" : "details"}
+                    className={order.isPaid ? 'delete' : 'details'}
                     onClick={adminPaymentHandler}
                   >
-                    Set {order.isPaid ? "Not Paid" : "Paid"}
+                    Set {order.isPaid ? 'Not Paid' : 'Paid'}
                   </button>
                 </div>
                 <div>Updated by: {order.paidBy}</div>
@@ -353,16 +355,16 @@ const OrderScreen = (props) => {
               <div className="card-1 card-body">
                 <div className="row">
                   <h2>Packing Status</h2>
-                  <MessageBox variant={order.isPacked ? "success" : "danger"}>
-                    {" "}
-                    <p>{order.isPacked ? "Packed" : "Not Packed"}</p>
+                  <MessageBox variant={order.isPacked ? 'success' : 'danger'}>
+                    {' '}
+                    <p>{order.isPacked ? 'Packed' : 'Not Packed'}</p>
                   </MessageBox>
                   <button
                     type="button"
-                    className={order.isPacked ? "delete" : "details"}
+                    className={order.isPacked ? 'delete' : 'details'}
                     onClick={packingHandler}
                   >
-                    Set {order.isPacked ? "Not Packed" : "Packed"}
+                    Set {order.isPacked ? 'Not Packed' : 'Packed'}
                   </button>
                 </div>
                 <div>Updated by: {order.packedBy}</div>
@@ -382,19 +384,19 @@ const OrderScreen = (props) => {
                 <div className="row">
                   <h2>Dispatch Status</h2>
                   <MessageBox
-                    variant={order.isDispatched ? "success" : "danger"}
+                    variant={order.isDispatched ? 'success' : 'danger'}
                   >
-                    {" "}
+                    {' '}
                     <p>
-                      {order.isDispatched ? "Dispatched" : "Not Dispatched"}
+                      {order.isDispatched ? 'Dispatched' : 'Not Dispatched'}
                     </p>
                   </MessageBox>
                   <button
                     type="button"
-                    className={order.isDispatched ? "delete" : "details"}
+                    className={order.isDispatched ? 'delete' : 'details'}
                     onClick={dispatchHandler}
                   >
-                    Set {order.isDispatched ? "Not Dispatched" : "Dispatched"}
+                    Set {order.isDispatched ? 'Not Dispatched' : 'Dispatched'}
                   </button>
                 </div>
                 <div>Updated by: {order.dispatchedBy}</div>
@@ -412,19 +414,19 @@ const OrderScreen = (props) => {
 
               <div className="card-1 card-body">
                 <div className="row">
-                  <h2 style={{ margin: "0rem" }}>Delivery Status</h2>
+                  <h2 style={{ margin: '0rem' }}>Delivery Status</h2>
                   <MessageBox
-                    variant={order.isDelivered ? "success" : "danger"}
+                    variant={order.isDelivered ? 'success' : 'danger'}
                   >
-                    {" "}
-                    <p>{order.isDelivered ? "Delivered" : "Not Delivered"}</p>
+                    {' '}
+                    <p>{order.isDelivered ? 'Delivered' : 'Not Delivered'}</p>
                   </MessageBox>
                   <button
                     type="button"
-                    className={order.isDelivered ? "delete" : "details"}
+                    className={order.isDelivered ? 'delete' : 'details'}
                     onClick={deliverHandler}
                   >
-                    Set {order.isDelivered ? "Not Delivered" : "Delivered"}
+                    Set {order.isDelivered ? 'Not Delivered' : 'Delivered'}
                   </button>
                 </div>
                 <div>Updated by: {order.deliveredBy}</div>

@@ -1,31 +1,33 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { listPoducts } from "../actions/productActions";
-import MessageBox from "../components/MessageBox";
-import Rating from "../components/Rating";
-import { Link } from "react-router-dom";
-import { prices, ratings } from "../utils";
-import { Image } from "cloudinary-react";
-import { listCategories } from "../actions/CategoryActions";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import { listPoducts } from '../actions/productActions';
+import MessageBox from '../components/MessageBox';
+import Rating from '../components/Rating';
+import { Link } from 'react-router-dom';
+import { prices, ratings } from '../utils';
+import { Image } from 'cloudinary-react';
+import { listCategories } from '../actions/CategoryActions';
 
 function SearchScreen(props) {
   const {
-    name = "all",
-    category = "all",
+    name = 'all',
+    category = 'all',
     min = 0,
     max = 99999,
     rating = 0,
-    order = "newest",
+    order = 'newest',
   } = useParams();
 
   const dispatch = useDispatch();
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     dispatch(
       listPoducts({
-        name: name !== "all" ? name : " ",
-        category: category !== "all" ? category : " ",
+        name: name !== 'all' ? name : ' ',
+        category: category !== 'all' ? category : ' ',
         min,
         max,
         rating,
@@ -96,8 +98,8 @@ function SearchScreen(props) {
                 <select
                   value={category}
                   onChange={(e) => {
-                    props.history.push(
-                      getFilterUrl({ category: e.target.value, name: "all" })
+                    navigate(
+                      getFilterUrl({ category: e.target.value, name: 'all' })
                     );
                   }}
                 >
@@ -120,7 +122,7 @@ function SearchScreen(props) {
             <select
               value={order}
               onChange={(e) => {
-                props.history.push(getFilterUrl({ order: e.target.value }));
+                navigate(getFilterUrl({ order: e.target.value }));
               }}
             >
               <option key="newest" value="newest">
@@ -143,7 +145,7 @@ function SearchScreen(props) {
               {prices.map((p) => (
                 <Link
                   className={
-                    `${p.min}-${p.max}` === `${min}-${max}` ? "active" : ""
+                    `${p.min}-${p.max}` === `${min}-${max}` ? 'active' : ''
                   }
                   to={getFilterUrl({ min: p.min, max: p.max })}
                 >
@@ -158,7 +160,7 @@ function SearchScreen(props) {
               {ratings.map((r) => (
                 <li key={r.name}>
                   <Link
-                    className={`${r.rating}` === `${rating}` ? "active" : ""}
+                    className={`${r.rating}` === `${rating}` ? 'active' : ''}
                     to={getFilterUrl({ rating: r.rating })}
                   >
                     <Rating
@@ -185,7 +187,7 @@ function SearchScreen(props) {
               <div className="row center">
                 {products.map((product) => {
                   return (
-                    <Link to={"/product/" + product._id} key={product._id}>
+                    <Link to={'/product/' + product._id} key={product._id}>
                       <div key={product._id} className="card">
                         {product && product.image && product.image.data && (
                           <Image
