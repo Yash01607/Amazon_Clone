@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { createComment, detailsProduct } from '../actions/productActions';
@@ -15,7 +15,10 @@ const ProductScreen = (props) => {
     ({ cartItems } = cart);
   }
   let initialQty = 1;
-  const productId = props.match.params._id;
+
+  const params = useParams();
+
+  const productId = params._id;
   const existingItem = cartItems.findIndex(
     (item) => item.product === productId
   );

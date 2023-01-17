@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   detailsOrder,
@@ -14,7 +14,8 @@ import { Image } from 'cloudinary-react';
 import OrderStatus from '../components/OrderStatus';
 
 const OrderScreen = (props) => {
-  const orderId = props.match.params.id;
+  const params = useParams();
+  const orderId = params.id;
 
   let userInfo = {};
   if (Cookies.get('userInfo')) {

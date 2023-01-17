@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { signIn } from '../actions/userActions';
 import MessageBox from '../components/MessageBox';
@@ -13,13 +13,13 @@ const SignInScreen = (props) => {
 
   const { loading, userInfo, error } = userSignIn;
 
-  const location = useLocation();
-
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
-  const redirect = location.search ? location.search.split('=')[1] : '/';
+  const { search } = useLocation();
+  const redirectInUrl = new URLSearchParams(search).get('redirect');
+  const redirect = redirectInUrl ? redirectInUrl : '/';
 
   useEffect(() => {
     if (userInfo) {
@@ -91,13 +91,13 @@ const SignInScreen = (props) => {
           <label />
           <div>
             New Here?{'  '}
-            <Link
-              to={
+            <a
+              href={
                 redirect === '/' ? 'register' : 'register?redirect=' + redirect
               }
             >
               Create your Account.
-            </Link>
+            </a>
           </div>
         </div>
       </form>

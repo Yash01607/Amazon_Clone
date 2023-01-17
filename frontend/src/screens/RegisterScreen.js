@@ -1,31 +1,31 @@
-import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { register } from "../actions/userActions";
-import MessageBox from "../components/MessageBox";
+import { useSelector, useDispatch } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { register } from '../actions/userActions';
+import MessageBox from '../components/MessageBox';
 
 const RegisterScreen = (props) => {
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const [rePassword, setRePassword] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+  const [rePassword, setRePassword] = useState('');
+  const [password, setPassword] = useState('');
   const userRegister = useSelector((state) => state.userRegister);
 
   const { loading, userInfo, error } = userRegister;
 
   const dispatch = useDispatch();
 
-  const history = props.history;
+  const navigate = useNavigate();
 
-  const redirect = props.location.search
-    ? props.location.search.split("=")[1]
-    : "/";
+  const { search } = useLocation();
+  const redirectInUrl = new URLSearchParams(search).get('redirect');
+  const redirect = redirectInUrl ? redirectInUrl : '/';
 
   useEffect(() => {
     if (userInfo) {
-      history.push(redirect);
+      navigate(redirect);
     }
-  }, [userInfo, history, redirect]);
+  }, [userInfo, navigate, redirect]);
 
   const emailChangeHandler = (event) => {
     setEmail(event.target.value);
@@ -48,9 +48,11 @@ const RegisterScreen = (props) => {
     if (password === rePassword) {
       dispatch(register(name, email, password));
     } else {
-      window.alert("Password and Re-enter Password must be identical.");
+      window.alert('Password and Re-enter Password must be identical.');
     }
   };
+
+  console.log(redirect);
 
   return (
     <div className="main-pad">
@@ -117,12 +119,12 @@ const RegisterScreen = (props) => {
         </div>
         <div>
           <div>
-            Already have an account?{" "}
-            <Link
-              to={redirect === "/" ? "signin" : "signin?redirect=" + redirect}
+            Already have an account?{' '}
+            <a
+              href={redirect === '/' ? 'signin' : 'signin?redirect=' + redirect}
             >
               Sign In
-            </Link>
+            </a>
           </div>
         </div>
       </form>

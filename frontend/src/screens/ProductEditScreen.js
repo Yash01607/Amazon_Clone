@@ -7,10 +7,12 @@ import Cookies from 'js-cookie';
 import { listCategories } from '../actions/CategoryActions';
 import { detailsProduct, saveProduct } from '../actions/productActions';
 import MessageBox from '../components/MessageBox';
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 
 const ProductEditScreen = (props) => {
-  const productId = props.match.params.id;
+  const params = useParams();
+
+  const productId = params.id;
 
   const dispatch = useDispatch();
 

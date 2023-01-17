@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import MessageBox from '../components/MessageBox';
 import { detailsUser, UpdateUser } from '../actions/userActions';
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 
 function UserEditScreen(props) {
-  const userId = props.match.params.id;
+  const params = useParams();
+
+  const userId = params.id;
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');

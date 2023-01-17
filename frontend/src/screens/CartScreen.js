@@ -21,7 +21,7 @@ const CartScreen = (props) => {
   };
 
   const chechoutHandler = () => {
-    navigate('signin?redirect=shipping');
+    navigate('/signin?redirect=/shipping');
   };
 
   const addCouponHandler = (e) => {
