@@ -18,7 +18,7 @@ import PrivateRoute from './components/PrivateRoute';
 import { signout } from './actions/userActions';
 import AdminRoute from './components/AdminRoute';
 import OrderListScreen from './screens/OrderListScreen';
-import toBeAddedSoonScreeen from './screens/toBeAddedSoonScreeen';
+import ToBeAddedSoonScreeen from './screens/toBeAddedSoonScreeen';
 import UserLIstScreen from './screens/UserLIstScreen';
 import UserEditScreen from './screens/UserEditScreen';
 import SearchBox from './components/SearchBox';
@@ -388,7 +388,7 @@ function App() {
                 path="/pay"
                 element={
                   <PrivateRoute>
-                    <toBeAddedSoonScreeen />
+                    <ToBeAddedSoonScreeen />
                   </PrivateRoute>
                 }
               ></Route>

@@ -6,6 +6,9 @@ import { useNavigate } from 'react-router';
 
 const PaymentScreen = (props) => {
   const cartDetails = useSelector((state) => state.cartDetails);
+
+  const navigate = useNavigate();
+
   const { shippingAddress } = cartDetails;
   if (!shippingAddress) {
     navigate('/shipping');
@@ -14,8 +17,6 @@ const PaymentScreen = (props) => {
   const [paymentMethod, setPaymentMethod] = useState('');
 
   const dispatch = useDispatch();
-
-  const navigate = useNavigate();
 
   const onSubmitHandler = (event) => {
     event.preventDefault();

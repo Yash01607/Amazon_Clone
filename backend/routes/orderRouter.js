@@ -1,24 +1,24 @@
-import express from "express";
-import expressAsyncHandler from "express-async-handler";
-import Order from "../models/orderModel.js";
-import User from "../models/userModel.js";
-import Product from "../models/productsModel.js";
-import { isAuth, isAdmin } from "../util";
+import express from 'express';
+import expressAsyncHandler from 'express-async-handler';
+import Order from '../models/orderModel.js';
+import User from '../models/userModel.js';
+import Product from '../models/productsModel.js';
+import { isAuth, isAdmin } from '../util.js';
 
 const orderRouter = express.Router();
 
-orderRouter.get("/", isAuth, isAdmin, async (req, res) => {
-  const Orders = await Order.find({}).populate("user", "name");
+orderRouter.get('/', isAuth, isAdmin, async (req, res) => {
+  const Orders = await Order.find({}).populate('user', 'name');
   res.send(Orders);
 });
 
-orderRouter.get("/summary", isAuth, isAdmin, async (req, res) => {
+orderRouter.get('/summary', isAuth, isAdmin, async (req, res) => {
   const orders = await Order.aggregate([
     {
       $group: {
         _id: null,
         numOrders: { $sum: 1 },
-        totalSales: { $sum: "$totalPrice" },
+        totalSales: { $sum: '$totalPrice' },
       },
     },
   ]);
@@ -35,9 +35,9 @@ orderRouter.get("/summary", isAuth, isAdmin, async (req, res) => {
   const dailyOrders = await Order.aggregate([
     {
       $group: {
-        _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
+        _id: { $dateToString: { format: '%Y-%m-%d', date: '$createdAt' } },
         orders: { $sum: 1 },
-        sales: { $sum: "$totalPrice" },
+        sales: { $sum: '$totalPrice' },
       },
     },
     {
@@ -48,7 +48,7 @@ orderRouter.get("/summary", isAuth, isAdmin, async (req, res) => {
   const productCategories = await Product.aggregate([
     {
       $group: {
-        _id: "$category",
+        _id: '$category',
         count: { $sum: 1 },
       },
     },
@@ -59,18 +59,18 @@ orderRouter.get("/summary", isAuth, isAdmin, async (req, res) => {
   if (users && orders && dailyOrders && productCategories) {
     res.status(200).send({ users, orders, dailyOrders, productCategories });
   } else {
-    res.status(404).send({ message: "Request Failed" });
+    res.status(404).send({ message: 'Request Failed' });
   }
 });
 
-orderRouter.get("/mine", isAuth, async (req, res) => {
+orderRouter.get('/mine', isAuth, async (req, res) => {
   const orders = await Order.find({ user: req.user.id });
   res.send(orders);
 });
 
-orderRouter.post("/", isAuth, async (req, res) => {
+orderRouter.post('/', isAuth, async (req, res) => {
   if (req.body.orderItems.length === 0) {
-    res.status(400).send({ msg: "Cart is Empty" });
+    res.status(400).send({ msg: 'Cart is Empty' });
   } else {
     // console.log(req.body.orderItems)
     const order = new Order({
@@ -84,16 +84,16 @@ orderRouter.post("/", isAuth, async (req, res) => {
       user: req.user.id,
     });
     const createdOrder = await order.save();
-    res.status(201).send({ msg: "New order created", order: createdOrder });
+    res.status(201).send({ msg: 'New order created', order: createdOrder });
   }
 });
 
-orderRouter.get("/:id", isAuth, async (req, res) => {
+orderRouter.get('/:id', isAuth, async (req, res) => {
   const order = await Order.findById(req.params.id);
   if (order) {
     res.send(order);
   } else {
-    res.status(404).send({ msg: "Order not Found" });
+    res.status(404).send({ msg: 'Order not Found' });
   }
 });
 
@@ -114,7 +114,7 @@ orderRouter.get("/:id", isAuth, async (req, res) => {
 // );
 
 orderRouter.delete(
-  "/:id",
+  '/:id',
   isAuth,
   isAdmin,
   expressAsyncHandler(async (req, res) => {
@@ -122,15 +122,15 @@ orderRouter.delete(
     // console.log(order);
     if (order) {
       await order.remove();
-      res.send({ message: "Order Deleted" });
+      res.send({ message: 'Order Deleted' });
     } else {
-      res.status(404).send({ message: "Order Not Found" });
+      res.status(404).send({ message: 'Order Not Found' });
     }
   })
 );
 
 orderRouter.put(
-  "/:id/deliver",
+  '/:id/deliver',
   isAuth,
   isAdmin,
   expressAsyncHandler(async (req, res) => {
@@ -146,15 +146,15 @@ orderRouter.put(
 
       const updatedOrder = await order.save();
       // console.log(updatedOrder);
-      res.status(200).send({ message: "Order Delivered", order: updatedOrder });
+      res.status(200).send({ message: 'Order Delivered', order: updatedOrder });
     } else {
-      res.status(404).send({ message: "Order Not Found" });
+      res.status(404).send({ message: 'Order Not Found' });
     }
   })
 );
 
 orderRouter.put(
-  "/:id/pack",
+  '/:id/pack',
   isAuth,
   isAdmin,
   expressAsyncHandler(async (req, res) => {
@@ -170,15 +170,15 @@ orderRouter.put(
 
       const updatedOrder = await order.save();
       // console.log(updatedOrder);
-      res.status(200).send({ message: "Order Packed", order: updatedOrder });
+      res.status(200).send({ message: 'Order Packed', order: updatedOrder });
     } else {
-      res.status(404).send({ message: "Order Not Found" });
+      res.status(404).send({ message: 'Order Not Found' });
     }
   })
 );
 
 orderRouter.put(
-  "/:id/dispatch",
+  '/:id/dispatch',
   isAuth,
   isAdmin,
   expressAsyncHandler(async (req, res) => {
@@ -196,15 +196,15 @@ orderRouter.put(
       // console.log(updatedOrder);
       res
         .status(200)
-        .send({ message: "Order Dispatched", order: updatedOrder });
+        .send({ message: 'Order Dispatched', order: updatedOrder });
     } else {
-      res.status(404).send({ message: "Order Not Found" });
+      res.status(404).send({ message: 'Order Not Found' });
     }
   })
 );
 
 orderRouter.put(
-  "/:id/pay",
+  '/:id/pay',
   isAuth,
   isAdmin,
   expressAsyncHandler(async (req, res) => {
@@ -219,9 +219,9 @@ orderRouter.put(
       order.paidBy = req.user.name;
 
       const updatedOrder = await order.save();
-      res.status(200).send({ message: "Order Paid", order: updatedOrder });
+      res.status(200).send({ message: 'Order Paid', order: updatedOrder });
     } else {
-      res.status(404).send({ message: "Order Not Found" });
+      res.status(404).send({ message: 'Order Not Found' });
     }
   })
 );

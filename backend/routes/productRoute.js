@@ -1,14 +1,14 @@
-import express from "express";
-import Product from "../models/productsModel";
-import { isAuth, isAdmin } from "../util";
+import express from 'express';
+import Product from '../models/productsModel.js';
+import { isAuth, isAdmin } from '../util.js';
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
-  const name = req.query.name || "";
-  const order = req.query.order || "";
+router.get('/', async (req, res) => {
+  const name = req.query.name || '';
+  const order = req.query.order || '';
   const category =
-    req.query.category && req.query.category !== " " ? req.query.category : "";
+    req.query.category && req.query.category !== ' ' ? req.query.category : '';
   const min =
     req.query.min && Number(req.query.min) !== 0 ? Number(req.query.min) : 0;
   const max =
@@ -21,18 +21,18 @@ router.get("/", async (req, res) => {
       : 0;
   // console.log(req.query);
 
-  const nameFilter = name ? { name: { $regex: name, $options: "i" } } : {};
+  const nameFilter = name ? { name: { $regex: name, $options: 'i' } } : {};
   const categoryFilter = category ? { category } : {};
   const PriceFilter = min && max ? { price: { $gte: min, $lte: max } } : {};
   const ratingFilter = rating ? { rating: { $gte: rating } } : {};
   const sortOrder =
-    order === "lowest"
+    order === 'lowest'
       ? { price: 1 }
-      : order === "highest"
+      : order === 'highest'
       ? { price: -1 }
-      : order === "toprated"
+      : order === 'toprated'
       ? { rating: -1 }
-      : order === "categories"
+      : order === 'categories'
       ? { category: 1 }
       : { id: -1 };
   // console.log(rating);
@@ -47,17 +47,17 @@ router.get("/", async (req, res) => {
   res.send(products);
 });
 
-router.get("/:_id", async (req, res) => {
+router.get('/:_id', async (req, res) => {
   const productId = req.params._id;
   const product = await Product.findById(productId);
   if (product) {
     res.send(product);
   } else {
-    res.send("Product Dosent Exist");
+    res.send('Product Dosent Exist');
   }
 });
 
-router.post("/", isAuth, isAdmin, async (req, res) => {
+router.post('/', isAuth, isAdmin, async (req, res) => {
   const product = new Product({
     name: req.body.name,
     price: req.body.price,
@@ -74,12 +74,12 @@ router.post("/", isAuth, isAdmin, async (req, res) => {
   if (newProduct) {
     return res
       .status(201)
-      .send({ msg: "New Product Created", data: newProduct });
+      .send({ msg: 'New Product Created', data: newProduct });
   }
-  return res.status(500).send({ msg: "Error in creating Product" });
+  return res.status(500).send({ msg: 'Error in creating Product' });
 });
 
-router.put("/:id", isAuth, isAdmin, async (req, res) => {
+router.put('/:id', isAuth, isAdmin, async (req, res) => {
   const productId = req.params.id;
   const product = await Product.findById(productId);
   if (product) {
@@ -97,30 +97,30 @@ router.put("/:id", isAuth, isAdmin, async (req, res) => {
     if (updatedProduct) {
       return res
         .status(200)
-        .send({ msg: "Product Updated", data: updatedProduct });
+        .send({ msg: 'Product Updated', data: updatedProduct });
     }
-    return res.status(500).send({ msg: "Error in Updating Product" });
+    return res.status(500).send({ msg: 'Error in Updating Product' });
   }
-  return res.status(500).send({ msg: "Error in Updating Product" });
+  return res.status(500).send({ msg: 'Error in Updating Product' });
 });
 
-router.delete("/:id", isAuth, isAdmin, async (req, res) => {
+router.delete('/:id', isAuth, isAdmin, async (req, res) => {
   // console.log("req");
   const deletedProduct = await Product.findById(req.params.id);
   if (deletedProduct) {
     await deletedProduct.remove();
-    res.send({ msg: "product Deleted" });
+    res.send({ msg: 'product Deleted' });
   } else {
-    res.send("Error in Deleting Product");
+    res.send('Error in Deleting Product');
   }
 });
 
-router.post("/:id/reviews", isAuth, async (req, res) => {
+router.post('/:id/reviews', isAuth, async (req, res) => {
   const productId = req.params.id;
   const product = await Product.findById(productId);
   if (product) {
     if (product.reviews.find((x) => x.name === req.user.name)) {
-      return res.status(400).send({ msg: "You already reviewd this product" });
+      return res.status(400).send({ msg: 'You already reviewd this product' });
     }
     const review = {
       name: req.user.name,
@@ -137,13 +137,13 @@ router.post("/:id/reviews", isAuth, async (req, res) => {
     const updatedProduct = await product.save();
     if (updatedProduct) {
       return res.status(201).send({
-        msg: "Review Created",
+        msg: 'Review Created',
         data: updatedProduct.reviews[updatedProduct.reviews.length - 1],
       });
     }
-    return res.status(500).send({ msg: "Error in Creating Review" });
+    return res.status(500).send({ msg: 'Error in Creating Review' });
   }
-  return res.status(500).send({ msg: "Error in Creating Review" });
+  return res.status(500).send({ msg: 'Error in Creating Review' });
 });
 
 export default router;
