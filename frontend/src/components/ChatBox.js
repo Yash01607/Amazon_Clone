@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import socketIOClient from 'socket.io-client';
 import { ENDPOINT } from '../utils';
+import { Image, Transformation } from 'cloudinary-react';
 
 const ChatBox = (props) => {
   const { userInfo } = props;
@@ -68,26 +69,39 @@ const ChatBox = (props) => {
   return (
     <div className="chatbox">
       {!isOpen ? (
-        <button type="button" onClick={supportHandler}>
-          <i className="fa fa-support"></i>
-        </button>
+        <div className="chatbox-icon">
+          <Image
+            onClick={supportHandler}
+            cloudName="df7lcoica"
+            publicId={'Chatbox_Icon_jquxck'}
+          >
+            <Transformation width="100" height="100" crop="limit" />
+          </Image>
+        </div>
       ) : (
-        <div className="card card-body">
+        <div className="card card-body chatbox-box">
           <div className="row">
             <strong>Support</strong>
             <button type="button" onClick={closeHandler}>
               <i className="fa fa-close"></i>
             </button>
           </div>
-          <ul ref={uiMessagesRef}>
-            {messages.map((msg, index) => (
-              <li key={index}>
-                <strong>{`${msg.name}: `}</strong>
-                {msg.body}
-              </li>
-            ))}
-          </ul>
-          <div>
+          <div className="chatbox-msglist">
+            <ul ref={uiMessagesRef}>
+              {messages.map((msg, index) => (
+                <li
+                  key={index}
+                  className={`chatbox-li-${
+                    msg.name === 'Admin' ? 'grey' : 'blue'
+                  }`}
+                >
+                  <strong>{`${msg.name}: `}</strong>
+                  {msg.body}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="chatbox-send">
             <form onSubmit={onSubmitHandler} className="row">
               <input
                 value={messageBody}

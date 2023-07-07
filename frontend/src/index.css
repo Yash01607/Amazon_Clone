@@ -20,10 +20,10 @@ body {
 .grid-container-2 {
   display: grid;
   grid-template-areas:
-    "div"
-    "div"
-    "main"
-    "footer";
+    'div'
+    'div'
+    'main'
+    'footer';
   grid-template-columns: 1fr;
   grid-template-rows: 30% 10% 1fr 5rem;
   height: 100%;
@@ -85,7 +85,7 @@ header {
   position: absolute;
   z-index: 100;
   text-align: left;
-  font-family: "Barlow", sans-serif;
+  font-family: 'Barlow', sans-serif;
   color: white;
 }
 .title-name {
@@ -96,7 +96,7 @@ header {
   /* line-height: 110%; */
   z-index: -10;
   font-weight: 700;
-  font-family: "Amatic SC", cursive;
+  font-family: 'Amatic SC', cursive;
   /* font-weight: 700; */
   opacity: 0;
   animation: titlename 8s linear infinite;
@@ -398,7 +398,7 @@ header a {
   border-top: 0.05rem solid black;
   font-size: 1.6rem;
   font-weight: bold;
-  font-family: "Barlow", sans-serif;
+  font-family: 'Barlow', sans-serif;
   align-items: center;
   /* position: absolute; */
 }
@@ -799,7 +799,7 @@ img.large {
 }
 .table thead {
   font-size: 3.5rem;
-  font-family: "Amatic SC", cursive;
+  font-family: 'Amatic SC', cursive;
   color: rgb(97, 97, 97);
 }
 .table tbody tr:nth-of-type(odd) {
@@ -1136,16 +1136,46 @@ img.large {
   bottom: 1rem;
 }
 .chatbox ul {
-  overflow: scroll;
   max-height: 20rem;
+  overflow-y: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 .chatbox li {
   margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
 }
 .chatbox input {
-  width: calc(100%-9rem);
+  width: calc(100% - 9rem);
 }
 
+.chatbox-icon {
+  margin: auto 20px 10px auto;
+}
+.chatbox-icon:hover {
+  cursor: pointer;
+}
+
+.chatbox-box {
+  min-height: 300px;
+}
+.chatbox-send {
+  position: absolute;
+  bottom: 0;
+  width: 95%;
+}
+.chatbox-msglist {
+  height: 100%;
+}
+.chatbox-li-blue {
+  background-color: #36d3ef;
+  margin-right: 4rem;
+}
+.chatbox-li-grey {
+  background-color: #cdd1d1;
+  margin-right: 4rem;
+}
 /* support */
 
 .support-users {
